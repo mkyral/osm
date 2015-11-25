@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# mkdir tmp
-# cd tmp
+[ ! -e tmp ] && mkdir tmp
+cd tmp
 # wget "http://www.csas.cz/banka/content/inet/internet/cs/gps_poi_garmin.xml"
-# 
+#
 # xml2 < gps_poi_garmin.xml > gps_poi_garmin.txt
-
+#
 # wget "http://www.csas.cz/banka/content/inet/internet/cs/gps_ATM_poi_garmin.xml"
-# 
+#
 # xml2 < gps_ATM_poi_garmin.xml > gps_ATM_poi_garmin.txt
 
 # Bank
@@ -29,19 +29,19 @@ id=1
 optimize_opening_hours_key()
 {
   # initialize variables
-  
+
   declare -a oh_days=()
   declare -a opening_hours=()
   declare -a data=("$po" "$ut" "$st" "$ct" "$pa" "$so" "$ne");
   declare -a days=("Mo" "Tu" "We" "Th" "Fr" "Sa" "Su")
-  
+
   # go through days and group days with the same opening_hours
   for idx in $(seq 0 $((${#data[@]}-1)))
   do
 #     echo "$idx: ${data[$idx]}"
-    if [ "${data[$idx]}" = "closed" ]; 
-    then 
-      continue; 
+    if [ "${data[$idx]}" = "closed" ];
+    then
+      continue;
     else
       if [ ${#opening_hours[@]} -eq 0 ]
       then
@@ -75,7 +75,7 @@ optimize_opening_hours_key()
       opening_hours[$oh_idx]="0${opening_hours[$oh_idx]}"
     fi
 
-    # Change 23:59 to 24:00 according to opening_hours wiki 
+    # Change 23:59 to 24:00 according to opening_hours wiki
     if [ $(echo "${opening_hours[$oh_idx]}" |grep -c "23:59") -gt 0 ]
     then
       opening_hours[$oh_idx]=$(echo "${opening_hours[$oh_idx]}" |sed "s/23:59/24:00/g")
@@ -163,7 +163,7 @@ write_osm_atm()
   echo "<node id='-$((id++))' action='modify' visible='true' lat='$lat' lon='$lon'>"
   echo "  <tag k='amenity' v='atm' />"
   echo "  <tag k='network' v='Česká spořitelna' />"
-#   echo "  <tag k='name' v='Česká spořitelna, $name' />"
+  echo "  <tag k='name' v='$name' />"|sed "s/&/&amp;/g"
   if [ "$oph" ]; then echo "  <tag k='opening_hours' v='$oph' />"; fi
   echo "  <tag k='operator' v='Česká spořitelna' />"
   if [ "$type" ]; then echo "  <tag k='description' v='$type' />"; fi
@@ -177,7 +177,7 @@ do
   val=$(echo "$line" |cut -d "=" -f 2)
 #   echo "Key= $key"
 #   echo "Val= $val"
-  
+
   if [ "$key" = "@lat" ]
   then
     lat=$val
@@ -202,7 +202,7 @@ do
     addr_street=$(echo "$addr" |cut -d "," -f 1)
     addr_psc=$(echo "$addr" |cut -d "," -f 2)
     addr_city=$(echo "$addr" |cut -d "," -f 3)
-    
+
     po=$(echo "$val" |sed "s/^.* Po: \(.*\), Út: .*$/\1/" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
     ut=$(echo "$val" |sed "s/^.* Út: \(.*\), St: .*$/\1/" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
     st=$(echo "$val" |sed "s/^.* St: \(.*\), Čt: .*$/\1/" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
@@ -250,7 +250,7 @@ do
   val=$(echo "$line" |cut -d "=" -f 2)
 #   echo "Key= $key"
 #   echo "Val= $val"
-  
+
   if [ "$key" = "@lat" ]
   then
     lat=$val
@@ -275,7 +275,7 @@ do
     addr_street=$(echo "$addr" |cut -d "," -f 1)
     addr_psc=$(echo "$addr" |cut -d "," -f 2)
     addr_city=$(echo "$addr" |cut -d "," -f 3)
-    
+
     po=$(echo "$val" |sed -n "s/^.* Po: \(.*\), Út: .*$/\1/p" |sed "s/ - /-/g" | sed "s/zavřeno/closed/")
     ut=$(echo "$val" |sed -n "s/^.* Út: \(.*\), St: .*$/\1/p" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
     st=$(echo "$val" |sed -n "s/^.* St: \(.*\), Čt: .*$/\1/p" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
