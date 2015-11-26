@@ -15,15 +15,7 @@ cd tmp
 text_file=ceska_sporitelna_pobocky.txt
 csv_file=ceska_sporitelna_pobocky.csv
 osm_file=ceska_sporitelna_pobocky.osm
-
-# init output files
-echo '"Lat";"Lon";"Jméno";"Ulice";"Město";"PSČ";"Pondělí";"Úterý";"Středa";"Čtvrtek";"Pátek";"Sobota";"Neděle";"Poznámka"' > $csv_file
-
-echo "<?xml version='1.0' encoding='UTF-8'?>" > $osm_file
-echo "<osm version='0.6' upload='true' generator='shell'>" >> $osm_file
-
-# node id for osm file
-id=1
+json_file=ceska_sporitelna_pobocky.geojson
 
 # Convert opening hours to OSM format
 optimize_opening_hours_key()
@@ -144,7 +136,6 @@ write_csv_line()
 
 write_osm_bank()
 {
-  local oph="$(optimize_opening_hours_key)"
   echo "<node id='-$((id++))' action='modify' visible='true' lat='$lat' lon='$lon'>"
   echo "  <tag k='amenity' v='bank' />"
   echo "  <tag k='bic' v='GIBACZPX' />"
@@ -153,13 +144,39 @@ write_osm_bank()
   if [ "$oph" ]; then echo "  <tag k='opening_hours' v='$oph' />"; fi
   echo "  <tag k='operator' v='Česká spořitelna' />"
   if [ "$type" ]; then echo "  <tag k='description' v='$type' />"; fi
+  echo "  <tag k='contact:website' v='http://www.csas.cz' />"
   echo "  <tag k='source' v='ceska_sporitelna_gpx' />"
   echo "</node>"
 }
 
+write_geojson_bank()
+{
+  echo "${delim}{
+            \"type\": \"Feature\",
+            \"properties\": {
+                \"name\": \"${name}\",
+                \"bic\": \"GIBACZPX\",
+                \"brand\": \"Česká spořitelna\",
+                \"amenity\": \"bank\",
+                \"operator\": \"Česká spořitelna\",
+                \"contact:website\": \"http://www.csas.cz\",
+                \"source\": \"ceska_sporitelna_gpx\""
+  if [ "$oph" ]; then echo "  ,\"opening_hours\": \"$oph\""; fi
+  if [ "$type" ]; then echo "  ,\"description\": \"$type\""; fi
+  echo "    },
+            \"geometry\": {
+                \"type\": \"Point\",
+                \"coordinates\": [
+                    $lon,
+                    $lat
+                ]
+            }
+        }"
+  export delim=","
+}
+
 write_osm_atm()
 {
-  local oph="$(optimize_opening_hours_key)"
   echo "<node id='-$((id++))' action='modify' visible='true' lat='$lat' lon='$lon'>"
   echo "  <tag k='amenity' v='atm' />"
   echo "  <tag k='network' v='Česká spořitelna' />"
@@ -167,9 +184,54 @@ write_osm_atm()
   if [ "$oph" ]; then echo "  <tag k='opening_hours' v='$oph' />"; fi
   echo "  <tag k='operator' v='Česká spořitelna' />"
   if [ "$type" ]; then echo "  <tag k='description' v='$type' />"; fi
+  echo "  <tag k='contact:website' v='http://www.csas.cz' />"
   echo "  <tag k='source' v='ceska_sporitelna_gpx' />"
   echo "</node>"
 }
+
+write_geojson_atm()
+{
+  echo "${delim}{
+            \"type\": \"Feature\",
+            \"properties\": {
+                \"name\": \"${name}\",
+                \"network\": \"Česká spořitelna\",
+                \"amenity\": \"atm\",
+                \"operator\": \"Česká spořitelna\",
+                \"contact:website\": \"http://www.csas.cz\",
+                \"source\": \"ceska_sporitelna_gpx\""
+  if [ "$oph" ]; then echo "  ,\"opening_hours\": \"$oph\""; fi
+  if [ "$type" ]; then echo "  ,\"description\": \"$type\""; fi
+  echo "    },
+            \"geometry\": {
+                \"type\": \"Point\",
+                \"coordinates\": [
+                    $lon,
+                    $lat
+                ]
+            }
+        }"
+  export delim=","
+}
+
+
+## ============================================================================
+# init output files
+echo '"Lat";"Lon";"Jméno";"Ulice";"Město";"PSČ";"Pondělí";"Úterý";"Středa";"Čtvrtek";"Pátek";"Sobota";"Neděle";"Poznámka"' > $csv_file
+
+echo "<?xml version='1.0' encoding='UTF-8'?>" > $osm_file
+echo "<osm version='0.6' upload='true' generator='shell'>" >> $osm_file
+
+echo "{
+    \"type\": \"FeatureCollection\",
+    \"features\": [
+" > $json_file
+
+# node id for osm file
+id=1
+
+# set json delimiter
+delim=""
 
 echo $(date "+%H:%M:%S")" - Processing Banks"
 cat gps_poi_garmin.txt |egrep "/gpx/wpt/@|/gpx/wpt/name|/gpx/wpt/cmt" |sed "s|/gpx/wpt/||" |while read line
@@ -224,21 +286,27 @@ do
     if [ "$so" != "closed" -a $(echo "$so" |grep -c "^[0-9]") -eq 0 ]; then so=""; fi
     if [ "$ne" != "closed" -a $(echo "$ne" |grep -c "^[0-9]") -eq 0 ]; then ne=""; fi
 
+    oph="$(optimize_opening_hours_key)"
     write_text >> $text_file
     write_csv_line >> $csv_file
     write_osm_bank >> $osm_file
+    write_geojson_bank >> $json_file
   fi
 done
 
 # finish osm file
 echo "</osm>" >> $osm_file
 
+# finish geojson file
+echo "]" >> $json_file
+echo "}" >> $json_file
 
 # Atm
 # define output files
 text_file=ceska_sporitelna_bankomaty.txt
 csv_file=ceska_sporitelna_bankomaty.csv
 osm_file=ceska_sporitelna_bankomaty.osm
+json_file=ceska_sporitelna_bankomaty.geojson
 
 # init output files
 echo '"Lat";"Lon";"Jméno";"Ulice";"Město";"PSČ";"Pondělí";"Úterý";"Středa";"Čtvrtek";"Pátek";"Sobota";"Neděle";"Poznámka"' > $csv_file
@@ -246,8 +314,16 @@ echo '"Lat";"Lon";"Jméno";"Ulice";"Město";"PSČ";"Pondělí";"Úterý";"Střed
 echo "<?xml version='1.0' encoding='UTF-8'?>" > $osm_file
 echo "<osm version='0.6' upload='true' generator='shell'>" >> $osm_file
 
+echo "{
+    \"type\": \"FeatureCollection\",
+    \"features\": [
+" > $json_file
+
 # node id for osm file
 id=1000
+
+# set json delimiter
+delim=""
 
 echo $(date "+%H:%M:%S")" - Processing ATMs"
 cat gps_ATM_poi_garmin.txt |egrep "/gpx/wpt/@|/gpx/wpt/name|/gpx/wpt/cmt" |sed "s|/gpx/wpt/||" |while read line
@@ -302,13 +378,19 @@ do
 #     if [ "$so" != "closed" -a $(echo "$so" |grep -c "^[0-9][0-9]:") -eq 0 ]; then so=""; fi
 #     if [ "$ne" != "closed" -a $(echo "$ne" |grep -c "^[0-9][0-9]:") -eq 0 ]; then ne=""; fi
 
+    oph="$(optimize_opening_hours_key)"
     write_text >> $text_file
     write_csv_line >> $csv_file
     write_osm_atm >> $osm_file
+    write_geojson_atm >> $json_file
   fi
 done
 
 # finish osm file
 echo "</osm>" >> $osm_file
+
+# finish geojson file
+echo "  ]" >> $json_file
+echo "}" >> $json_file
 
 echo $(date "+%H:%M:%S")" - Done"
