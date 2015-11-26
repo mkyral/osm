@@ -171,6 +171,7 @@ write_osm_atm()
   echo "</node>"
 }
 
+echo $(date "+%H:%M:%S")" - Processing Banks"
 cat gps_poi_garmin.txt |egrep "/gpx/wpt/@|/gpx/wpt/name|/gpx/wpt/cmt" |sed "s|/gpx/wpt/||" |while read line
 do
   key=$(echo "$line" |cut -d "=" -f 1)
@@ -188,7 +189,11 @@ do
     continue
   elif [ "$key" = "name" ]
   then
-    name="$val"
+    name="$(echo $val |sed 's/^\(.\)/\U\1/g; s/ALBERT/Albert/g; s/BILLA/Billa/g; s/BIG/Big/g; s/TESCO/Tesco/g;
+                            s/KAUFLAND/Kaufland/g; s/GLOBUS/Globus/g; s/HORNBACH/Hornbach/g; s/LIDL/Lidl/g;
+                            s/PENNY MARKET/Penny Market/g; s/TERNO/Terno/g; s/COOP/Coop/g; s/JEDNOTA/Jednota/g;
+                            s/SUPERMARKET/supermarket/g; s/^Prodejna/prodejna/g; s/^Budova/budova/g;
+                            s/^Bývalá/bývalá/g;') "
     type=""
     if [ $(echo "$name" |grep -c "mobilní pobočka") -gt 0 ]
     then
@@ -244,6 +249,7 @@ echo "<osm version='0.6' upload='true' generator='shell'>" >> $osm_file
 # node id for osm file
 id=1000
 
+echo $(date "+%H:%M:%S")" - Processing ATMs"
 cat gps_ATM_poi_garmin.txt |egrep "/gpx/wpt/@|/gpx/wpt/name|/gpx/wpt/cmt" |sed "s|/gpx/wpt/||" |while read line
 do
   key=$(echo "$line" |cut -d "=" -f 1)
@@ -261,7 +267,11 @@ do
     continue
   elif [ "$key" = "name" ]
   then
-    name="$val"
+    name="$(echo $val |sed 's/^\(.\)/\U\1/g; s/ALBERT/Albert/g; s/BILLA/Billa/g; s/BIG/Big/g; s/TESCO/Tesco/g;
+                            s/KAUFLAND/Kaufland/g; s/GLOBUS/Globus/g; s/HORNBACH/Hornbach/g; s/LIDL/Lidl/g;
+                            s/PENNY MARKET/Penny Market/g; s/TERNO/Terno/g; s/COOP/Coop/g; s/JEDNOTA/Jednota/g;
+                            s/SUPERMARKET/supermarket/g; s/^Prodejna/prodejna/g; s/^Budova/budova/g;
+                            s/^Bývalá/bývalá/g;') "
     type=""
     if [ $(echo "$name" |grep -c "mobilní pobočka") -gt 0 ]
     then
@@ -300,3 +310,5 @@ done
 
 # finish osm file
 echo "</osm>" >> $osm_file
+
+echo $(date "+%H:%M:%S")" - Done"
