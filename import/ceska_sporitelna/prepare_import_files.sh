@@ -154,14 +154,14 @@ write_geojson_bank()
   echo "${delim}{
             \"type\": \"Feature\",
             \"properties\": {
-                \"name\": \"${name}\",
+                \"name\": \"$(echo "${name}" |sed "s/\"/\\\\\"/g")\",
                 \"bic\": \"GIBACZPX\",
                 \"brand\": \"Česká spořitelna\",
                 \"amenity\": \"bank\",
                 \"operator\": \"Česká spořitelna\",
                 \"contact:website\": \"http://www.csas.cz\",
                 \"source\": \"ceska_sporitelna_gpx\""
-  if [ "$oph" ]; then echo "  ,\"opening_hours\": \"$oph\""; fi
+  if [ "$oph" ]; then echo "  ,\"opening_hours\": \"$(echo "$oph" |sed "s/\"/\\\\\"/g")\""; fi
   if [ "$type" ]; then echo "  ,\"description\": \"$type\""; fi
   echo "    },
             \"geometry\": {
@@ -194,13 +194,13 @@ write_geojson_atm()
   echo "${delim}{
             \"type\": \"Feature\",
             \"properties\": {
-                \"name\": \"${name}\",
+                \"name\": \"$(echo "${name}" |sed "s/\"/\\\\\"/g")\",
                 \"network\": \"Česká spořitelna\",
                 \"amenity\": \"atm\",
                 \"operator\": \"Česká spořitelna\",
                 \"contact:website\": \"http://www.csas.cz\",
                 \"source\": \"ceska_sporitelna_gpx\""
-  if [ "$oph" ]; then echo "  ,\"opening_hours\": \"$oph\""; fi
+  if [ "$oph" ]; then echo "  ,\"opening_hours\": \"$(echo "$oph" |sed "s/\"/\\\\\"/g")\""; fi
   if [ "$type" ]; then echo "  ,\"description\": \"$type\""; fi
   echo "    },
             \"geometry\": {
@@ -251,11 +251,11 @@ do
     continue
   elif [ "$key" = "name" ]
   then
-    name="$(echo $val |sed 's/^\(.\)/\U\1/g; s/ALBERT/Albert/g; s/BILLA/Billa/g; s/BIG/Big/g; s/TESCO/Tesco/g;
+    name="$(echo "$val" |sed 's/^\(.\)/\U\1/g; s/ALBERT/Albert/g; s/BILLA/Billa/g; s/BIG/Big/g; s/TESCO/Tesco/g;
                             s/KAUFLAND/Kaufland/g; s/GLOBUS/Globus/g; s/HORNBACH/Hornbach/g; s/LIDL/Lidl/g;
                             s/PENNY MARKET/Penny Market/g; s/TERNO/Terno/g; s/COOP/Coop/g; s/JEDNOTA/Jednota/g;
                             s/SUPERMARKET/supermarket/g; s/^Prodejna/prodejna/g; s/^Budova/budova/g;
-                            s/^Bývalá/bývalá/g;') "
+                            s/^Bývalá/bývalá/g;')"
     type=""
     if [ $(echo "$name" |grep -c "mobilní pobočka") -gt 0 ]
     then
@@ -347,7 +347,7 @@ do
                             s/KAUFLAND/Kaufland/g; s/GLOBUS/Globus/g; s/HORNBACH/Hornbach/g; s/LIDL/Lidl/g;
                             s/PENNY MARKET/Penny Market/g; s/TERNO/Terno/g; s/COOP/Coop/g; s/JEDNOTA/Jednota/g;
                             s/SUPERMARKET/supermarket/g; s/^Prodejna/prodejna/g; s/^Budova/budova/g;
-                            s/^Bývalá/bývalá/g;') "
+                            s/^Bývalá/bývalá/g;')"
     type=""
     if [ $(echo "$name" |grep -c "mobilní pobočka") -gt 0 ]
     then
