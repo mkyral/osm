@@ -1,22 +1,62 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# Ceska sporitelna import script for OSM
+# Copyright (C) 2015  Marián Kyral <mkyral@email.cz>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+# check bash version
+if [ -z "$BASH_VERSION" -o ${BASH_VERSION:0:1} -lt 4 ]
+then
+  echo "Sorry, bash version 4 or higher is required!" >&2
+  exit 1
+fi
+
+# check for important programs
+if [ -z "$(which bc 2>/dev/null)" ]
+then
+  echo "Sorry, bc not found!" >&2
+  exit 1
+fi
+
+if [ -z "$(which xml2 2>/dev/null)" ]
+then
+  echo "Sorry, xml2 not found!" >&2
+  exit 1
+fi
+
+if [ -z "$(which wget 2>/dev/null)" ]
+then
+  echo "Sorry, wget not found!" >&2
+  exit 1
+fi
+
 
 [ ! -e tmp ] && mkdir tmp
 cd tmp
+# [ -f gps_poi_garmin.xml ] && rm -f gps_poi_garmin.xml
 # wget "http://www.csas.cz/banka/content/inet/internet/cs/gps_poi_garmin.xml"
 #
 # xml2 < gps_poi_garmin.xml > gps_poi_garmin.txt
 #
+# [ -f gps_ATM_poi_garmin.xml ] && rm -f gps_ATM_poi_garmin.xml
 # wget "http://www.csas.cz/banka/content/inet/internet/cs/gps_ATM_poi_garmin.xml"
 #
 # xml2 < gps_ATM_poi_garmin.xml > gps_ATM_poi_garmin.txt
 
-# Bank
-# define output files
-text_file=ceska_sporitelna_pobocky.txt
-csv_file=ceska_sporitelna_pobocky.csv
-osm_file=ceska_sporitelna_pobocky.osm
-json_file=ceska_sporitelna_pobocky.geojson
-
+OLD_IFS="$IFS"
 # Convert opening hours to OSM format
 optimize_opening_hours_key()
 {
@@ -27,10 +67,12 @@ optimize_opening_hours_key()
   declare -a data=("$po" "$ut" "$st" "$ct" "$pa" "$so" "$ne");
   declare -a days=("Mo" "Tu" "We" "Th" "Fr" "Sa" "Su")
 
+  IFS="$OLD_IFS"
+
   # go through days and group days with the same opening_hours
   for idx in $(seq 0 $((${#data[@]}-1)))
   do
-#     echo "$idx: ${data[$idx]}"
+#      echo "$idx: ${data[$idx]}"
     if [ "${data[$idx]}" = "closed" ];
     then
       continue;
@@ -154,7 +196,7 @@ write_geojson_bank()
   echo "${delim}{
             \"type\": \"Feature\",
             \"properties\": {
-                \"name\": \"$(echo "${name}" |sed "s/\"/\\\\\"/g")\",
+                \"name\": \"$(echo "Česká spořitelna, ${name}" |sed "s/\"/\\\\\"/g")\",
                 \"bic\": \"GIBACZPX\",
                 \"brand\": \"Česká spořitelna\",
                 \"amenity\": \"bank\",
@@ -214,8 +256,142 @@ write_geojson_atm()
   export delim=","
 }
 
+process_file()
+{
+  p_input_file="$1"
+  p_type="$2"
+
+  if [ -z "$p_input_file" -o -z "$p_type" ]
+  then
+    return 1
+  fi
+
+  # Prepare file:
+  # - grep only relevant rows, take only values and merge each four rows to one row.
+  # - Separate address column and split opening hours per day
+  #
+  cat $p_input_file |egrep "/gpx/wpt/@|/gpx/wpt/name|/gpx/wpt/cmt" |cut -d "=" -f 2 |paste - - - - -d";" | \
+      sed "s/ Provozní doba: //; s/Po: /;/g; s/ Út: /;/g; s/ St: /;/g; s/ Čt: /;/g; s/ Pá: /;/g; s/ So: /;/g; s/ Ne: /;/g;" > $work_csv
+
+
+  while IFS=";" read lat lon name addr mo tu we th fr sa su
+  do
+  #   echo "$lat|$lon|$name|$addr|$mo|$tu|$we|$th|$fr|$sa|$su";
+
+    # check coordinates and move them a little when there is an duplicity
+    local latlon="${lat},${lon}"
+    dupl_cnt=${dupl_coors[$latlon]}
+    if [ "$dupl_cnt" ]
+    then
+      echo "Duplicated coordinates #$((dupl_cnt + 1)) for $latlon found"
+      case $dupl_cnt in
+        0)   ;;
+        1)   lon=$(echo "$lon - 0.00005" |bc);;
+        2)   lon=$(echo "$lon + 0.00005" |bc);;
+        3)   lon=$(echo "$lon - 0.00005" |bc); lat=$(echo "$lat - 0.00005" |bc);;
+        4)   lat=$(echo "$lat - 0.00005" |bc);;
+        5)   lon=$(echo "$lon + 0.00005" |bc); lat=$(echo "$lat - 0.00005" |bc);;
+        6)   lon=$(echo "$lon - 0.00005" |bc); lat=$(echo "$lat - 0.0001" |bc);;
+        7)   lat=$(echo "$lat - 0.0001"  |bc);;
+        8)   lon=$(echo "$lon + 0.00005" |bc); lat=$(echo "$lat - 0.0001" |bc);;
+        9)   lon=$(echo "$lon - 0.00005" |bc); lat=$(echo "$lat - 0.00015" |bc);;
+        10)  lat=$(echo "$lat - 0.00015"  |bc);;
+        11)  lon=$(echo "$lon + 0.00005" |bc); lat=$(echo "$lat - 0.00015" |bc);;
+      esac
+      dupl_coors[$latlon]=$((++dupl_cnt))
+    fi
+
+    name="$(echo $name |sed 's/^\(.\)/\U\1/g; s/ALBERT/Albert/g; s/BILLA/Billa/g; s/BIG/Big/g; s/TESCO/Tesco/g;
+                            s/KAUFLAND/Kaufland/g; s/GLOBUS/Globus/g; s/HORNBACH/Hornbach/g; s/LIDL/Lidl/g;
+                            s/PENNY MARKET/Penny Market/g; s/TERNO/Terno/g; s/COOP/Coop/g; s/JEDNOTA/Jednota/g;
+                            s/SUPERMARKET/supermarket/g; s/^Prodejna/prodejna/g; s/^Budova/budova/g;
+                            s/^Bývalá/bývalá/g;')"
+      type=""
+      if [ $(echo "$name" |grep -c "mobilní pobočka") -gt 0 ]
+      then
+        name=$(echo $name |sed "s/ - mobilní pobočka//")
+        type="Mobilní pobočka"
+      fi
+
+      addr_street=$(echo "$addr" |cut -d "," -f 1)
+      addr_psc=$(echo "$addr" |cut -d "," -f 2 |sed "s/^ //")
+      addr_city=$(echo "$addr" |cut -d "," -f 3 |sed "s/^ //")
+
+      po=$(echo "$mo" |sed "s/,$//" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
+      ut=$(echo "$tu" |sed "s/,$//" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
+      st=$(echo "$we" |sed "s/,$//" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
+      ct=$(echo "$th" |sed "s/,$//" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
+      pa=$(echo "$fr" |sed "s/,$//" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
+      so=$(echo "$sa" |sed "s/,$//" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
+      ne=$(echo "$su" |sed "s/,$//" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
+
+      if [ "$po" != "closed" -a $(echo "$po" |grep -c "^[0-9]") -eq 0 ]; then po=""; fi
+      if [ "$ut" != "closed" -a $(echo "$ut" |grep -c "^[0-9]") -eq 0 ]; then ut=""; fi
+      if [ "$st" != "closed" -a $(echo "$st" |grep -c "^[0-9]") -eq 0 ]; then st=""; fi
+      if [ "$ct" != "closed" -a $(echo "$ct" |grep -c "^[0-9]") -eq 0 ]; then ct=""; fi
+      if [ "$pa" != "closed" -a $(echo "$pa" |grep -c "^[0-9]") -eq 0 ]; then pa=""; fi
+      if [ "$so" != "closed" -a $(echo "$so" |grep -c "^[0-9]") -eq 0 ]; then so=""; fi
+      if [ "$ne" != "closed" -a $(echo "$ne" |grep -c "^[0-9]") -eq 0 ]; then ne=""; fi
+
+      oph="$(optimize_opening_hours_key)"
+      write_text >> $text_file
+      write_csv_line >> $csv_file
+      if [ "$p_type" = "BANK" ]
+      then
+        write_osm_bank >> $osm_file
+        write_geojson_bank >> $json_file
+      else
+        write_osm_atm >> $osm_file
+        write_geojson_atm >> $json_file
+      fi
+
+  #     echo "lat=$lat"
+  #     echo "lon=$lon"
+  #     echo "name=$name"
+  #     echo "type=$type"
+  #     echo "addr_street=$addr_street"
+  #     echo "addr_city=$addr_city"
+  #     echo "addr_psc=$addr_psc"
+  #     echo "po=$po"
+  #     echo "ut=$ut"
+  #     echo "st=$st"
+  #     echo "ct=$ct"
+  #     echo "pa=$pa"
+  #     echo "so=$so"
+  #     echo "ne=$ne"
+  #     echo "oph=$oph"
+  #     echo "-----"
+  done < <(cat $work_csv)
+
+
+}
 
 ## ============================================================================
+
+# get list of duplicated coors
+
+echo $(date "+%H:%M:%S")" - Looking for duplicated coors"
+dupl_file=duplicated_coors
+cat gps_poi_garmin.txt gps_ATM_poi_garmin.txt | egrep "@lat|@lon" |cut -d "=" -f 2 | paste - - -d"," |sort |uniq -d >$dupl_file
+echo $(date "+%H:%M:%S")" - Found $(cat $dupl_file |wc -l) duplicated coors"
+
+# fill array
+declare -A dupl_coors
+while IFS=$'\n' read LINE
+do
+  dupl_coors[$LINE]=0
+done < <(cat $dupl_file)
+
+
+
+# Bank
+# define output files
+work_csv=gps_poi_garmin.csv
+text_file=ceska_sporitelna_pobocky.txt
+csv_file=ceska_sporitelna_pobocky.csv
+osm_file=ceska_sporitelna_pobocky.osm
+json_file=ceska_sporitelna_pobocky.geojson
+
 # init output files
 echo '"Lat";"Lon";"Jméno";"Ulice";"Město";"PSČ";"Pondělí";"Úterý";"Středa";"Čtvrtek";"Pátek";"Sobota";"Neděle";"Poznámka"' > $csv_file
 
@@ -234,65 +410,8 @@ id=1
 delim=""
 
 echo $(date "+%H:%M:%S")" - Processing Banks"
-cat gps_poi_garmin.txt |egrep "/gpx/wpt/@|/gpx/wpt/name|/gpx/wpt/cmt" |sed "s|/gpx/wpt/||" |while read line
-do
-  key=$(echo "$line" |cut -d "=" -f 1)
-  val=$(echo "$line" |cut -d "=" -f 2)
-#   echo "Key= $key"
-#   echo "Val= $val"
 
-  if [ "$key" = "@lat" ]
-  then
-    lat=$val
-    continue
-  elif [ "$key" = "@lon" ]
-  then
-    lon=$val
-    continue
-  elif [ "$key" = "name" ]
-  then
-    name="$(echo "$val" |sed 's/^\(.\)/\U\1/g; s/ALBERT/Albert/g; s/BILLA/Billa/g; s/BIG/Big/g; s/TESCO/Tesco/g;
-                            s/KAUFLAND/Kaufland/g; s/GLOBUS/Globus/g; s/HORNBACH/Hornbach/g; s/LIDL/Lidl/g;
-                            s/PENNY MARKET/Penny Market/g; s/TERNO/Terno/g; s/COOP/Coop/g; s/JEDNOTA/Jednota/g;
-                            s/SUPERMARKET/supermarket/g; s/^Prodejna/prodejna/g; s/^Budova/budova/g;
-                            s/^Bývalá/bývalá/g;')"
-    type=""
-    if [ $(echo "$name" |grep -c "mobilní pobočka") -gt 0 ]
-    then
-      name=$(echo $name |sed "s/ - mobilní pobočka//")
-      type="Mobilní pobočka"
-    fi
-    continue
-  elif [ "$key" = "cmt" ]
-  then
-    addr=$(echo "$val" |sed "s/^\(.*\) Provozní doba: .*$/\1/")
-    addr_street=$(echo "$addr" |cut -d "," -f 1)
-    addr_psc=$(echo "$addr" |cut -d "," -f 2)
-    addr_city=$(echo "$addr" |cut -d "," -f 3)
-
-    po=$(echo "$val" |sed "s/^.* Po: \(.*\), Út: .*$/\1/" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    ut=$(echo "$val" |sed "s/^.* Út: \(.*\), St: .*$/\1/" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    st=$(echo "$val" |sed "s/^.* St: \(.*\), Čt: .*$/\1/" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    ct=$(echo "$val" |sed "s/^.* Čt: \(.*\), Pá: .*$/\1/" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    pa=$(echo "$val" |sed "s/^.* Pá: \(.*\), So: .*$/\1/" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    so=$(echo "$val" |sed "s/^.* So: \(.*\), Ne: .*$/\1/" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    ne=$(echo "$val" |sed "s/^.* Ne: \(.*\)$/\1/" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-
-    if [ "$po" != "closed" -a $(echo "$po" |grep -c "^[0-9]") -eq 0 ]; then po=""; fi
-    if [ "$ut" != "closed" -a $(echo "$ut" |grep -c "^[0-9]") -eq 0 ]; then ut=""; fi
-    if [ "$st" != "closed" -a $(echo "$st" |grep -c "^[0-9]") -eq 0 ]; then st=""; fi
-    if [ "$ct" != "closed" -a $(echo "$ct" |grep -c "^[0-9]") -eq 0 ]; then ct=""; fi
-    if [ "$pa" != "closed" -a $(echo "$pa" |grep -c "^[0-9]") -eq 0 ]; then pa=""; fi
-    if [ "$so" != "closed" -a $(echo "$so" |grep -c "^[0-9]") -eq 0 ]; then so=""; fi
-    if [ "$ne" != "closed" -a $(echo "$ne" |grep -c "^[0-9]") -eq 0 ]; then ne=""; fi
-
-    oph="$(optimize_opening_hours_key)"
-    write_text >> $text_file
-    write_csv_line >> $csv_file
-    write_osm_bank >> $osm_file
-    write_geojson_bank >> $json_file
-  fi
-done
+process_file gps_poi_garmin.txt BANK
 
 # finish osm file
 echo "</osm>" >> $osm_file
@@ -326,65 +445,8 @@ id=1000
 delim=""
 
 echo $(date "+%H:%M:%S")" - Processing ATMs"
-cat gps_ATM_poi_garmin.txt |egrep "/gpx/wpt/@|/gpx/wpt/name|/gpx/wpt/cmt" |sed "s|/gpx/wpt/||" |while read line
-do
-  key=$(echo "$line" |cut -d "=" -f 1)
-  val=$(echo "$line" |cut -d "=" -f 2)
-#   echo "Key= $key"
-#   echo "Val= $val"
 
-  if [ "$key" = "@lat" ]
-  then
-    lat=$val
-    continue
-  elif [ "$key" = "@lon" ]
-  then
-    lon=$val
-    continue
-  elif [ "$key" = "name" ]
-  then
-    name="$(echo $val |sed 's/^\(.\)/\U\1/g; s/ALBERT/Albert/g; s/BILLA/Billa/g; s/BIG/Big/g; s/TESCO/Tesco/g;
-                            s/KAUFLAND/Kaufland/g; s/GLOBUS/Globus/g; s/HORNBACH/Hornbach/g; s/LIDL/Lidl/g;
-                            s/PENNY MARKET/Penny Market/g; s/TERNO/Terno/g; s/COOP/Coop/g; s/JEDNOTA/Jednota/g;
-                            s/SUPERMARKET/supermarket/g; s/^Prodejna/prodejna/g; s/^Budova/budova/g;
-                            s/^Bývalá/bývalá/g;')"
-    type=""
-    if [ $(echo "$name" |grep -c "mobilní pobočka") -gt 0 ]
-    then
-      name=$(echo $name |sed "s/ - mobilní pobočka//")
-      type="Mobilní pobočka"
-    fi
-    continue
-  elif [ "$key" = "cmt" ]
-  then
-    addr=$(echo "$val" |sed "s/^\(.*\) Provozní doba: .*$/\1/")
-    addr_street=$(echo "$addr" |cut -d "," -f 1)
-    addr_psc=$(echo "$addr" |cut -d "," -f 2)
-    addr_city=$(echo "$addr" |cut -d "," -f 3)
-
-    po=$(echo "$val" |sed -n "s/^.* Po: \(.*\), Út: .*$/\1/p" |sed "s/ - /-/g" | sed "s/zavřeno/closed/")
-    ut=$(echo "$val" |sed -n "s/^.* Út: \(.*\), St: .*$/\1/p" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    st=$(echo "$val" |sed -n "s/^.* St: \(.*\), Čt: .*$/\1/p" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    ct=$(echo "$val" |sed -n "s/^.* Čt: \(.*\), Pá: .*$/\1/p" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    pa=$(echo "$val" |sed -n "s/^.* Pá: \(.*\), So: .*$/\1/p" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    so=$(echo "$val" |sed -n "s/^.* So: \(.*\), Ne: .*$/\1/p" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-    ne=$(echo "$val" |sed -n "s/^.* Ne: \(.*\)$/\1/p" |sed "s/ - /-/g"| sed "s/zavřeno/closed/")
-
-#     if [ "$po" != "closed" -a $(echo "$po" |grep -c "^[0-9][0-9]:") -eq 0 ]; then po=""; fi
-#     if [ "$ut" != "closed" -a $(echo "$ut" |grep -c "^[0-9][0-9]:") -eq 0 ]; then ut=""; fi
-#     if [ "$st" != "closed" -a $(echo "$st" |grep -c "^[0-9][0-9]:") -eq 0 ]; then st=""; fi
-#     if [ "$ct" != "closed" -a $(echo "$ct" |grep -c "^[0-9][0-9]:") -eq 0 ]; then ct=""; fi
-#     if [ "$pa" != "closed" -a $(echo "$pa" |grep -c "^[0-9][0-9]:") -eq 0 ]; then pa=""; fi
-#     if [ "$so" != "closed" -a $(echo "$so" |grep -c "^[0-9][0-9]:") -eq 0 ]; then so=""; fi
-#     if [ "$ne" != "closed" -a $(echo "$ne" |grep -c "^[0-9][0-9]:") -eq 0 ]; then ne=""; fi
-
-    oph="$(optimize_opening_hours_key)"
-    write_text >> $text_file
-    write_csv_line >> $csv_file
-    write_osm_atm >> $osm_file
-    write_geojson_atm >> $json_file
-  fi
-done
+process_file gps_ATM_poi_garmin.txt ATM
 
 # finish osm file
 echo "</osm>" >> $osm_file
