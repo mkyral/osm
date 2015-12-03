@@ -46,15 +46,15 @@ fi
 
 [ ! -e tmp ] && mkdir tmp
 cd tmp
-# [ -f gps_poi_garmin.xml ] && rm -f gps_poi_garmin.xml
-# wget "http://www.csas.cz/banka/content/inet/internet/cs/gps_poi_garmin.xml"
-#
-# xml2 < gps_poi_garmin.xml > gps_poi_garmin.txt
-#
-# [ -f gps_ATM_poi_garmin.xml ] && rm -f gps_ATM_poi_garmin.xml
-# wget "http://www.csas.cz/banka/content/inet/internet/cs/gps_ATM_poi_garmin.xml"
-#
-# xml2 < gps_ATM_poi_garmin.xml > gps_ATM_poi_garmin.txt
+[ -f gps_poi_garmin.xml ] && rm -f gps_poi_garmin.xml
+wget "http://www.csas.cz/banka/content/inet/internet/cs/gps_poi_garmin.xml"
+
+xml2 < gps_poi_garmin.xml > gps_poi_garmin.txt
+
+[ -f gps_ATM_poi_garmin.xml ] && rm -f gps_ATM_poi_garmin.xml
+wget "http://www.csas.cz/banka/content/inet/internet/cs/gps_ATM_poi_garmin.xml"
+
+xml2 < gps_ATM_poi_garmin.xml > gps_ATM_poi_garmin.txt
 
 OLD_IFS="$IFS"
 # Convert opening hours to OSM format
@@ -202,7 +202,8 @@ write_geojson_bank()
                 \"amenity\": \"bank\",
                 \"operator\": \"Česká spořitelna\",
                 \"contact:website\": \"http://www.csas.cz\",
-                \"source\": \"ceska_sporitelna_gpx\""
+                \"source\": \"ceska_sporitelna_gpx\",
+                \"_note\": \"$addr_street, $addr_city\""
   if [ "$oph" ]; then echo "  ,\"opening_hours\": \"$(echo "$oph" |sed "s/\"/\\\\\"/g")\""; fi
   if [ "$type" ]; then echo "  ,\"description\": \"$type\""; fi
   echo "    },
@@ -241,7 +242,8 @@ write_geojson_atm()
                 \"amenity\": \"atm\",
                 \"operator\": \"Česká spořitelna\",
                 \"contact:website\": \"http://www.csas.cz\",
-                \"source\": \"ceska_sporitelna_gpx\""
+                \"source\": \"ceska_sporitelna_gpx\",
+                \"_note\": \"$addr_street, $addr_city\""
   if [ "$oph" ]; then echo "  ,\"opening_hours\": \"$(echo "$oph" |sed "s/\"/\\\\\"/g")\""; fi
   if [ "$type" ]; then echo "  ,\"description\": \"$type\""; fi
   echo "    },
