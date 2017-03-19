@@ -13,7 +13,12 @@ See http://www.turisticke-znamky.cz/main.php?tz=znamky_en for details
 import/ceska_sporitelna
 -----------------------
 
-Import script for Česká spořitelna buyros and atm. Designed for use with [POI-Importer](https://github.com/POI-Importer/POI-Importer.github.io).
+A script to convert Česká spořitelna buyros and atm for use with [POI-Importer](https://github.com/POI-Importer/POI-Importer.github.io).
+
+import/ceska_posta
+-----------------------
+
+A script to convert Česká pošta (Czech post) data about Post Boxes for use with [POI-Importer](https://github.com/POI-Importer/POI-Importer.github.io).
 
 
 prezentace/

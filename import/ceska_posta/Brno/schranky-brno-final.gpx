@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="GPSBabel - http://www.gpsbabel.org" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Vlastní body z Mapy.cz</name>
+    <time>2017-02-20T21:00:19.744Z</time>
+    <bounds minlat="49.169320911" minlon="16.504149735" maxlat="49.271317273" maxlon="16.687815338"/>
+  </metadata>
+  <wpt lat="49.239191785" lon="16.587498039">
+    <ele>0.000000</ele>
+    <name>Žitná 17</name>
+    <cmt>Žitná 17</cmt>
+    <desc>Žitná 17</desc>
+  </wpt>
+  <wpt lat="49.250949919" lon="16.586437225">
+    <ele>0.000000</ele>
+    <name>Hapalova 30a</name>
+    <cmt>Hapalova 30a</cmt>
+    <desc>Hapalova 30a</desc>
+  </wpt>
+  <wpt lat="49.240451753" lon="16.576496959">
+    <ele>0.000000</ele>
+    <name>Jabloňová 17</name>
+    <cmt>Jabloňová 17</cmt>
+    <desc>Jabloňová 17</desc>
+  </wpt>
+  <wpt lat="49.255388975" lon="16.589241475">
+    <ele>0.000000</ele>
+    <name>Jandáskova 15</name>
+    <cmt>Jandáskova 15</cmt>
+    <desc>Jandáskova 15</desc>
+  </wpt>
+  <wpt lat="49.252066389" lon="16.582214087">
+    <ele>0.000000</ele>
+    <name>Palackého náměstí 10</name>
+    <cmt>Palackého náměstí 10</cmt>
+    <desc>Palackého náměstí 10</desc>
+  </wpt>
+  <wpt lat="49.238142371" lon="16.582954377">
+    <ele>0.000000</ele>
+    <name>Jabloňová potraviny</name>
+    <cmt>Jabloňová potraviny</cmt>
+    <desc>Jabloňová potraviny</desc>
+  </wpt>
+  <wpt lat="49.259061590" lon="16.591105610">
+    <ele>0.000000</ele>
+    <name>Skoumalova1, Antonínové 6</name>
+    <cmt>Skoumalova1, Antonínové 6</cmt>
+    <desc>Skoumalova1, Antonínové 6</desc>
+  </wpt>
+  <wpt lat="49.240479246" lon="16.573673934">
+    <ele>0.000000</ele>
+    <name>Hudcova 2</name>
+    <cmt>Hudcova 2</cmt>
+    <desc>Hudcova 2</desc>
+  </wpt>
+  <wpt lat="49.247834533" lon="16.574538946">
+    <ele>0.000000</ele>
+    <name>Renčova 28</name>
+    <cmt>Renčova 28</cmt>
+    <desc>Renčova 28</desc>
+  </wpt>
+  <wpt lat="49.238827005" lon="16.584929824">
+    <ele>0.000000</ele>
+    <name>Banskobystrická Billa</name>
+    <cmt>Banskobystrická Billa</cmt>
+    <desc>Banskobystrická Billa</desc>
+  </wpt>
+  <wpt lat="49.225845113" lon="16.629714668">
+    <ele>0.000000</ele>
+    <name>Arbesova 1</name>
+    <cmt>Arbesova 1</cmt>
+    <desc>Arbesova 1</desc>
+  </wpt>
+  <wpt lat="49.198741391" lon="16.578768790">
+    <ele>0.000000</ele>
+    <name>Barvičova 53</name>
+    <cmt>Barvičova 53</cmt>
+    <desc>Barvičova 53</desc>
+  </wpt>
+  <wpt lat="49.193005487" lon="16.528757662">
+    <ele>0.000000</ele>
+    <name>Bellova</name>
+    <cmt>Bellova</cmt>
+    <desc>Bellova</desc>
+  </wpt>
+  <wpt lat="49.213372841" lon="16.585447490">
+    <ele>0.000000</ele>
+    <name>Bezejmenná 18</name>
+    <cmt>Bezejmenná 18</cmt>
+    <desc>Bezejmenná 18</desc>
+  </wpt>
+  <wpt lat="49.212319404" lon="16.607594490">
+    <ele>0.000000</ele>
+    <name>BOBY Centrum</name>
+    <cmt>BOBY Centrum</cmt>
+    <desc>BOBY Centrum</desc>
+  </wpt>
+  <wpt lat="49.233631566" lon="16.628680676">
+    <ele>0.000000</ele>
+    <name>Brechtova 8</name>
+    <cmt>Brechtova 8</cmt>
+    <desc>Brechtova 8</desc>
+  </wpt>
+  <wpt lat="49.227789044" lon="16.589867771">
+    <ele>0.000000</ele>
+    <name>Bulharská 57</name>
+    <cmt>Bulharská 57</cmt>
+    <desc>Bulharská 57</desc>
+  </wpt>
+  <wpt lat="49.213875085" lon="16.522914469">
+    <ele>0.000000</ele>
+    <name>Černého - konečná MHD</name>
+    <cmt>Černého - konečná MHD</cmt>
+    <desc>Černého - konečná MHD</desc>
+  </wpt>
+  <wpt lat="49.217882305" lon="16.525237262">
+    <ele>0.000000</ele>
+    <name>Černého - nákupní středisko</name>
+    <cmt>Černého - nákupní středisko</cmt>
+    <desc>Černého - nákupní středisko</desc>
+  </wpt>
+  <wpt lat="49.214576483" lon="16.560170352">
+    <ele>0.000000</ele>
+    <name>Čichnova - SOU</name>
+    <cmt>Čichnova - SOU</cmt>
+    <desc>Čichnova - SOU</desc>
+  </wpt>
+  <wpt lat="49.232836962" lon="16.590703279">
+    <ele>0.000000</ele>
+    <name>Dalimilova 92</name>
+    <cmt>Dalimilova 92</cmt>
+    <desc>Dalimilova 92</desc>
+  </wpt>
+  <wpt lat="49.193996564" lon="16.606750935">
+    <ele>0.000000</ele>
+    <name>Dominikánské náměstí</name>
+    <cmt>Dominikánské náměstí</cmt>
+    <desc>Dominikánské náměstí</desc>
+  </wpt>
+  <wpt lat="49.218538776" lon="16.509122550">
+    <ele>0.000000</ele>
+    <name>Ečerova</name>
+    <cmt>Ečerova</cmt>
+    <desc>Ečerova</desc>
+  </wpt>
+  <wpt lat="49.228954464" lon="16.617899537">
+    <ele>0.000000</ele>
+    <name>Fillova 2</name>
+    <cmt>Fillova 2</cmt>
+    <desc>Fillova 2</desc>
+  </wpt>
+  <wpt lat="49.220404252" lon="16.577615440">
+    <ele>0.000000</ele>
+    <name>Fričova 1</name>
+    <cmt>Fričova 1</cmt>
+    <desc>Fričova 1</desc>
+  </wpt>
+  <wpt lat="49.224044010" lon="16.628998518">
+    <ele>0.000000</ele>
+    <name>Heleny Malířové 1</name>
+    <cmt>Heleny Malířové 1</cmt>
+    <desc>Heleny Malířové 1</desc>
+  </wpt>
+  <wpt lat="49.230236560" lon="16.581909656">
+    <ele>0.000000</ele>
+    <name>Herčíkova 1</name>
+    <cmt>Herčíkova 1</cmt>
+    <desc>Herčíkova 1</desc>
+  </wpt>
+  <wpt lat="49.223484099" lon="16.624837071">
+    <ele>0.000000</ele>
+    <name>Halasovo náměstí - bazén</name>
+    <cmt>Halasovo náměstí - bazén</cmt>
+    <desc>Halasovo náměstí - bazén</desc>
+  </wpt>
+  <wpt lat="49.230618104" lon="16.518289000">
+    <ele>0.000000</ele>
+    <name>Hotel Santon</name>
+    <cmt>Hotel Santon</cmt>
+    <desc>Hotel Santon</desc>
+  </wpt>
+  <wpt lat="49.194893092" lon="16.604709774">
+    <ele>0.000000</ele>
+    <name>Husova - Hotel International</name>
+    <cmt>Husova - Hotel International</cmt>
+    <desc>Husova - Hotel International</desc>
+  </wpt>
+  <wpt lat="49.189300686" lon="16.602588147">
+    <ele>0.000000</ele>
+    <name>Hybešova - park</name>
+    <cmt>Hybešova - park</cmt>
+    <desc>Hybešova - park</desc>
+  </wpt>
+  <wpt lat="49.194855541" lon="16.530549377">
+    <ele>0.000000</ele>
+    <name>Chopinova 2</name>
+    <cmt>Chopinova 2</cmt>
+    <desc>Chopinova 2</desc>
+  </wpt>
+  <wpt lat="49.214545637" lon="16.582510471">
+    <ele>0.000000</ele>
+    <name>Jindřichova 6</name>
+    <cmt>Jindřichova 6</cmt>
+    <desc>Jindřichova 6</desc>
+  </wpt>
+  <wpt lat="49.208889529" lon="16.687815338">
+    <ele>0.000000</ele>
+    <name>Jírova - konečná MHD</name>
+    <cmt>Jírova - konečná MHD</cmt>
+    <desc>Jírova - konečná MHD</desc>
+  </wpt>
+  <wpt lat="49.236131385" lon="16.527860463">
+    <ele>0.000000</ele>
+    <name>Kníničky - zastávka MHD</name>
+    <cmt>Kníničky - zastávka MHD</cmt>
+    <desc>Kníničky - zastávka MHD</desc>
+  </wpt>
+  <wpt lat="49.231388569" lon="16.570533067">
+    <ele>0.000000</ele>
+    <name>Kolejní 2</name>
+    <cmt>Kolejní 2</cmt>
+    <desc>Kolejní 2</desc>
+  </wpt>
+  <wpt lat="49.197611511" lon="16.614633948">
+    <ele>0.000000</ele>
+    <name>Kolíště 43</name>
+    <cmt>Kolíště 43</cmt>
+    <desc>Kolíště 43</desc>
+  </wpt>
+  <wpt lat="49.226385579" lon="16.622636318">
+    <ele>0.000000</ele>
+    <name>Lesná - konečná MHD</name>
+    <cmt>Lesná - konečná MHD</cmt>
+    <desc>Lesná - konečná MHD</desc>
+  </wpt>
+  <wpt lat="49.228167236" lon="16.593419015">
+    <ele>0.000000</ele>
+    <name>Kosmova</name>
+    <cmt>Kosmova</cmt>
+    <desc>Kosmova</desc>
+  </wpt>
+  <wpt lat="49.219075888" lon="16.518903226">
+    <ele>0.000000</ele>
+    <name>Kubíčkova 1</name>
+    <cmt>Kubíčkova 1</cmt>
+    <desc>Kubíčkova 1</desc>
+  </wpt>
+  <wpt lat="49.219720960" lon="16.504149735">
+    <ele>0.000000</ele>
+    <name>Kuršova 8</name>
+    <cmt>Kuršova 8</cmt>
+    <desc>Kuršova 8</desc>
+  </wpt>
+  <wpt lat="49.188278094" lon="16.534229368">
+    <ele>0.000000</ele>
+    <name>Libušina třída - konečná MHD</name>
+    <cmt>Libušina třída - konečná MHD</cmt>
+    <desc>Libušina třída - konečná MHD</desc>
+  </wpt>
+  <wpt lat="49.189526662" lon="16.531037539">
+    <ele>0.000000</ele>
+    <name>Libušina třída 3</name>
+    <cmt>Libušina třída 3</cmt>
+    <desc>Libušina třída 3</desc>
+  </wpt>
+  <wpt lat="49.194594026" lon="16.540009528">
+    <ele>0.000000</ele>
+    <name>Libušina třída - potraviny</name>
+    <cmt>Libušina třída - potraviny</cmt>
+    <desc>Libušina třída - potraviny</desc>
+  </wpt>
+  <wpt lat="49.217847437" lon="16.576018184">
+    <ele>0.000000</ele>
+    <name>Makovského náměstí</name>
+    <cmt>Makovského náměstí</cmt>
+    <desc>Makovského náměstí</desc>
+  </wpt>
+  <wpt lat="49.220980257" lon="16.630495191">
+    <ele>0.000000</ele>
+    <name>Marie Majerové 1</name>
+    <cmt>Marie Majerové 1</cmt>
+    <desc>Marie Majerové 1</desc>
+  </wpt>
+  <wpt lat="49.220476672" lon="16.633261889">
+    <ele>0.000000</ele>
+    <name>Marie Majerové 17</name>
+    <cmt>Marie Majerové 17</cmt>
+    <desc>Marie Majerové 17</desc>
+  </wpt>
+  <wpt lat="49.212678149" lon="16.687002629">
+    <ele>0.000000</ele>
+    <name>Molákova - MHD</name>
+    <cmt>Molákova - MHD</cmt>
+    <desc>Molákova - MHD</desc>
+  </wpt>
+  <wpt lat="49.271317273" lon="16.595835686">
+    <ele>0.000000</ele>
+    <name>nám. 3. května</name>
+    <cmt>nám. 3. května</cmt>
+    <desc>nám. 3. května</desc>
+  </wpt>
+  <wpt lat="49.202193394" lon="16.581772864">
+    <ele>0.000000</ele>
+    <name>Náměstí Míru - MHD</name>
+    <cmt>Náměstí Míru - MHD</cmt>
+    <desc>Náměstí Míru - MHD</desc>
+  </wpt>
+  <wpt lat="49.228347614" lon="16.629948020">
+    <ele>0.000000</ele>
+    <name>Nejedlého</name>
+    <cmt>Nejedlého</cmt>
+    <desc>Nejedlého</desc>
+  </wpt>
+  <wpt lat="49.223209172" lon="16.595340818">
+    <ele>0.000000</ele>
+    <name>Palackého třída - veterina</name>
+    <cmt>Palackého třída - veterina</cmt>
+    <desc>Palackého třída - veterina</desc>
+  </wpt>
+  <wpt lat="49.176016375" lon="16.559399217">
+    <ele>0.000000</ele>
+    <name>Petra Křivky 1a</name>
+    <cmt>Petra Křivky 1a</cmt>
+    <desc>Petra Křivky 1a</desc>
+  </wpt>
+  <wpt lat="49.199407250" lon="16.570407003">
+    <ele>0.000000</ele>
+    <name>Preslova</name>
+    <cmt>Preslova</cmt>
+    <desc>Preslova</desc>
+  </wpt>
+  <wpt lat="49.195362479" lon="16.580899805">
+    <ele>0.000000</ele>
+    <name>Preslova/Hlávkova</name>
+    <cmt>Preslova/Hlávkova</cmt>
+    <desc>Preslova/Hlávkova</desc>
+  </wpt>
+  <wpt lat="49.224135205" lon="16.581294090">
+    <ele>0.000000</ele>
+    <name>Purkyňova 93</name>
+    <cmt>Purkyňova 93</cmt>
+    <desc>Purkyňova 93</desc>
+  </wpt>
+  <wpt lat="49.216458052" lon="16.505148858">
+    <ele>0.000000</ele>
+    <name>Rerychova 16</name>
+    <cmt>Rerychova 16</cmt>
+    <desc>Rerychova 16</desc>
+  </wpt>
+  <wpt lat="49.206591547" lon="16.684977561">
+    <ele>0.000000</ele>
+    <name>Rotreklova - MHD</name>
+    <cmt>Rotreklova - MHD</cmt>
+    <desc>Rotreklova - MHD</desc>
+  </wpt>
+  <wpt lat="49.204697236" lon="16.621877253">
+    <ele>0.000000</ele>
+    <name>Ryšánkova</name>
+    <cmt>Ryšánkova</cmt>
+    <desc>Ryšánkova</desc>
+  </wpt>
+  <wpt lat="49.226174355" lon="16.618440002">
+    <ele>0.000000</ele>
+    <name>Slavíčkova 13</name>
+    <cmt>Slavíčkova 13</cmt>
+    <desc>Slavíčkova 13</desc>
+  </wpt>
+  <wpt lat="49.179607853" lon="16.546881348">
+    <ele>0.000000</ele>
+    <name>Slunečná - MHD</name>
+    <cmt>Slunečná - MHD</cmt>
+    <desc>Slunečná - MHD</desc>
+  </wpt>
+  <wpt lat="49.212674797" lon="16.568238437">
+    <ele>0.000000</ele>
+    <name>Stránského - Billa</name>
+    <cmt>Stránského - Billa</cmt>
+    <desc>Stránského - Billa</desc>
+  </wpt>
+  <wpt lat="49.175478592" lon="16.552676261">
+    <ele>0.000000</ele>
+    <name>Svážná - MHD</name>
+    <cmt>Svážná - MHD</cmt>
+    <desc>Svážná - MHD</desc>
+  </wpt>
+  <wpt lat="49.169320911" lon="16.574471891">
+    <ele>0.000000</ele>
+    <name>Švermova - MHD</name>
+    <cmt>Švermova - MHD</cmt>
+    <desc>Švermova - MHD</desc>
+  </wpt>
+  <wpt lat="49.213396311" lon="16.635650396">
+    <ele>0.000000</ele>
+    <name>Tomkovo náměstí</name>
+    <cmt>Tomkovo náměstí</cmt>
+    <desc>Tomkovo náměstí</desc>
+  </wpt>
+  <wpt lat="49.226962253" lon="16.522772312">
+    <ele>0.000000</ele>
+    <name>Valoškova 1</name>
+    <cmt>Valoškova 1</cmt>
+    <desc>Valoškova 1</desc>
+  </wpt>
+  <wpt lat="49.193242863" lon="16.565927714">
+    <ele>0.000000</ele>
+    <name>Veslařská 258 - MHD</name>
+    <cmt>Veslařská 258 - MHD</cmt>
+    <desc>Veslařská 258 - MHD</desc>
+  </wpt>
+  <wpt lat="49.199957103" lon="16.660810858">
+    <ele>0.000000</ele>
+    <name>Věstonická 1 - Domov pro seniory</name>
+    <cmt>Věstonická 1 - Domov pro seniory</cmt>
+    <desc>Věstonická 1 - Domov pro seniory</desc>
+  </wpt>
+  <wpt lat="49.221764132" lon="16.527797431">
+    <ele>0.000000</ele>
+    <name>Vondrákova 15</name>
+    <cmt>Vondrákova 15</cmt>
+    <desc>Vondrákova 15</desc>
+  </wpt>
+  <wpt lat="49.215966538" lon="16.584976762">
+    <ele>0.000000</ele>
+    <name>Voroněžská 6</name>
+    <cmt>Voroněžská 6</cmt>
+    <desc>Voroněžská 6</desc>
+  </wpt>
+  <wpt lat="49.231525361" lon="16.577620804">
+    <ele>0.000000</ele>
+    <name>Purkyňova 118</name>
+    <cmt>Purkyňova 118</cmt>
+    <desc>Purkyňova 118</desc>
+  </wpt>
+  <wpt lat="49.220258072" lon="16.571626067">
+    <ele>0.000000</ele>
+    <name>Vychodilova - MHD</name>
+    <cmt>Vychodilova - MHD</cmt>
+    <desc>Vychodilova - MHD</desc>
+  </wpt>
+  <wpt lat="49.175394774" lon="16.528197080">
+    <ele>0.000000</ele>
+    <name>Vzhledná 58 - park</name>
+    <cmt>Vzhledná 58 - park</cmt>
+    <desc>Vzhledná 58 - park</desc>
+  </wpt>
+</gpx>
