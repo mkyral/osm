@@ -47,6 +47,7 @@ write_GeoJSON()
         \"type\": \"Feature\",
         \"properties\": {
             \"amenity\": \"post_box\",
+            \"ref\": \"${old_key}\",
             \"operator\": \"Česká pošta, s.p.\""
 
     # Put some additional info in note
@@ -93,7 +94,7 @@ ct_delim=""
 CT=""
 delim=""
 
-tail -n +2 $IN_FILE | iconv -f cp1250 -t utf-8 |sort | while IFS=';' read W_PSC W_ZKRNAZ_POSTY W_ADRESA W_SOUR_X W_SOUR_Y W_MISTO_POPIS W_CAST_OBCE W_OBEC W_OKRES W_CAS W_OMEZENI
+tail -n +2 $IN_FILE | iconv -f cp1250 -t utf-8 |cut -d ";" -f 1,3- |sort | while IFS=';' read W_PSC W_ID W_ADRESA W_SOUR_X W_SOUR_Y W_MISTO_POPIS W_CAST_OBCE W_OBEC W_OKRES W_CAS W_OMEZENI
 do
     (( processed++ ))
     echo "$processed/$correct/$no_coors/$oo_bbox"
@@ -101,12 +102,14 @@ do
     if [ -z "$W_SOUR_X" ]
     then
         echo "Missing Coordinates: ${W_ADRESA}; ${W_MISTO_POPIS}; ${W_CAST_OBCE}; ${W_OBEC}; ${W_OKRES}; ${W_CAS}; ${W_OMEZENI}"
-        echo "${W_PSC};${W_ZKRNAZ_POSTY};${W_ADRESA};${W_SOUR_X};${W_SOUR_Y};${W_MISTO_POPIS};${W_CAST_OBCE};${W_OBEC};${W_OKRES};${W_CAS};${W_OMEZENI}" >> $missing_coors
+        echo "${W_PSC};${W_ID};${W_ADRESA};${W_SOUR_X};${W_SOUR_Y};${W_MISTO_POPIS};${W_CAST_OBCE};${W_OBEC};${W_OKRES};${W_CAS};${W_OMEZENI}" >> $missing_coors
         (( no_coors++ ))
         continue
     fi
 
-    key=$(echo "${W_PSC}${W_ZKRNAZ_POSTY}${W_ADRESA}${W_SOUR_X}${W_SOUR_Y}${W_MISTO_POPIS}${W_CAST_OBCE}${W_OBEC}${W_OKRES}" |tr -d "[:blank:],.:;-" | iconv -f utf-8 -t ascii//TRANSLIT |tr "[:lower:]" "[:upper:]")
+#     key=$(echo "${W_PSC}${W_ADRESA}${W_SOUR_X}${W_SOUR_Y}${W_MISTO_POPIS}${W_CAST_OBCE}${W_OBEC}${W_OKRES}" |tr -d "[:blank:],.:;-" | iconv -f utf-8 -t ascii//TRANSLIT |tr "[:lower:]" "[:upper:]")
+
+    key="${W_PSC}/${W_ID}"
 
 #     echo "old: $old_key"
 #     echo "key: $key"
@@ -126,7 +129,7 @@ do
         CT=""
 
         PSC="$W_PSC"
-        ZKRNAZ_POSTY="$W_ZKRNAZ_POSTY"
+        SCHR_CISLO="${W_ID}"
         ADRESA="$W_ADRESA"
         SOUR_X="$W_SOUR_X"
         SOUR_Y="$W_SOUR_Y"
