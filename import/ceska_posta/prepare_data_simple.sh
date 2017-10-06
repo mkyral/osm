@@ -55,7 +55,7 @@ write_GeoJSON()
     ORIG=""
     if [ "$LAT_ORIG" ]
     then
-        ORIG="<br><br><u>Souřadnice korigovány!</u><br><b>Původní souřadnice:</b> $LAT_ORIG, $LON_ORIG"
+        ORIG="<br><br><u>Souřadnice korigovány\!</u><br><b>Původní souřadnice:</b> $LAT_ORIG, $LON_ORIG"
     fi
 
     # Description and address
@@ -109,7 +109,7 @@ do
 
 #     key=$(echo "${W_PSC}${W_ADRESA}${W_SOUR_X}${W_SOUR_Y}${W_MISTO_POPIS}${W_CAST_OBCE}${W_OBEC}${W_OKRES}" |tr -d "[:blank:],.:;-" | iconv -f utf-8 -t ascii//TRANSLIT |tr "[:lower:]" "[:upper:]")
 
-    key="${W_PSC}/${W_ID}"
+    key="${W_PSC}:${W_ID}"
 
 #     echo "old: $old_key"
 #     echo "key: $key"
