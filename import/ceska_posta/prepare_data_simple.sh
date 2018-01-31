@@ -158,6 +158,7 @@ do
             LON="${CORR#* }"
             LAT=${CORR% *}
             echo "Coors $LAT_ORIG, $LON_ORIG corrected to $LAT, $LON"
+            echo "$key;$LAT_ORIG $LON_ORIG;$LAT $LON" >>corrections_2.csv
         fi
 
         if [ $(echo "$MIN_LON > $LON" |bc -l) -gt 0 -o \
