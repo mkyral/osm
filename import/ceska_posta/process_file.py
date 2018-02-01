@@ -16,9 +16,7 @@ missing_count = 0
 boxes = {}
 
 # Init projection
-#sjtsk = pyproj.Proj("+proj=krovak +ellps=bessel +towgs84=570.8,85.7,462.8,4.998,1.587,5.261,3.56 +to +init=epsg:4326")
-
-inProj = pyproj.Proj(init='epsg:5514')
+inProj = pyproj.Proj(init='epsg:5514', proj='krovak', ellps='bessel', towgs84='570.8,85.7,462.8,4.998,1.587,5.261,3.56')
 outProj = pyproj.Proj(init='epsg:4326')
 
 
@@ -84,7 +82,6 @@ try:
                 missing_count += 1
                 #print ("%s: Missing coordinates" % (box['ref']))
             else :
-                #lon,lat = sjtsk(-float(krovak['y']), -float(krovak['x']), inverse=True)
                 wgs84['lon'],wgs84['lat'] = pyproj.transform(inProj,outProj,-float(krovak['y']), -float(krovak['x']))
 
                 if (check_bbox(wgs84)):
