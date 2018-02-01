@@ -16,7 +16,7 @@ missing_count = 0
 boxes = {}
 
 # Init projection
-sjtsk = pyproj.Proj("+proj=krovak +ellps=bessel +towgs84=570.8,85.7,462.8,4.998,1.587,5.261,3.56 +to +init=epsg:4326")
+#sjtsk = pyproj.Proj("+proj=krovak +ellps=bessel +towgs84=570.8,85.7,462.8,4.998,1.587,5.261,3.56 +to +init=epsg:4326")
 
 inProj = pyproj.Proj(init='epsg:5514')
 outProj = pyproj.Proj(init='epsg:4326')
@@ -63,7 +63,7 @@ if (len(arguments) != 2):
 infile = arguments[0]
 outfile = arguments[1]
 
-print("Infile: %s; Outfile: %s" % (infile, outfile))
+print("Infile: %s; outfile: %s" % (infile, outfile))
 
 try:
     with open(infile, newline='', encoding='cp1250') as csvfile:
@@ -85,8 +85,7 @@ try:
                 #print ("%s: Missing coordinates" % (box['ref']))
             else :
                 #lon,lat = sjtsk(-float(krovak['y']), -float(krovak['x']), inverse=True)
-                lon,lat = pyproj.transform(inProj,outProj,-float(krovak['y']), -float(krovak['x']))
-                wgs84['lat'], wgs84['lon'] = lat, lon
+                wgs84['lon'],wgs84['lat'] = pyproj.transform(inProj,outProj,-float(krovak['y']), -float(krovak['x']))
 
                 if (check_bbox(wgs84)):
                     box['wgs84'] = wgs84
@@ -144,7 +143,7 @@ feature_collection = FeatureCollection(coll)
 
 # write to file
 try:
-    with open('schranky.geojson', encoding='utf-8', mode='w+') as geojsonfile:
+    with open(outfile, encoding='utf-8', mode='w+') as geojsonfile:
         geojsonfile.write(json.dumps(feature_collection, ensure_ascii=False, indent=2))
 except Exception as error:
     print('Error :-(')
