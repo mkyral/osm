@@ -9,7 +9,11 @@ import pyproj
 from geojson import Feature, Point, FeatureCollection
 import json
 
-# Init variables
+# configuration
+osm_precision = 7
+bbox = {'min': {'lat': 48.55, 'lon': 12.09}, 'max': {'lat': 51.06, 'lon': 18.87}}
+
+# counters
 ln_count = 0
 missing_count = 0
 
@@ -22,8 +26,9 @@ outProj = pyproj.Proj(init='epsg:4326')
 
 # Check coors whether are in bbox
 def check_bbox(coors):
-    if ( coors['lat'] >= 48.55 and coors['lat'] <= 51.06 and
-         coors['lon'] >= 12.09 and coors['lon'] <= 18.87):
+    global bbox
+    if ( coors['lat'] >= bbox['min']['lat'] and coors['lat'] <= bbox['max']['lat'] and
+         coors['lon'] >= bbox['min']['lon'] and coors['lon'] <= bbox['max']['lon']):
         return True
     return False
 
@@ -82,8 +87,10 @@ try:
                 missing_count += 1
                 #print ("%s: Missing coordinates" % (box['ref']))
             else :
-                wgs84['lon'],wgs84['lat'] = pyproj.transform(inProj,outProj,-float(krovak['y']), -float(krovak['x']))
+                lon, lat = pyproj.transform(inProj,outProj,-float(krovak['y']), -float(krovak['x']))
 
+                wgs84['lon'] = round(lon, osm_precision)
+                wgs84['lat'] = round(lat, osm_precision)
                 if (check_bbox(wgs84)):
                     box['wgs84'] = wgs84
                 else:
