@@ -104,7 +104,7 @@ try:
             box['village'] = row['obec']
             box['district'] = row['okres']
 
-            days = row['omezeni'].split()[0].replace('1','Mo').replace('2','Tu').replace('3','We').replace('4','Th').replace('5','Fr').replace('6','Sa').replace('7','Su')
+            days = row['omezeni'].split()[0].replace('1','1Mo').replace('2','2Tu').replace('3','3We').replace('4','4Th').replace('5','5Fr').replace('6','6Sa').replace('7','7Su')
 
             collection_times[days] = row['cas']
             box['collection_times'] = collection_times
@@ -136,9 +136,10 @@ for k in boxes:
 
         if (box['collection_times']):
             ct = []
-            for k in box['collection_times']:
-                ct.append('%s: %s' % (k, box['collection_times'][k]))
-            props['collection_times'] = ', '.join(ct)
+            for k in sorted(box['collection_times'].keys()):
+                key = k.replace('1Mo','Mo').replace('2Tu','Tu').replace('3We','We').replace('4Th','Th').replace('5Fr','Fr').replace('6Sa','Sa').replace('7Su','Su')
+                ct.append('%s %s' % (key, box['collection_times'][k]))
+            props['collection_times'] = '; '.join(ct)
 
         feature = Feature(geometry=Point((box['wgs84']['lon'], box['wgs84']['lat'])), properties=props)
         coll.append(feature)
@@ -157,3 +158,54 @@ except Exception as error:
 # some final stats
 print("Total lines: %d, missing coors: %d" % (ln_count, missing_count))
 print('Boxes: %d' % (len(boxes)))
+
+
+# Prepare inserts into database
+print("Generating sql")
+try:
+    with open('inserts.sql', encoding='utf-8', mode='w+') as sqlfile:
+        for k in boxes:
+            box = boxes[k]
+            data = {}
+
+            data['ref'] = box['ref']
+            data['psc'] = box['psc']
+            data['id'] = box['id']
+
+            if ('wgs84' in box and 'lat' in box['wgs84']):
+                data['x'] = box['krovak']['x']
+                data['y'] = box['krovak']['x']
+                data['lat'] = box['wgs84']['lat']
+                data['lon'] = box['wgs84']['lon']
+            else:
+                data['x'] = 'null'
+                data['y'] = 'null'
+                data['lat'] = 'null'
+                data['lon'] = 'null'
+
+            if ('address' in box):
+                data['address'] = box['address']
+            else:
+                data['address'] = ''
+
+            data['place'] = box['place_desc']
+            data['suburb'] = box['suburb']
+            data['village'] = box['village']
+            data['district'] = box['district']
+
+            if ('collection_times' in box):
+                ct = []
+                for k in sorted(box['collection_times'].keys()):
+                    key = k.replace('1Mo','Mo').replace('2Tu','Tu').replace('3We','We').replace('4Th','Th').replace('5Fr','Fr').replace('6Sa','Sa').replace('7Su','Su')
+                    ct.append('%s %s' % (key, box['collection_times'][k]))
+                data['collection_times'] = '; '.join(ct)
+            else:
+                data['collection_times'] = 'null'
+
+            sqlfile.write("insert into cp_post_boxes (ref, psc, id, x, y, lat, lon, address, place, suburb, village, district, collection_times, create_date, source) values ( '%s', %s, %s, %s, %s, %s, %s, '%s', '%s', '%s', '%s', '%s', '%s', current_timestamp, 'CP:201802' );\n" %
+            (data['ref'], data['psc'], data['id'], data['x'], data['y'], data['lat'], data['lon'], data['address'], data['place'], data['suburb'], data['village'], data['district'], data['collection_times']))
+
+except Exception as error:
+    print('Error :-(')
+    print(error)
+    exit(1)
