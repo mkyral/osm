@@ -59,14 +59,20 @@ def merge_box(box):
 program_name = sys.argv[0]
 arguments = sys.argv[1:]
 
-if (len(arguments) != 2):
-    print("Usage: %s IN_CSV_FILE OUT_GEOJSON_FILE" % (program_name))
+if (len(arguments) < 2):
+    print("Usage: %s IN_CSV_FILE OUT_GEOJSON_FILE [geojson|sql|all]" % (program_name))
     exit(1)
 
 infile = arguments[0]
 outfile = arguments[1]
+outtype = 'all'
+if (len(arguments) > 2):
+    outtype = arguments[2]
+    if (outtype != 'geojson' and outtype != 'sql' and outtype != 'all'):
+        print("Unknown output type: %s. Type 'all' will be used!" % (outtype))
+        outtype = 'all'
 
-print("Infile: %s; outfile: %s" % (infile, outfile))
+print("Infile: %s; outfile: %s; outtype: %s" % (infile, outfile, outtype))
 
 try:
     with open(infile, newline='', encoding='cp1250') as csvfile:
@@ -104,7 +110,8 @@ try:
             box['village'] = row['obec']
             box['district'] = row['okres']
 
-            days = row['omezeni'].split()[0].replace('1','1Mo').replace('2','2Tu').replace('3','3We').replace('4','4Th').replace('5','5Fr').replace('6','6Sa').replace('7','7Su')
+            days = row['omezeni'].split()[0]
+            #.replace('1','1Mo').replace('2','2Tu').replace('3','3We').replace('4','4Th').replace('5','5Fr').replace('6','6Sa').replace('7','7Su')
 
             collection_times[days] = row['cas']
             box['collection_times'] = collection_times
@@ -116,96 +123,100 @@ except Exception as error:
     exit(1)
 
 # generate geojson
-print("Generating GeoJson")
+if (outtype == 'geojson' or outtype == 'all'):
+    print("Generating GeoJson")
 
-coll = []
+    coll = []
 
-for k in boxes:
-    box = boxes[k]
+    for k in boxes:
+        box = boxes[k]
 
-    if ('wgs84' in box and 'lat' in box['wgs84']):
-        props = {}
-        props['amenity'] = 'post_box'
-        props['ref'] = k
-        props['operator'] = 'Česká pošta, s.p.'
+        if ('wgs84' in box and 'lat' in box['wgs84']):
+            props = {}
+            props['amenity'] = 'post_box'
+            props['ref'] = k
+            props['operator'] = 'Česká pošta, s.p.'
 
-        if (box['address']):
-            props['_note'] = ('<br><b>Poznámka:</b> %s <br><b>Adresa:</b> %s' % (box['place_desc'], box['address']))
-        else:
-            props['_note'] = ('<br><b>Poznámka:</b> %s <br><b>Adresa:</b> %s; %s; %s' % (box['place_desc'], box['district'], box['village'], box['suburb']))
+            if (box['address']):
+                props['_note'] = ('<br><b>Poznámka:</b> %s <br><b>Adresa:</b> %s' % (box['place_desc'], box['address']))
+            else:
+                props['_note'] = ('<br><b>Poznámka:</b> %s <br><b>Adresa:</b> %s; %s; %s' % (box['place_desc'], box['district'], box['village'], box['suburb']))
 
-        if (box['collection_times']):
-            ct = []
-            for k in sorted(box['collection_times'].keys()):
-                key = k.replace('1Mo','Mo').replace('2Tu','Tu').replace('3We','We').replace('4Th','Th').replace('5Fr','Fr').replace('6Sa','Sa').replace('7Su','Su')
-                ct.append('%s %s' % (key, box['collection_times'][k]))
-            props['collection_times'] = '; '.join(ct)
+            if (box['collection_times']):
+                ct = []
+                for k in sorted(box['collection_times'].keys()):
+                    key = k.replace('1','Mo').replace('2','Tu').replace('3','We').replace('4','Th').replace('5','Fr').replace('6','Sa').replace('7','Su')
+                    ct.append('%s %s' % (key, box['collection_times'][k]))
+                props['collection_times'] = '; '.join(ct)
 
-        feature = Feature(geometry=Point((box['wgs84']['lon'], box['wgs84']['lat'])), properties=props)
-        coll.append(feature)
+            feature = Feature(geometry=Point((box['wgs84']['lon'], box['wgs84']['lat'])), properties=props)
+            coll.append(feature)
 
-feature_collection = FeatureCollection(coll)
+    feature_collection = FeatureCollection(coll)
 
-# write to file
-try:
-    with open(outfile, encoding='utf-8', mode='w+') as geojsonfile:
-        geojsonfile.write(json.dumps(feature_collection, ensure_ascii=False, indent=2))
-except Exception as error:
-    print('Error :-(')
-    print(error)
-    exit(1)
+    # write to file
+    try:
+        with open("%s.%s" % (outfile, 'geojson'), encoding='utf-8', mode='w+') as geojsonfile:
+            geojsonfile.write(json.dumps(feature_collection, ensure_ascii=False, indent=2))
+    except Exception as error:
+        print('Error :-(')
+        print(error)
+        exit(1)
+
+
+if (outtype == 'sql' or outtype == 'all'):
+# Prepare inserts into database
+    print("Generating sql")
+    try:
+        with open("%s.%s" % (outfile, 'sql'), encoding='utf-8', mode='w+') as sqlfile:
+            for k in boxes:
+                box = boxes[k]
+                data = {}
+
+                data['ref'] = box['ref']
+                data['psc'] = box['psc']
+                data['id'] = box['id']
+
+                if ('wgs84' in box and 'lat' in box['wgs84']):
+                    data['x'] = box['krovak']['x']
+                    data['y'] = box['krovak']['y']
+                    data['lat'] = box['wgs84']['lat']
+                    data['lon'] = box['wgs84']['lon']
+                else:
+                    data['x'] = 'null'
+                    data['y'] = 'null'
+                    data['lat'] = 'null'
+                    data['lon'] = 'null'
+
+                if ('address' in box):
+                    data['address'] = box['address']
+                else:
+                    data['address'] = ''
+
+                data['place'] = box['place_desc']
+                data['suburb'] = box['suburb']
+                data['village'] = box['village']
+                data['district'] = box['district']
+
+                if ('collection_times' in box):
+                    ct = []
+                    for k in sorted(box['collection_times'].keys()):
+                        key = k.replace('1','Mo').replace('2','Tu').replace('3','We').replace('4','Th').replace('5','Fr').replace('6','Sa').replace('7','Su')
+                        ct.append('%s %s' % (key, box['collection_times'][k]))
+                    data['collection_times'] = '; '.join(ct)
+                else:
+                    data['collection_times'] = 'null'
+
+                sqlfile.write("insert into cp_post_boxes (ref, psc, id, x, y, lat, lon, address, place, suburb, village, district, collection_times, create_date, source) values ( '%s', %s, %s, %s, %s, %s, %s, '%s', '%s', '%s', '%s', '%s', '%s', current_timestamp, 'CP:201802' );\n" %
+                (data['ref'], data['psc'], data['id'], data['x'], data['y'], data['lat'], data['lon'], data['address'], data['place'], data['suburb'], data['village'], data['district'], data['collection_times']))
+
+    except Exception as error:
+        print('Error :-(')
+        print(error)
+        exit(1)
 
 # some final stats
+print("-----------------------------------------------")
 print("Total lines: %d, missing coors: %d" % (ln_count, missing_count))
 print('Boxes: %d' % (len(boxes)))
 
-
-# Prepare inserts into database
-print("Generating sql")
-try:
-    with open('inserts.sql', encoding='utf-8', mode='w+') as sqlfile:
-        for k in boxes:
-            box = boxes[k]
-            data = {}
-
-            data['ref'] = box['ref']
-            data['psc'] = box['psc']
-            data['id'] = box['id']
-
-            if ('wgs84' in box and 'lat' in box['wgs84']):
-                data['x'] = box['krovak']['x']
-                data['y'] = box['krovak']['x']
-                data['lat'] = box['wgs84']['lat']
-                data['lon'] = box['wgs84']['lon']
-            else:
-                data['x'] = 'null'
-                data['y'] = 'null'
-                data['lat'] = 'null'
-                data['lon'] = 'null'
-
-            if ('address' in box):
-                data['address'] = box['address']
-            else:
-                data['address'] = ''
-
-            data['place'] = box['place_desc']
-            data['suburb'] = box['suburb']
-            data['village'] = box['village']
-            data['district'] = box['district']
-
-            if ('collection_times' in box):
-                ct = []
-                for k in sorted(box['collection_times'].keys()):
-                    key = k.replace('1Mo','Mo').replace('2Tu','Tu').replace('3We','We').replace('4Th','Th').replace('5Fr','Fr').replace('6Sa','Sa').replace('7Su','Su')
-                    ct.append('%s %s' % (key, box['collection_times'][k]))
-                data['collection_times'] = '; '.join(ct)
-            else:
-                data['collection_times'] = 'null'
-
-            sqlfile.write("insert into cp_post_boxes (ref, psc, id, x, y, lat, lon, address, place, suburb, village, district, collection_times, create_date, source) values ( '%s', %s, %s, %s, %s, %s, %s, '%s', '%s', '%s', '%s', '%s', '%s', current_timestamp, 'CP:201802' );\n" %
-            (data['ref'], data['psc'], data['id'], data['x'], data['y'], data['lat'], data['lon'], data['address'], data['place'], data['suburb'], data['village'], data['district'], data['collection_times']))
-
-except Exception as error:
-    print('Error :-(')
-    print(error)
-    exit(1)
