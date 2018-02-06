@@ -5,7 +5,8 @@ $id=0;
 if (isset($_REQUEST['id'])) $id=$_REQUEST['id'];
 if ( !is_numeric($id) ) die;
 
-$query = "select cp_total,
+$query = "
+select cp_total,
        cp_missing, (cp_missing::float*100/cp_total::float)::numeric(6,2) cp_missing_pct,
        osm_linked, (osm_linked::float*100/cp_total::float)::numeric(6,2) osm_linked_pct
 from ( select

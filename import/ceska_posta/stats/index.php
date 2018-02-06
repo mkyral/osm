@@ -4,7 +4,8 @@ require("config.php");
 $query = "select cp_total,
        cp_missing, (cp_missing::float*100/cp_total::float)::numeric(6,2) cp_missing_pct,
        osm_total,
-       osm_linked, (osm_linked::float*100/cp_total::float)::numeric(6,2) osm_linked_pct,       (osm_total-osm_linked) osm_not_linked, ((osm_total-osm_linked)::float*100/cp_total::float)::numeric(6,2) osm_not_linked_pct
+       osm_linked, (osm_linked::float*100/cp_total::float)::numeric(6,2) osm_linked_pct,
+       (osm_total-osm_linked) osm_not_linked, ((osm_total-osm_linked)::float*100/cp_total::float)::numeric(6,2) osm_not_linked_pct
 from ( select
         (select count(1) from cp_post_boxes cp ) cp_total,
         (select count(1) from cp_post_boxes cp where x IS NULL) cp_missing,
