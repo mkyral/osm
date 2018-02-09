@@ -2,6 +2,7 @@
 
 -- Fill data from osm schema
 
+truncate table post_boxes;
 insert into post_boxes (id, create_date)
     select node_id, current_timestamp from current_node_tags where k = 'amenity' and v = 'post_box';
 
