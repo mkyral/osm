@@ -24,6 +24,12 @@ select cp.ref, cp.psc, cp.id, cp.x, cp.y, cp.lat, cp.lon,
        coalesce(cp.address, cp.suburb||', '||cp.village||', '||cp.district) address,
        cp.place, cp.collection_times, cp.last_update, cp.source,
        pb.latitude, pb.longitude, pb.ref, pb.operator, pb.collection_times,
+       CASE WHEN pb.id IS NULL THEN 'Missing'
+            WHEN pb.id IS NOT NULL and
+                 cp.collection_times = pb.collection_times and
+                 pb.operator = 'Česká pošta, s.p.' THEN 'OK'
+            ELSE 'Partial'
+        END as state
 from cp_post_boxes cp
      LEFT OUTER JOIN post_boxes pb
      ON cp.ref = pb.ref
