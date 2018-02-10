@@ -9,8 +9,8 @@ $query = "select cp_total,
 from ( select
         (select count(1) from cp_post_boxes cp ) cp_total,
         (select count(1) from cp_post_boxes cp where x IS NULL) cp_missing,
-        (select count(1) from post_boxes pb) osm_total,
-        (select count(1) from cp_post_boxes cp, post_boxes pb where cp.ref = pb.ref) osm_linked) t";
+        (select count(1) from osm_post_boxes pb) osm_total,
+        (select count(1) from cp_post_boxes cp, osm_post_boxes pb where cp.ref = pb.ref) osm_linked) t";
 
 $result = pg_query($CONNECT,$query);
 if (pg_num_rows($result) != 1) die;
@@ -54,7 +54,7 @@ select psc, name, cp_total,
 from ( select d.psc, d.name,
         (select count(1) from cp_post_boxes cp where cp.psc = d.psc) cp_total,
         (select count(1) from cp_post_boxes cp where cp.psc = d.psc and x IS NULL) cp_missing,
-        (select count(1) from cp_post_boxes cp, post_boxes pb where cp.psc = d.psc and cp.ref = pb.ref) osm_linked
+        (select count(1) from cp_post_boxes cp, osm_post_boxes pb where cp.psc = d.psc and cp.ref = pb.ref) osm_linked
       from cp_depos d) s";
 
 $result=pg_query($CONNECT,$query);
