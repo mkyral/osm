@@ -50,8 +50,6 @@ where pb.ref = pbl.ref
   )
 );
 
--- Insert new
-
 \echo
 \echo '* Insert new post boxes'
 insert into cp_post_boxes
@@ -66,6 +64,13 @@ from cp_post_boxes_upload
 where ref in (select ref from cp_post_boxes_upload EXCEPT select ref from cp_post_boxes);
 
 
-
--- Update timestamp
+\echo
+\echo '* Update timestamp'
 update cp_data_state set (cp, cp_source) = (select current_timestamp, source from cp_post_boxes_upload LIMIT 1);
+
+\timing off
+
+\echo
+\echo '----------------------------------------------------------------------------'
+select 'Done - '||to_char(current_timestamp, 'YYYYMMDD HH24:MI:SS');
+\echo '----------------------------------------------------------------------------'

@@ -59,19 +59,32 @@ create table cp_depos (
 );
 
 create table cp_stats (
+    depo           bigint,
+    cp_total       bigint,
+    cp_missing     bigint,
+    osm_total      bigint,
+    osm_linked     bigint,
+    osm_linked_pct numeric(6,2),
+    cp_timestamp   timestamp with time zone,
+    osm_timestamp  timestamp with time zone
+);
+
+
+create table cp_daily_stats (
     day date,
     cp_timestamp   timestamp with time zone,
     osm_timestamp  timestamp with time zone,
     cp_total       bigint,
+    cp_missing     bigint,
     osm_total      bigint,
-    osm_linked     bigint,
-    osm_linked_pct number(6,2)
+    osm_linked     bigint
 );
 
 create table cp_data_state (
     cp timestamp with time zone,
     cp_source varchar(25),
-    osm timestamp with time zone
+    osm timestamp with time zone,
+    stats timestamp with time zone
 );
 
 comment on table cp_data_state is 'Info about latest data refresh';
@@ -82,6 +95,10 @@ comment on column cp_data_state.osm is 'OSM import';
 grant select on cp_post_boxes to Public;
 grant select on osm_post_boxes to Public;
 grant select on cp_depos to Public;
+grant select on cp_stats to Public;
+grant select on cp_daily_stats to Public;
 grant select on cp_data_state to Public;
+
+
 
 -- cat POST_SCHRANKY_201802.csv |cut -d ";" -f 1,2 |iconv -f cp1250 -t utf-8 |sort -u| sed "s/\([^;]*\);\(.*\)/insert into cp_depos values (\1, '\2');/" >cp_depos.sql

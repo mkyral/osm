@@ -194,7 +194,10 @@ for ($i=0;$i<pg_num_rows($result);$i++)
 }
 echo("</table>\n");
 
-$query = "select to_char(cp, 'DD.MM.YYYY') as cp, cp_source, to_char(osm, 'DD.MM.YYYY') as osm from cp_data_state";
+$query = "
+select to_char(cp, 'DD.MM.YYYY') as cp, cp_source, to_char(osm, 'DD.MM.YYYY') as osm,
+       to_char(stats, 'DD.MM.YYYY HH24:MI:SS') as stats
+from cp_data_state";
 
 $result = pg_query($CONNECT,$query);
 if (pg_num_rows($result) != 1) die;
@@ -202,8 +205,15 @@ if (pg_num_rows($result) != 1) die;
 $state_cp = pg_result($result,0,"cp");
 $state_cp_source = pg_result($result,0,"cp_source");
 $state_osm = pg_result($result,0,"osm");
+$state_stats = pg_result($result,0,"stats");
 
-echo("<br><b style='font-size: 150%;'>Data ke dni</b><br>Česká pošta: ".$state_cp." (".$state_cp_source.") | Openstreetmap: ".$state_osm."<br>\n");
+echo("
+<br>
+<b>Statistiky jsou přepočítávány jednou denně.</b><br>
+<br>
+<b>Poslední přepočet:</b> $state_stats, <br><br>
+<b>Data ke dni:</b> Česká pošta - ".$state_cp." (".$state_cp_source.") | Openstreetmap - ".$state_osm."<br><br>\n");
+
 echo("</div>\n");
 echo("</body>\n");
 echo("</html>\n");

@@ -37,11 +37,6 @@ update osm_post_boxes pb set operator = (select v from current_node_tags c where
 \echo '* Update timestamp'
 update cp_data_state set osm = (select osm from import.datatimestamp LIMIT 1);
 
-
-\echo
-\echo '* Compute stats'
-
-
 \timing off
 
 \echo
