@@ -5,11 +5,16 @@ $id=0;
 if (isset($_REQUEST['id'])) $id=$_REQUEST['id'];
 if ( !is_numeric($id) ) die;
 
-$filters = array("OK", "Partial", "Missing", "Deleted");
+$filters = array(
+    "OK" => "OK",
+    "Partial" => "Částečně",
+    "Missing" => "Chybí",
+    "Deleted" => "Zrušeno"
+);
 
 $filter = '';
 if (isset($_REQUEST['filter'])) $filter = $_REQUEST['filter'];
-if (!in_array($filter, $filters)) $filter = '';
+if (!array_key_exists($filter, $filters)) $filter = '';
 
 $query = "
 select cp_total,
@@ -45,13 +50,17 @@ echo("<title>Import poštovních schránek</title>\n");
 echo("<style type='text/css'>\n");
 echo("  table.ex1 {border-spacing: 0}\n");
 echo("  table.ex1 td, th {padding: 0 0.2em; border-bottom:1pt solid black; padding: 0.5em; vertical-align: top;}\n");
-echo("  .label {padding: 5px; box-shadow: 2px 2px 5px grey; border-radius: 5px;}\n");
+echo("  .labels {padding: 0.5em; word-spacing: 0.5em;}\n");
+echo("  .labels a {text-decoration: none;}\n");
+echo("  .label {padding: 5px; box-shadow: 2px 2px 5px grey; border-radius: 5px; }\n");
 echo("  .lower {top: 4px; position: relative;}\n");
 echo("  .smaller {font-size: 80%;}\n");
+echo("  .active {font-size: 200%; color: #ccc}\n");
 echo("  .ok {background-color: #28a745; color: #fff;}\n");
 echo("  .partial {background-color: #ffc107; color: #333;}\n");
 echo("  .missing {background-color: #dc3545; color: #fff;}\n");
 echo("  .deleted {background-color: #000; color: #fff;}\n");
+echo("  .normal {background-color: #fff; color: #000; border-color:#000}\n");
 echo("  table.ex1 tr:nth-child(odd) {color: #000; background: #FFF}\n");
 echo("  table.ex1 tr:nth-child(even) {color: #000; background: #CCC}\n");
 echo("</style>\n");
@@ -91,25 +100,23 @@ order by cp.id";
 $result=pg_query($CONNECT,$query);
 if (pg_num_rows($result) < 1) die;
 
-switch ($filter) {
-    case 'OK':
-        $ftag = "<span class='label ok'>OK</span>";
-        break;
-    case 'Partial':
-        $ftag = "<span class='label partial'>Částečně</span>";
-        break;
-    case 'Deleted':
-        $ftag = "<span class='label deleted'>Zrušeno</span>";
-        break;
-    case 'Missing':
-        $ftag = "<span class='label missing'>Chybí</span>";
-        break;
-    default:
-        $ftag = "";
+# Labels row
+echo("<div class='labels'>");
+if (empty($filter)) {
+    echo("<span class='label normal active'><b>Vše</b></span> \n");
+} else {
+    echo("<a href='depo.php?id=$id'><span class='label normal'>Vše</span></a> \n");
 }
-if (!empty($filter)) {
-    echo("<h3>! Zobrazeny pouze řádky ve stavu $ftag !</h3>");
+
+foreach($filters as $ft => $ft_val) {
+    if ($filter == $ft) {
+        echo("<span class='label ".strtolower($ft)." active'><b>".$ft_val."</b></span> \n");
+    } else {
+        echo("<a href='depo.php?id=$id&filter=$ft'><span class='label ".strtolower($ft)."'>".$ft_val."</span></a> \n");
+    }
 }
+
+echo("</div>");
 
 echo("<table cellpadding=2 border=0 class='ex1'>\n");
 echo("<tr>
