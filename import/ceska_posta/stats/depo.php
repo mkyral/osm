@@ -45,25 +45,9 @@ $depo_name=pg_result($result,0,"name");
 
 echo("<html>\n");
 echo("<head>\n");
-echo("<meta charset='utf-8'>");
-echo("<title>Import poštovních schránek</title>\n");
-echo("<style type='text/css'>\n");
-echo("  table.ex1 {border-spacing: 0}\n");
-echo("  table.ex1 td, th {padding: 0 0.2em; border-bottom:1pt solid black; padding: 0.5em; vertical-align: top;}\n");
-echo("  .labels {padding: 0.5em; word-spacing: 0.5em;}\n");
-echo("  .labels a {text-decoration: none;}\n");
-echo("  .label {padding: 5px; box-shadow: 2px 2px 5px grey; border-radius: 5px; }\n");
-echo("  .lower {top: 4px; position: relative;}\n");
-echo("  .smaller {font-size: 80%;}\n");
-echo("  .active {font-size: 200%; color: #ccc}\n");
-echo("  .ok {background-color: #28a745; color: #fff;}\n");
-echo("  .partial {background-color: #ffc107; color: #333;}\n");
-echo("  .missing {background-color: #dc3545; color: #fff;}\n");
-echo("  .deleted {background-color: #000; color: #fff;}\n");
-echo("  .normal {background-color: #fff; color: #000; border-color:#000}\n");
-echo("  table.ex1 tr:nth-child(odd) {color: #000; background: #FFF}\n");
-echo("  table.ex1 tr:nth-child(even) {color: #000; background: #CCC}\n");
-echo("</style>\n");
+echo("  <meta charset='utf-8'>");
+echo("  <title>Import poštovních schránek</title>\n");
+echo("  <link rel='stylesheet' href='style.css'/>");
 echo("</head>\n");
 echo("<body style='background: #fff; color: #000'>\n");
 echo("<div align=center>\n");
@@ -77,17 +61,33 @@ echo("</table><br>\n");
 echo("<font size=6><b>Nahráno $osm_linked_pct procent schránek.</b></font><br><hr>\n");
 
 
+echo("
+<div id='myModal' class='modal'>
+
+  <!-- Modal content -->
+  <div class='modal-content'>
+    <span class='close'>&times;</span>
+    <h1 id='myModalHeader'>Header</h1>
+    <p id='myModalContent'>Some text in the Modal..</p>
+  </div>
+
+</div>
+");
+
+
 $query="
 select cp.ref, cp.psc, cp.id, cp.x, cp.y, cp.lat, cp.lon,
        coalesce(cp.address, cp.suburb||', '||cp.village||', '||cp.district) address,
        cp.place, cp.collection_times cp_collection_times, cp.last_update, cp.source,
-       pb.id osm_id, pb.latitude, pb.longitude, pb.ref, pb.operator, pb.collection_times osm_collection_times,
+       pb.id osm_id, pb.latitude, pb.longitude, pb.ref, pb.operator,
+       pb.collection_times osm_collection_times, pb.fixme,
        CASE WHEN pb.id IS NOT NULL and cp.state = 'D' THEN 'Deleted'
             WHEN pb.id IS NULL and cp.state = 'A' THEN 'Missing'
             WHEN pb.id IS NOT NULL and
                  cp.state = 'A' and
                  cp.collection_times = pb.collection_times and
-                 coalesce(pb.operator, 'xxx') = 'Česká pošta, s.p.' THEN 'OK'
+                 coalesce(pb.operator, 'xxx') = 'Česká pošta, s.p.' and
+                 pb.fixme IS NULL THEN 'OK'
             WHEN pb.id IS NOT NULL and cp.state = 'A' THEN 'Partial'
             ELSE 'Deleted'
        END as state
@@ -167,10 +167,13 @@ for ($i=0;$i<pg_num_rows($result);$i++)
                 $msg[] = "<span class='label partial lower smaller'>Nesouhlasí časy výběru</span>";
             }
             if (pg_result($result,$i,"operator") == '') {
-                $msg[] = "<span class='label partial lower smaller'>Chybí operátor</a>";
+                $msg[] = "<span class='label partial lower smaller'>Chybí operátor</span>";
             }
             elseif (pg_result($result,$i,"operator") != 'Česká pošta, s.p.') {
                 $msg[] = "<span class='label partial lower smaller'>Nesprávný operátor: ".pg_result($result,$i,"operator")."</span>";
+            }
+            if (pg_result($result,$i,"fixme") != '') {
+                $msg[] = "<span class='label partial lower smaller' title='".pg_result($result,$i,"fixme")."'>Fixme</span>";
             }
             break;
      case 'Deleted':
@@ -189,7 +192,9 @@ for ($i=0;$i<pg_num_rows($result);$i++)
     echo("<td>".pg_result($result,$i,"address")."<br>".pg_result($result,$i,"place")."<br>".implode(" ",$msg)."</td>\n");
     echo("<td>".pg_result($result,$i,"cp_collection_times")."<br><br>".pg_result($result,$i,"osm_collection_times")."</td>\n");
     echo("<td>".$krovak."<br>".$latlon."<br>".$osm_latlon."</td>\n");
-    echo("<td>".pg_result($result,$i,"source")."</td>\n");
+//     export_tags.php?id=".pg_result($result,$i,"ref")."
+    echo("<td>".pg_result($result,$i,"source")."<br>
+          <br><img src='img/copy-tags.png' alt='+++'title='Vypsat OSM tagy' onclick='showOsmTags(\"".pg_result($result,$i,"ref")."\",\"".pg_result($result,$i,"cp_collection_times")."\")' class='link'></td>\n");
     echo("</tr>\n");
 }
 echo("</table>\n");
@@ -211,10 +216,42 @@ echo("
 <br>
 <b>Statistiky jsou přepočítávány jednou denně.</b><br>
 <br>
-<b>Poslední přepočet:</b> $state_stats, <br><br>
+<b>Poslední přepočet:</b> $state_stats <br><br>
 <b>Data ke dni:</b> Česká pošta - ".$state_cp." (".$state_cp_source.") | Openstreetmap - ".$state_osm."<br><br>\n");
 
 echo("</div>\n");
+
+echo("
+<script>
+// Get the modal and content
+var modal = document.getElementById('myModal');
+var modalContent = document.getElementById('myModalContent');
+var modalHeader = document.getElementById('myModalHeader');
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName('close')[0];
+
+// When the user clicks the button, open the modal
+showOsmTags = function (ref, ct) {
+    modal.style.display = 'block';
+    modalHeader.innerText=ref;
+    modalContent.innerHTML='<pre>amenity=post_box<br>collection_times=' + ct + '<br>operator=Česká pošta, s.p.<br>ref=' + ref + '<br></pre>';
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = 'none';
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+</script>
+");
+
 echo("</body>\n");
 echo("</html>\n");
 ?>

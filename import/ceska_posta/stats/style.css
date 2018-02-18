@@ -1,0 +1,133 @@
+table.ex1 {
+    border-spacing: 0
+}
+
+table.ex1 td, th {
+    padding: 0 0.2em;
+    border-bottom:1pt solid black;
+    padding: 0.5em;
+    vertical-align: top;
+}
+
+.labels {
+    padding: 0.5em;
+    word-spacing: 0.5em;
+}
+
+.labels a {
+    text-decoration: none;
+}
+
+.label {
+    padding: 5px;
+    box-shadow: 2px 2px 5px grey;
+    border-radius: 5px;
+}
+
+.lower {
+    top: 4px;
+    position: relative;
+}
+
+.smaller {
+    font-size: 80%;
+}
+
+.active {
+    font-size: 200%;
+    color: #ccc;
+}
+
+.ok {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.partial {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.missing {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.deleted {
+    background-color: #000;
+    color: #fff;
+}
+
+.normal {
+    background-color: #fff;
+    color: #000;
+    border-color:#000;
+}
+
+table.ex1 tr:nth-child(odd) {
+    color: #000;
+    background: #FFF;
+}
+
+table.ex1 tr:nth-child(even) {
+    color: #000;
+    background: #CCC;
+}
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 5px;
+    border: 1px solid #888;
+    width: 300px;
+    box-shadow: 2px 2px 5px grey;
+    border-radius: 5px;
+    text-align: left;
+    /* Center it */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+}
+
+.modal-content h1 {
+    border-bottom: 1px solid #888;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.link {
+    cursor: pointer;
+}
