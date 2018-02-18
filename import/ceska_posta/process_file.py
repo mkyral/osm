@@ -60,19 +60,23 @@ program_name = sys.argv[0]
 arguments = sys.argv[1:]
 
 if (len(arguments) < 2):
-    print("Usage: %s IN_CSV_FILE OUT_GEOJSON_FILE [geojson|sql|all]" % (program_name))
+    print("Usage: %s IN_CSV_FILE OUT_FILE_PATTERN [geojson|sql|all]" % (program_name))
     exit(1)
 
 infile = arguments[0]
 outfile = arguments[1]
 outtype = 'all'
 if (len(arguments) > 2):
-    outtype = arguments[2]
+    outtype = arguments[2].lower()
     if (outtype != 'geojson' and outtype != 'sql' and outtype != 'all'):
         print("Unknown output type: %s. Type 'all' will be used!" % (outtype))
         outtype = 'all'
 
-print("Infile: %s; outfile: %s; outtype: %s" % (infile, outfile, outtype))
+# Extract source file date id
+fname=infile.split(".")[0].split("_")
+inid=fname[len(fname)-1]
+
+print("Infile: %s; source: %s; outfile: %s; outtype: %s" % (infile, inid, outfile, outtype))
 
 try:
     with open(infile, newline='', encoding='cp1250') as csvfile:
@@ -169,6 +173,8 @@ if (outtype == 'sql' or outtype == 'all'):
     print("Generating sql")
     try:
         with open("%s.%s" % (outfile, 'sql'), encoding='utf-8', mode='w+') as sqlfile:
+            sqlfile.write("truncate table cp_post_boxes_upload;\n")
+            sqlfile.write("\n")
             for k in boxes:
                 box = boxes[k]
                 data = {}
@@ -182,11 +188,15 @@ if (outtype == 'sql' or outtype == 'all'):
                     data['y'] = box['krovak']['y']
                     data['lat'] = box['wgs84']['lat']
                     data['lon'] = box['wgs84']['lon']
+                    data['updated_lat'] = 'null'
+                    data['updated_lon'] = 'null'
                 else:
                     data['x'] = 'null'
                     data['y'] = 'null'
                     data['lat'] = 'null'
                     data['lon'] = 'null'
+                    data['updated_lat'] = 'null'
+                    data['updated_lon'] = 'null'
 
                 if ('address' in box):
                     data['address'] = box['address']
@@ -207,8 +217,8 @@ if (outtype == 'sql' or outtype == 'all'):
                 else:
                     data['collection_times'] = 'null'
 
-                sqlfile.write("insert into cp_post_boxes (ref, psc, id, x, y, lat, lon, address, place, suburb, village, district, collection_times, create_date, source) values ( '%s', %s, %s, %s, %s, %s, %s, '%s', '%s', '%s', '%s', '%s', '%s', current_timestamp, 'CP:201802' );\n" %
-                (data['ref'], data['psc'], data['id'], data['x'], data['y'], data['lat'], data['lon'], data['address'], data['place'], data['suburb'], data['village'], data['district'], data['collection_times']))
+                sqlfile.write("insert into cp_post_boxes_upload (ref, psc, id, x, y, lat, lon, updated_lat, updated_lon, address, place, suburb, village, district, collection_times, source) values ( '%s', %s, %s, %s, %s, %s, %s,  %s, %s, '%s', '%s', '%s', '%s', '%s', '%s', 'CP:%s' );\n" %
+                (data['ref'], data['psc'], data['id'], data['x'], data['y'], data['lat'], data['lon'], data['updated_lat'], data['updated_lon'], data['address'], data['place'], data['suburb'], data['village'], data['district'], data['collection_times'], inid))
 
     except Exception as error:
         print('Error :-(')

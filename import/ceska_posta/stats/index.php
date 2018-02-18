@@ -6,11 +6,7 @@ $query = "select cp_total,
        osm_total,
        osm_linked, (osm_linked::float*100/cp_total::float)::numeric(6,2) osm_linked_pct,
        (osm_total-osm_linked) osm_not_linked, ((osm_total-osm_linked)::float*100/cp_total::float)::numeric(6,2) osm_not_linked_pct
-from ( select
-        (select count(1) from cp_post_boxes cp ) cp_total,
-        (select count(1) from cp_post_boxes cp where x IS NULL) cp_missing,
-        (select count(1) from post_boxes pb) osm_total,
-        (select count(1) from cp_post_boxes cp, post_boxes pb where cp.ref = pb.ref) osm_linked) t";
+from cp_stats where depo = 0";
 
 $result = pg_query($CONNECT,$query);
 if (pg_num_rows($result) != 1) die;
@@ -52,10 +48,10 @@ select psc, name, cp_total,
        cp_missing, (cp_missing::float*100/cp_total::float)::numeric(6,2) cp_missing_pct,
        osm_linked, (osm_linked::float*100/cp_total::float)::numeric(6,2) osm_linked_pct
 from ( select d.psc, d.name,
-        (select count(1) from cp_post_boxes cp where cp.psc = d.psc) cp_total,
-        (select count(1) from cp_post_boxes cp where cp.psc = d.psc and x IS NULL) cp_missing,
-        (select count(1) from cp_post_boxes cp, post_boxes pb where cp.psc = d.psc and cp.ref = pb.ref) osm_linked
-      from cp_depos d) s";
+       s.cp_total, s,cp_missing, s.osm_linked
+      from cp_depos d, cp_stats s
+      where d.psc = s.depo) x
+      order by psc";
 
 $result=pg_query($CONNECT,$query);
 if (pg_num_rows($result) < 1) die;
@@ -76,6 +72,26 @@ for ($i=0;$i<pg_num_rows($result);$i++)
     echo("</tr>\n");
     }
 echo("</table>\n");
+
+$query = "
+select to_char(cp, 'DD.MM.YYYY') as cp, cp_source, to_char(osm, 'DD.MM.YYYY') as osm,
+       to_char(stats, 'DD.MM.YYYY HH24:MI:SS') as stats
+from cp_data_state";
+
+$result = pg_query($CONNECT,$query);
+if (pg_num_rows($result) != 1) die;
+
+$state_cp = pg_result($result,0,"cp");
+$state_cp_source = pg_result($result,0,"cp_source");
+$state_osm = pg_result($result,0,"osm");
+$state_stats = pg_result($result,0,"stats");
+
+echo("
+<br>
+<b>Statistiky jsou přepočítávány jednou denně.</b><br>
+<br>
+<b>Poslední přepočet:</b> $state_stats, <br><br>
+<b>Data ke dni:</b> Česká pošta - ".$state_cp." (".$state_cp_source.") | Openstreetmap - ".$state_osm."<br><br>\n");
 
 echo("</div>\n");
 echo("</body>\n");
