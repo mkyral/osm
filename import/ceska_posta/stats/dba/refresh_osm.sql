@@ -32,6 +32,14 @@ update osm_post_boxes pb set collection_times = (select v from current_node_tags
 \echo '* Add Operator data'
 update osm_post_boxes pb set operator = (select v from current_node_tags c where c.node_id = pb.id and c.k = 'operator');
 
+\echo
+\echo '* Add fixme data'
+update osm_post_boxes pb set fixme = (select v from current_node_tags c where c.node_id = pb.id and c.k = 'fixme');
+
+\echo
+\echo '* Add note data'
+update osm_post_boxes pb set note = (select v from current_node_tags c where c.node_id = pb.id and c.k = 'note');
+
 
 \echo
 \echo '* Update timestamp'

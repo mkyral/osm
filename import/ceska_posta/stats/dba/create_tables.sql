@@ -5,6 +5,8 @@ create table osm_post_boxes (
     ref              character varying(255),
     operator         character varying(255),
     collection_times character varying(255),
+    fixme            character varying(255),
+    note             character varying(255),
     create_date      timestamp,
     last_update      timestamp
 );
