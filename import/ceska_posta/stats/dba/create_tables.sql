@@ -94,12 +94,19 @@ comment on column cp_data_state.cp is 'Czech post boxes';
 comment on column cp_data_state.cp_source is 'Czech post source file';
 comment on column cp_data_state.osm is 'OSM import';
 
+create table cp_geocoded_coors (
+    ref     varchar(25)  NOT NULL,
+    lat     numeric(20,10),
+    lon     numeric(20,10)
+);
+
 grant select on cp_post_boxes to Public;
 grant select on osm_post_boxes to Public;
 grant select on cp_depos to Public;
 grant select on cp_stats to Public;
 grant select on cp_daily_stats to Public;
 grant select on cp_data_state to Public;
+grant select on cp_geocoded_coors to Public;
 
 
 
