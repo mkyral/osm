@@ -9,6 +9,9 @@ import pyproj
 from geojson import Feature, Point, FeatureCollection
 import json
 
+# for distance calculation
+from math import sin, cos, sqrt, atan2, radians
+
 # configuration
 osm_precision = 7
 bbox = {'min': {'lat': 48.55, 'lon': 12.09}, 'max': {'lat': 51.06, 'lon': 18.87}}
@@ -18,11 +21,41 @@ ln_count = 0
 missing_count = 0
 
 boxes = {}
+geocoded_coors = {}
+osm_coors = {}
 
 # Init projection
 inProj = pyproj.Proj(init='epsg:5514', proj='krovak', ellps='bessel', towgs84='570.8,85.7,462.8,4.998,1.587,5.261,3.56')
 outProj = pyproj.Proj(init='epsg:4326')
 
+
+# compute distance between two points
+def get_distance(p1, p2):
+
+    R = 6373.0
+
+    lat1 = radians(p1['lat'])
+    lon1 = radians(p1['lon'])
+    lat2 = radians(p2['lat'])
+    lon2 = radians(p2['lon'])
+
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+
+    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    distance = (R * c)
+
+    if (distance > 1):
+        return("%s km" % round(distance, 1))
+    else:
+        distance = distance * 1000
+        if (distance > 1):
+            return("%s m" % round(distance, 2))
+        else:
+            distance = distance * 1000
+            return("%s cm" % round(distance, 2))
 
 # Check coors whether are in bbox
 def check_bbox(coors):
@@ -51,6 +84,37 @@ def merge_box(box):
     else:
         boxes[box['ref']] = box
 
+def load_corrections():
+    global geocoded_coors
+    global osm_coors
+    global osm_precision
+
+    # Load geocoded coors
+    try:
+        with open('missing_coordinates.csv', newline='') as csvfile:
+            csvreader = csv.DictReader(csvfile, delimiter=';')
+            for row in csvreader:
+                latlon = {}
+                latlon['lat'] = round(float(row['lat']), osm_precision)
+                latlon['lon'] = round(float(row['lon']), osm_precision)
+                geocoded_coors[row['ref']] = latlon
+    except Exception as error:
+        print(error)
+        print('Can\'t read file "missing_coordinates.csv", skipping it')
+
+    # Load geocoded coors
+    try:
+        with open('osm_coors.csv', newline='') as csvfile:
+            csvreader = csv.DictReader(csvfile, delimiter=';')
+            for row in csvreader:
+                latlon = {}
+                latlon['lat'] = round(float(row['lat']), osm_precision)
+                latlon['lon'] = round(float(row['lon']), osm_precision)
+                osm_coors[row['ref']] = latlon
+    except Exception as error:
+        print(error)
+        print('Can\'t read file "osm_coors.csv", skipping it')
+
 # ------------
 #     Main
 # ------------
@@ -77,6 +141,9 @@ fname=infile.split(".")[0].split("_")
 inid=fname[len(fname)-1]
 
 print("Infile: %s; source: %s; outfile: %s; outtype: %s" % (infile, inid, outfile, outtype))
+
+# Load files with correction
+load_corrections()
 
 try:
     with open(infile, newline='', encoding='cp1250') as csvfile:
@@ -135,16 +202,41 @@ if (outtype == 'geojson' or outtype == 'all'):
     for k in boxes:
         box = boxes[k]
 
-        if ('wgs84' in box and 'lat' in box['wgs84']):
+        if (('wgs84' in box and 'lat' in box['wgs84']) or k in geocoded_coors):
             props = {}
             props['amenity'] = 'post_box'
             props['ref'] = k
             props['operator'] = 'Česká pošta, s.p.'
 
+            # Shift coordinates according to OSM or geocoded coors
+            coors_shift=''
+            if (k in osm_coors):
+                coors_shift = "<p style='text-align: center'><u>Souřadnice převzaty z OSM!</u>"
+                if ('wgs84' in box and 'lat' in box['wgs84']):
+                    coors_shift = ("%s<br>Posunuto o %s" % (coors_shift, get_distance(box['wgs84'], osm_coors[k])))
+                    coors_shift
+                else:
+                    coors_shift = ("%s%s" % (coors_shift, "</p>"))
+
+                box['wgs84:orig'] = {}
+
+                if ('wgs84' in box and 'lat' in box['wgs84']):
+                    box['wgs84:orig'] = box['wgs84']
+                box['wgs84'] = osm_coors[k]
+
+            elif (k in geocoded_coors):
+                coors_shift = "<p style='color:red; text-align:center'><b>POZOR:</b> Souřadnice jsou pouze <u>orientační</u>!<br>Přesné umístění nutno dohledat dle poznámky!</p>"
+
+                box['wgs84:orig'] = {}
+
+                if ('wgs84' in box and 'lat' in box['wgs84']):
+                    box['wgs84:orig'] = box['wgs84']
+                box['wgs84'] = geocoded_coors[k]
+
             if (box['address']):
-                props['_note'] = ('<br><b>Poznámka:</b> %s <br><b>Adresa:</b> %s' % (box['place_desc'], box['address']))
+                props['_note'] = ('<br><b>Poznámka:</b> %s <br><b>Adresa:</b> %s %s' % (box['place_desc'], box['address'], coors_shift))
             else:
-                props['_note'] = ('<br><b>Poznámka:</b> %s <br><b>Adresa:</b> %s; %s; %s' % (box['place_desc'], box['district'], box['village'], box['suburb']))
+                props['_note'] = ('<br><b>Poznámka:</b> %s <br><b>Adresa:</b> %s; %s; %s %s' % (box['place_desc'], box['district'], box['village'], box['suburb'], coors_shift))
 
             if (box['collection_times']):
                 ct = []
