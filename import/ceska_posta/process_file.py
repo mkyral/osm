@@ -20,6 +20,7 @@ bbox = {'min': {'lat': 48.55, 'lon': 12.09}, 'max': {'lat': 51.06, 'lon': 18.87}
 ln_count = 0
 missing_count = 0
 
+
 boxes = {}
 geocoded_coors = {}
 osm_coors = {}
@@ -45,7 +46,10 @@ def get_distance(p1, p2):
     a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
-    distance = (R * c)
+    return (R * c)
+
+# format distance value - add unit
+def format_distance(distance):
 
     if (distance > 1):
         return("%s km" % round(distance, 1))
@@ -199,7 +203,7 @@ if (outtype == 'geojson' or outtype == 'all'):
 
     coll = []
 
-    for k in boxes:
+    for k in sorted(boxes.keys()):
         box = boxes[k]
 
         if (('wgs84' in box and 'lat' in box['wgs84']) or k in geocoded_coors):
@@ -213,18 +217,21 @@ if (outtype == 'geojson' or outtype == 'all'):
             if (k in osm_coors):
                 coors_shift = "<p style='text-align: center'><u>Souřadnice převzaty z OSM!</u>"
                 if ('wgs84' in box and 'lat' in box['wgs84']):
-                    coors_shift = ("%s<br>Posunuto o %s" % (coors_shift, get_distance(box['wgs84'], osm_coors[k])))
-                    coors_shift
-                else:
+                    dist = get_distance(box['wgs84'], osm_coors[k])
+                    if (dist < 1 ):
+                        coors_shift = ("%s<br>Posunuto o %s" % (coors_shift, format_distance(dist)))
+
+                if not coors_shift:
                     coors_shift = ("%s%s" % (coors_shift, "</p>"))
 
-                box['wgs84:orig'] = {}
+                if (dist < 1 ):
+                    box['wgs84:orig'] = {}
 
-                if ('wgs84' in box and 'lat' in box['wgs84']):
-                    box['wgs84:orig'] = box['wgs84']
-                box['wgs84'] = osm_coors[k]
+                    if ('wgs84' in box and 'lat' in box['wgs84']):
+                        box['wgs84:orig'] = box['wgs84']
+                    box['wgs84'] = osm_coors[k]
 
-            elif (k in geocoded_coors):
+            if (k in geocoded_coors and not ('wgs84' in box and 'lat' in box['wgs84'])):
                 coors_shift = "<p style='color:red; text-align:center'><b>POZOR:</b> Souřadnice jsou pouze <u>orientační</u>!<br>Přesné umístění nutno dohledat dle poznámky!</p>"
 
                 box['wgs84:orig'] = {}
@@ -253,7 +260,7 @@ if (outtype == 'geojson' or outtype == 'all'):
     # write to file
     try:
         with open("%s.%s" % (outfile, 'geojson'), encoding='utf-8', mode='w+') as geojsonfile:
-            geojsonfile.write(json.dumps(feature_collection, ensure_ascii=False, indent=2))
+            geojsonfile.write(json.dumps(feature_collection, ensure_ascii=False, indent=2, sort_keys=True))
     except Exception as error:
         print('Error :-(')
         print(error)
