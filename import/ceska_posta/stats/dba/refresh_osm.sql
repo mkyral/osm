@@ -14,7 +14,8 @@ truncate table osm_post_boxes;
 \echo
 \echo '* Insert actual post boxes'
 insert into osm_post_boxes (id, create_date)
-    select node_id, current_timestamp from current_node_tags where k = 'amenity' and v = 'post_box';
+    select t.node_id, current_timestamp from current_node_tags t, current_nodes n
+    where t.k = 'amenity' and t.v = 'post_box' and t.node_id = n.id and n.visible = 't' ;
 
 \echo
 \echo '* Add LatLon data'
