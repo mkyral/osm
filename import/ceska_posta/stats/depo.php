@@ -76,26 +76,47 @@ echo("
 
 
 $query="
-select cp.ref, cp.psc, cp.id, cp.x, cp.y, cp.lat, cp.lon,
+WITH depo_data AS (
+select cp.ref, cp.state, cp.psc, cp.id, cp.x, cp.y, cp.lat, cp.lon,
        coalesce(cp.address, cp.suburb||', '||cp.village||', '||cp.district) address,
        cp.place, cp.collection_times cp_collection_times, cp.last_update, cp.source,
-       pb.id osm_id, pb.latitude, pb.longitude, pb.ref, pb.operator,
-       pb.collection_times osm_collection_times, pb.fixme,
-       CASE WHEN pb.id IS NOT NULL and cp.state = 'D' THEN 'Deleted'
-            WHEN pb.id IS NULL and cp.state = 'A' THEN 'Missing'
-            WHEN pb.id IS NOT NULL and
-                 cp.state = 'A' and
-                 cp.collection_times = pb.collection_times and
-                 coalesce(pb.operator, 'xxx') = 'Česká pošta, s.p.' and
-                 pb.fixme IS NULL THEN 'OK'
-            WHEN pb.id IS NOT NULL and cp.state = 'A' THEN 'Partial'
-            ELSE 'Deleted'
-       END as state
+       pb.id osm_id, pb.latitude/10000000 as osm_lat, pb.longitude/10000000 as osm_lon,
+       CASE WHEN cp.lon IS NOT NULL and pb.longitude IS NOT NULL
+              THEN
+                ST_DistanceSphere(st_makepoint(cp.lon, cp.lat),
+                                  st_makepoint(pb.longitude/10000000, pb.latitude/10000000))
+            ELSE NULL
+       END as distance,
+       pb.ref osm_ref, pb.operator as osm_operator,
+       pb.collection_times osm_collection_times, pb.fixme as osm_fixme,
+       (select count(1) from osm_post_boxes where ref = cp.ref) as osm_links_count
 from cp_post_boxes cp
      LEFT OUTER JOIN osm_post_boxes pb
      ON cp.ref = pb.ref
 where psc = ".$id."
-order by cp.id";
+order by cp.id)
+select ref, psc, id, x, y, lat, lon, address, place, cp_collection_times, last_update, source,
+       osm_id, osm_lat, osm_lon, distance,
+       CASE WHEN distance is NULL THEN NULL
+            WHEN distance >= 1000 THEN to_char(distance / 1000.0, 'FM999999999.00')||' km'
+            WHEN distance >= 1 THEN to_char(distance, 'FM999999999.00')||' m'
+            ELSE to_char(distance * 100.0, 'FM999999999.00')||' cm'
+       END as distance_formated,
+       osm_ref, osm_operator, osm_collection_times, osm_fixme,
+       osm_links_count,
+       CASE WHEN osm_id IS NOT NULL and state = 'D' THEN 'Deleted'
+            WHEN osm_id IS NULL and state = 'A' THEN 'Missing'
+            WHEN osm_id IS NOT NULL
+             and state = 'A'
+             and cp_collection_times = osm_collection_times
+             and coalesce(osm_operator, 'xxx') = 'Česká pošta, s.p.'
+             and osm_fixme IS NULL
+             and coalesce(distance, 0) < 1000
+             and coalesce(osm_links_count, 0) < 2 THEN 'OK'
+            WHEN osm_id IS NOT NULL and state = 'A' THEN 'Partial'
+            ELSE 'Deleted'
+       END as state
+from depo_data";
 
 $result=pg_query($CONNECT,$query);
 if (pg_num_rows($result) < 1) die;
@@ -151,8 +172,8 @@ for ($i=0;$i<pg_num_rows($result);$i++)
         $latlon = (float)pg_result($result,$i,"lat").", ".(float)pg_result($result,$i,"lon");
         $ref_url = "<a href='http://osm.kyralovi.cz/POI-Importer-testing/#map=17/".((float)pg_result($result,$i,"lat"))."/".((float)pg_result($result,$i,"lon"))."&datasets=CZECPbox' title='Přejít na POI-Importer'>".pg_result($result,$i,"ref")."</a>";
     }
-    if (pg_result($result,$i,"latitude") != '') {
-        $osm_latlon = (((float)pg_result($result,$i,"latitude"))/10000000).", ".(((float)pg_result($result,$i,"longitude"))/10000000);
+    if (pg_result($result,$i,"osm_lat") != '') {
+        $osm_latlon = ((float)pg_result($result,$i,"osm_lat")).", ".((float)pg_result($result,$i,"osm_lon"));
         $poi_url = "<a href='https://osm.org/node/".pg_result($result,$i,"osm_id")."' title='Přejít na osm.org'>".pg_result($result,$i,"osm_id")."</a>";
     }
 
@@ -166,14 +187,20 @@ for ($i=0;$i<pg_num_rows($result);$i++)
             if (pg_result($result,$i,"cp_collection_times") != pg_result($result,$i,"osm_collection_times")) {
                 $msg[] = "<span class='label partial lower smaller'>Nesouhlasí časy výběru</span>";
             }
-            if (pg_result($result,$i,"operator") == '') {
+            if (pg_result($result,$i,"osm_operator") == '') {
                 $msg[] = "<span class='label partial lower smaller'>Chybí operátor</span>";
             }
-            elseif (pg_result($result,$i,"operator") != 'Česká pošta, s.p.') {
+            elseif (pg_result($result,$i,"osm_operator") != 'Česká pošta, s.p.') {
                 $msg[] = "<span class='label partial lower smaller'>Nesprávný operátor: ".pg_result($result,$i,"operator")."</span>";
             }
-            if (pg_result($result,$i,"fixme") != '') {
-                $msg[] = "<span class='label partial lower smaller' title='".pg_result($result,$i,"fixme")."'>Fixme</span>";
+            if (pg_result($result,$i,"osm_fixme") != '') {
+                $msg[] = "<span class='label partial lower smaller' title='".pg_result($result,$i,"osm_fixme")."'>Fixme</span>";
+            }
+            if (pg_result($result,$i,"distance") >= 1000) {
+                $msg[] = "<span class='label partial lower smaller' title='Schránka v OSM je podezřele daleko: ".pg_result($result,$i,"distance_formated")."'>Vzdálenost</span>";
+            }
+            if (pg_result($result,$i,"osm_links_count") > 1) {
+                $msg[] = "<span class='label partial lower smaller' title='V OSM je schránka vícekrát: ".pg_result($result,$i,"osm_links_count")."x'>Duplicita</span>";
             }
             break;
      case 'Deleted':
