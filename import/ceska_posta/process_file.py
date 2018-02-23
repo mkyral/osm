@@ -10,16 +10,19 @@ from geojson import Feature, Point, FeatureCollection
 import json
 
 # for distance calculation
-from math import sin, cos, sqrt, atan2, radians
+from math import sin, cos, tan, sqrt, atan2, radians, pi, floor, log
 
 # configuration
 osm_precision = 7
 bbox = {'min': {'lat': 48.55, 'lon': 12.09}, 'max': {'lat': 51.06, 'lon': 18.87}}
 
+# where to store POI-Importer tiles
+tiles_config="tiles/dataset.json"
+tiles_dir="tiles/data"
+
 # counters
 ln_count = 0
 missing_count = 0
-
 
 boxes = {}
 geocoded_coors = {}
@@ -60,6 +63,14 @@ def format_distance(distance):
         else:
             distance = distance * 1000
             return("%s cm" % round(distance, 2))
+
+# Get tile xy coors
+def latlonToTilenumber(zoom, lat, lon):
+    n = (2 ** zoom);
+    lat_rad = lat * pi / 180;
+    return ({
+            "x": floor(n * ((lon + 180) / 360)),
+            "y": floor(n * (1 - (log(tan(lat_rad) + 1/cos(lat_rad)) / pi)) / 2) })
 
 # Check coors whether are in bbox
 def check_bbox(coors):
@@ -128,7 +139,7 @@ program_name = sys.argv[0]
 arguments = sys.argv[1:]
 
 if (len(arguments) < 2):
-    print("Usage: %s IN_CSV_FILE OUT_FILE_PATTERN [geojson|sql|all]" % (program_name))
+    print("Usage: %s IN_CSV_FILE OUT_FILE_PATTERN [geojson|tiles|sql|all]" % (program_name))
     exit(1)
 
 infile = arguments[0]
@@ -136,7 +147,7 @@ outfile = arguments[1]
 outtype = 'all'
 if (len(arguments) > 2):
     outtype = arguments[2].lower()
-    if (outtype != 'geojson' and outtype != 'sql' and outtype != 'all'):
+    if (outtype != 'geojson' and outtype != 'tiles' and outtype != 'sql' and outtype != 'all'):
         print("Unknown output type: %s. Type 'all' will be used!" % (outtype))
         outtype = 'all'
 
@@ -148,6 +159,17 @@ print("Infile: %s; source: %s; outfile: %s; outtype: %s" % (infile, inid, outfil
 
 # Load files with correction
 load_corrections()
+
+if outtype == "tiles":
+    # Load dataset config file
+    try:
+        with open(tiles_config) as cfg:
+            dataset = json.load(cfg)
+            print("Zoom: %s" % (dataset['zoom']))
+    except Exception as error:
+        print('Error during loading of dataset configuration file!')
+        print(error)
+        exit(1)
 
 try:
     with open(infile, newline='', encoding='cp1250') as csvfile:
@@ -198,10 +220,20 @@ except Exception as error:
     exit(1)
 
 # generate geojson
-if (outtype == 'geojson' or outtype == 'all'):
-    print("Generating GeoJson")
+if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
 
+    if outtype == 'tiles':
+        print("Generating Tiles")
+    else:
+        print("Generating GeoJson file")
+
+    files = {}
     coll = []
+
+    geojson_file = "%s.%s" % (outfile, 'geojson')
+
+    if (outtype == 'geojson' or outtype == 'all'):
+        files[geojson_file] = coll
 
     for k in sorted(boxes.keys()):
         box = boxes[k]
@@ -253,14 +285,25 @@ if (outtype == 'geojson' or outtype == 'all'):
                 props['collection_times'] = '; '.join(ct)
 
             feature = Feature(geometry=Point((box['wgs84']['lon'], box['wgs84']['lat'])), properties=props)
-            coll.append(feature)
 
-    feature_collection = FeatureCollection(coll)
+            if outtype != 'tiles':
+                files[geojson_file].append(feature)
+            else:
+                tile = latlonToTilenumber(dataset['zoom'], box['wgs84']['lat'], box['wgs84']['lon'])
+                filename = "%s/%s_%s.json" % (tiles_dir, tile['x'], tile['y'])
+                if filename not in files:
+                    coll = []
+                    files[filename] = coll
+                files[filename].append(feature)
 
     # write to file
     try:
-        with open("%s.%s" % (outfile, 'geojson'), encoding='utf-8', mode='w+') as geojsonfile:
-            geojsonfile.write(json.dumps(feature_collection, ensure_ascii=False, indent=2, sort_keys=True))
+        for k in sorted(files.keys()):
+            feature_collection = FeatureCollection(files[k])
+
+            with open(k, encoding='utf-8', mode='w+') as geojsonfile:
+                geojsonfile.write(json.dumps(feature_collection, ensure_ascii=False, indent=2, sort_keys=True))
+
     except Exception as error:
         print('Error :-(')
         print(error)
