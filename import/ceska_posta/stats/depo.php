@@ -197,7 +197,7 @@ for ($i=0;$i<pg_num_rows($result);$i++)
                 $msg[] = "<span class='label partial lower smaller'>Chybí operátor</span>";
             }
             elseif (pg_result($result,$i,"osm_operator") != 'Česká pošta, s.p.') {
-                $msg[] = "<span class='label partial lower smaller'>Nesprávný operátor: ".pg_result($result,$i,"operator")."</span>";
+                $msg[] = "<span class='label partial lower smaller'>Nesprávný operátor: ".pg_result($result,$i,"osm_operator")."</span>";
             }
             if (pg_result($result,$i,"osm_fixme") != '') {
                 $msg[] = "<span class='label partial lower smaller' title='".pg_result($result,$i,"osm_fixme")."'>Fixme</span>";
