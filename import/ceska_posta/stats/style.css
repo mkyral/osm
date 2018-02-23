@@ -74,7 +74,10 @@ table.ex1 tr:nth-child(even) {
     background: #CCC;
 }
 
-
+.warning {
+    color: #dc3545;
+    font-weight: bold;
+}
 
 /* The Modal (background) */
 .modal {

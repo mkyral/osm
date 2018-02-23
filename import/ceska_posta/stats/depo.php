@@ -145,7 +145,7 @@ echo("<tr>
         <td><b>Ref<br><br>OSM Id</b></td>
         <td><b>Umístění<br>Popis</b></td>
         <td><b>Výběr</b></td>
-        <td><b>Křovák<br>WGS84<br>OSM</b></td>
+        <td><b>Pošta<br>OSM<br>Vzdálenost</b></td>
         <td><b>Zdroj</b></td>
       </tr>\n");
 for ($i=0;$i<pg_num_rows($result);$i++)
@@ -159,21 +159,27 @@ for ($i=0;$i<pg_num_rows($result);$i++)
         continue;
     }
 
-    $krovak = '';
+    $distance = '';
     $latlon = '';
     $osm_latlon = '';
     $ref_url = pg_result($result,$i,"ref");
     $poi_url = '';
 
-    if (pg_result($result,$i,"x") != '') {
-        $krovak = (float)pg_result($result,$i,"x").", ".(float)pg_result($result,$i,"y");
+    if (pg_result($result,$i,"distance") != '') {
+        if (pg_result($result,$i,"distance") > 250) {
+            $distance = "<span class='warning'>".pg_result($result,$i,"distance_formated")."</span>";
+        } else{
+            $distance = pg_result($result,$i,"distance_formated");
+        }
     }
     if (pg_result($result,$i,"lat") != '') {
-        $latlon = (float)pg_result($result,$i,"lat").", ".(float)pg_result($result,$i,"lon");
+        $latlon = "<a href='https://osm.org/?mlat=".((float)pg_result($result,$i,"lat"))."&mlon=".((float)pg_result($result,$i,"lon"))."&zoom=17' title='Přejít na osm.org'>".((float)pg_result($result,$i,"lat")).", ".((float)pg_result($result,$i,"lon"))."</a>";
+
         $ref_url = "<a href='http://osm.kyralovi.cz/POI-Importer-testing/#map=17/".((float)pg_result($result,$i,"lat"))."/".((float)pg_result($result,$i,"lon"))."&datasets=CZECPbox' title='Přejít na POI-Importer'>".pg_result($result,$i,"ref")."</a>";
     }
     if (pg_result($result,$i,"osm_lat") != '') {
-        $osm_latlon = ((float)pg_result($result,$i,"osm_lat")).", ".((float)pg_result($result,$i,"osm_lon"));
+        $osm_latlon = "<a href='https://osm.org/?mlat=".((float)pg_result($result,$i,"osm_lat"))."&mlon=".((float)pg_result($result,$i,"osm_lon"))."&zoom=17' title='Přejít na osm.org'>".((float)pg_result($result,$i,"osm_lat")).", ".((float)pg_result($result,$i,"osm_lon"))."</a>";
+
         $poi_url = "<a href='https://osm.org/node/".pg_result($result,$i,"osm_id")."' title='Přejít na osm.org'>".pg_result($result,$i,"osm_id")."</a>";
     }
 
@@ -218,7 +224,7 @@ for ($i=0;$i<pg_num_rows($result);$i++)
     echo("<td>".$ref_url."<br><br>".$poi_url."</td>\n");
     echo("<td>".pg_result($result,$i,"address")."<br>".pg_result($result,$i,"place")."<br>".implode(" ",$msg)."</td>\n");
     echo("<td>".pg_result($result,$i,"cp_collection_times")."<br><br>".pg_result($result,$i,"osm_collection_times")."</td>\n");
-    echo("<td>".$krovak."<br>".$latlon."<br>".$osm_latlon."</td>\n");
+    echo("<td style='text-align: right;'>".$latlon."<br>".$osm_latlon."<br>".$distance."</td>\n");
 //     export_tags.php?id=".pg_result($result,$i,"ref")."
     echo("<td>".pg_result($result,$i,"source")."<br>
           <br><img src='img/copy-tags.png' alt='+++'title='Vypsat OSM tagy' onclick='showOsmTags(\"".pg_result($result,$i,"ref")."\",\"".pg_result($result,$i,"cp_collection_times")."\")' class='link'></td>\n");
