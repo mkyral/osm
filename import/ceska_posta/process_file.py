@@ -4,6 +4,7 @@
 import sys
 import csv
 import pyproj
+import time
 
 #https://github.com/frewsxcv/python-geojson
 from geojson import Feature, Point, FeatureCollection
@@ -21,8 +22,9 @@ tiles_config="tiles/dataset.json"
 tiles_dir="tiles/data"
 
 # counters
-ln_count = 0
+line_counter = 0
 missing_count = 0
+error_count = 0
 
 boxes = {}
 geocoded_coors = {}
@@ -139,24 +141,24 @@ program_name = sys.argv[0]
 arguments = sys.argv[1:]
 
 if (len(arguments) < 2):
-    print("Usage: %s IN_CSV_FILE OUT_FILE_PATTERN [geojson|tiles|sql|all]" % (program_name))
+    print("Usage: %s IN_CSV_FILE tiles" % (program_name))
+    print("Usage: %s IN_CSV_FILE geojson|sql|all OUT_FILE_PATTERN" % (program_name))
     exit(1)
 
 infile = arguments[0]
-outfile = arguments[1]
-outtype = 'all'
+outtype = arguments[1].lower()
+if (outtype != 'geojson' and outtype != 'tiles' and outtype != 'sql' and outtype != 'all'):
+    print("Unknown output type: %s. Type 'all' will be used!" % (outtype))
+    exit(1)
+
 if (len(arguments) > 2):
-    outtype = arguments[2].lower()
-    if (outtype != 'geojson' and outtype != 'tiles' and outtype != 'sql' and outtype != 'all'):
-        print("Unknown output type: %s. Type 'all' will be used!" % (outtype))
-        outtype = 'all'
+    outfile = arguments[2]
 
 # Extract source file date id
 fname=infile.split(".")[0].split("_")
 inid=fname[len(fname)-1]
 
 print("Infile: %s; source: %s; outfile: %s; outtype: %s" % (infile, inid, outfile, outtype))
-
 # Load files with correction
 load_corrections()
 
@@ -171,17 +173,23 @@ if outtype == "tiles":
         print(error)
         exit(1)
 
+print("\nLoading CSV file...")
+start_time = time.time()
 try:
     with open(infile, newline='', encoding='cp1250') as csvfile:
         csvreader = csv.DictReader(csvfile, delimiter=';')
         for row in csvreader:
-            ln_count += 1
+            line_counter += 1
             box = {}
             krovak = {}
             wgs84 = {}
             collection_times = {}
 
             box['ref'] = ("%s:%s" % (row['psc'], row['cis_schranky']))
+
+            if len(row) != 12:
+                    error_count += 1
+                    print(" >> Warning: too many columns (%s) for ref: %s at line %s" % (len(row), box['ref'], line_counter))
 
             krovak['x'],krovak['y'] = row['sour_x'],row['sour_y']
             box['krovak'] = krovak
@@ -219,13 +227,15 @@ except Exception as error:
     print(error)
     exit(1)
 
+print ("...CSV file loaded in %ss" % (round(time.time() - start_time, 2)))
 # generate geojson
+start_time = time.time()
 if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
 
     if outtype == 'tiles':
-        print("Generating Tiles")
+        print("\nGenerating Tiles...")
     else:
-        print("Generating GeoJson file")
+        print("\nGenerating GeoJson file...")
 
     files = {}
     coll = []
@@ -309,10 +319,13 @@ if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
         print(error)
         exit(1)
 
+    print ("...JSON file generated in %ss" % (round(time.time() - start_time, 2)))
+
 
 if (outtype == 'sql' or outtype == 'all'):
+    start_time = time.time()
 # Prepare inserts into database
-    print("Generating sql")
+    print("\nGenerating sql...")
     try:
         with open("%s.%s" % (outfile, 'sql'), encoding='utf-8', mode='w+') as sqlfile:
             sqlfile.write("truncate table cp_post_boxes_upload;\n")
@@ -367,8 +380,11 @@ if (outtype == 'sql' or outtype == 'all'):
         print(error)
         exit(1)
 
+    print ("...SQL file generated in %ss" % (round(time.time() - start_time, 2)))
+
 # some final stats
-print("-----------------------------------------------")
-print("Total lines: %d, missing coors: %d" % (ln_count, missing_count))
+print("\n-----------------------------------------------------")
+print("Total lines: %d, missing coors: %d, errors: %s" % (line_counter, missing_count, error_count))
 print('Boxes: %d' % (len(boxes)))
+print("-----------------------------------------------------")
 
