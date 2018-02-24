@@ -1,10 +1,19 @@
 #!/usr/bin/env python
+"""Process Post Boxes dataset from Česká pošta for OSM import.
 
+Reads input CSV file, parse it and generate tiles for POI-Importer,
+GeoJson or sql file (used by statistics module)
 
-import sys
+More info on
+ Github: https://github.com/mkyral/osm/tree/master/import/ceska_posta
+ @talk-cz: https://lists.openstreetmap.org/listinfo/talk-cz
+"""
+
 import csv
-import pyproj
+import sys
 import time
+
+import pyproj
 
 #https://github.com/frewsxcv/python-geojson
 from geojson import Feature, Point, FeatureCollection
@@ -12,6 +21,15 @@ import json
 
 # for distance calculation
 from math import sin, cos, tan, sqrt, atan2, radians, pi, floor, log
+
+__author__ = "Marián Kyral"
+__copyright__ = "Copyright 2018"
+__credits__ = ["Marián Kyral"]
+__license__ = "GPLv3+"
+__version__ = "1.0"
+__maintainer__ = "Marián Kyral"
+__email__ = "mkyral@email.cz"
+__status__ = "Production"
 
 # configuration
 osm_precision = 7
