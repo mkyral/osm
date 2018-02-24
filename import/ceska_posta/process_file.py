@@ -171,6 +171,8 @@ if (outtype != 'geojson' and outtype != 'tiles' and outtype != 'sql' and outtype
 
 if (len(arguments) > 2):
     outfile = arguments[2]
+else:
+    outfile='N/A'
 
 # Extract source file date id
 fname=infile.split(".")[0].split("_")
