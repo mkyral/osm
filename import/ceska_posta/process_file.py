@@ -207,7 +207,7 @@ try:
 
             if len(row) != 12:
                     error_count += 1
-                    print(" >> Warning: too many columns (%s) for ref: %s at line %s" % (len(row), box['ref'], line_counter))
+                    print(" >> Warning: too many columns (%s) for ref: %s at line %s" % (len(row), box['ref'], (line_counter+1)))
 
             krovak['x'],krovak['y'] = row['sour_x'],row['sour_y']
             box['krovak'] = krovak
