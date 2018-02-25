@@ -160,13 +160,13 @@ arguments = sys.argv[1:]
 
 if (len(arguments) < 2):
     print("Usage: %s IN_CSV_FILE tiles" % (program_name))
-    print("Usage: %s IN_CSV_FILE geojson|sql|all OUT_FILE_PATTERN" % (program_name))
+    print("   or  %s IN_CSV_FILE geojson|sql OUT_FILE_PATTERN" % (program_name))
     exit(1)
 
 infile = arguments[0]
 outtype = arguments[1].lower()
-if (outtype != 'geojson' and outtype != 'tiles' and outtype != 'sql' and outtype != 'all'):
-    print("Unknown output type: %s. Type 'all' will be used!" % (outtype))
+if (outtype != 'geojson' and outtype != 'tiles' and outtype != 'sql'):
+    print("Unknown output type: %s." % (outtype))
     exit(1)
 
 if (len(arguments) > 2):
@@ -250,7 +250,7 @@ except Exception as error:
 print ("...CSV file loaded in %ss" % (round(time.time() - start_time, 2)))
 # generate geojson
 start_time = time.time()
-if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
+if (outtype == 'geojson' or outtype == 'tiles'):
 
     if outtype == 'tiles':
         print("\nGenerating Tiles...")
@@ -262,7 +262,7 @@ if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
 
     geojson_file = "%s.%s" % (outfile, 'geojson')
 
-    if (outtype == 'geojson' or outtype == 'all'):
+    if (outtype == 'geojson'):
         files[geojson_file] = coll
 
     for k in sorted(boxes.keys()):
@@ -342,7 +342,7 @@ if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
     print ("...JSON file generated in %ss" % (round(time.time() - start_time, 2)))
 
 
-if (outtype == 'sql' or outtype == 'all'):
+if (outtype == 'sql'):
     start_time = time.time()
 # Prepare inserts into database
     print("\nGenerating sql...")
