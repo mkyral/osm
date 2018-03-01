@@ -1,0 +1,6 @@
+<!-- Put your OSM oauth keys there and rename to stats/oauth_config.php -->
+
+<?php
+    $oauth_id = '';
+    $oauth_secret = '';
+?>

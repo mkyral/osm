@@ -134,3 +134,19 @@ table.ex1 tr:nth-child(even) {
 .link {
     cursor: pointer;
 }
+
+#userbox {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+#userbox .avatar {
+   padding:1px;
+   border:1px solid #021a40;
+   vertical-align: middle;
+}
+
+#userbox a {
+    font-size: 80%;
+}

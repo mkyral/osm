@@ -50,6 +50,7 @@ echo("  <title>Import poštovních schránek</title>\n");
 echo("  <link rel='stylesheet' href='style.css'/>");
 echo("</head>\n");
 echo("<body style='background: #fff; color: #000'>\n");
+echo("<div id='userbox'>".$user_text."</div><br>\n");
 echo("<div align=center>\n");
 echo("<font size=7><b><a href='.'>Import poštovních schránek</a></b></font><hr>\n");
 echo("<br><font size=6><b>".$depo." ".$depo_name."</b></font><br><br>\n");

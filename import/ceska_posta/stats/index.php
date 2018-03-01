@@ -27,9 +27,11 @@ $osm_not_linked_pct = pg_result($result,0,"osm_not_linked_pct");
 echo("<html>\n");
 echo("<head>\n");
 echo("<meta charset='utf-8'>");
-echo("<title>Import poštovních schránek</title>\n");
+echo("  <title>Import poštovních schránek</title>\n");
+echo("  <link rel='stylesheet' href='style.css'/>");
 echo("</head>\n");
 echo("<body style='background: #fff; color: #000'>\n");
+echo("<div id='userbox'>".$user_text."</div><br>\n");
 echo("<div align=center>\n");
 echo("<font size=7><b><a href='.'>Import poštovních schránek</a></b></font><hr>\n");
 echo("<img src='image-big.php?p=".$osm_linked_pct."&q=".$osm_not_linked_pct."'><br>\n");
@@ -90,7 +92,7 @@ echo("
 <br>
 <b>Statistiky jsou přepočítávány jednou denně.</b><br>
 <br>
-<b>Poslední přepočet:</b> $state_stats, <br><br>
+<b>Poslední přepočet:</b> $state_stats<br><br>
 <b>Data ke dni:</b> Česká pošta - ".$state_cp." (".$state_cp_source.") | Openstreetmap - ".$state_osm."<br><br>\n");
 
 echo("</div>\n");

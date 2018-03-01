@@ -1,4 +1,8 @@
 *.geojson
 *.zip
 *.csv
+stats/oauth_config.php
+stats/libs/httpclient/
+stats/libs/oauth/
+
 

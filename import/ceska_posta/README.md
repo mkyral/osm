@@ -108,11 +108,14 @@ Pro účely importu schránek České pošty byl POI-Importer mírně modifikov�
 
 ## Statistiky
 
-Složka `stats` obsahuje php skript zobrazující statistiky Česká pošta vs. OSM. Hlavní stránka sumárně za jednotlivá depa, kliknutím na depo se zobrazí detail depa - jeho schránky a srovnání stavu s OSM.
+* Složka `stats` obsahuje php skript zobrazující statistiky Česká pošta vs. OSM. Hlavní stránka sumárně za jednotlivá depa, kliknutím na depo se zobrazí detail depa - jeho schránky a srovnání stavu s OSM.
 
-Složka `stats/dba` obsahuje potřebné DBA skripty pro Postgress. Využívá se existující OSM databáze [poloha.net](https://poloha.net), takže ve skriptech není plnění databáze daty z OSM.
+* Složka `stats/dba` obsahuje potřebné DBA skripty pro Postgress. Využívá se existující OSM databáze [poloha.net](https://poloha.net), takže ve skriptech není plnění databáze daty z OSM.
+
+* Složka `stats/libs` obsahuje php knihovny pro generování grafů a oAuth. Viz stats/libs/README.md
 
 Statistiky běží na adrese: http://josm.poloha.net/cz_pbox/
+
 
 
 
