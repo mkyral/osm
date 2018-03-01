@@ -34,7 +34,7 @@ echo("<body style='background: #fff; color: #000'>\n");
 echo("<div id='userbox'>".$user_text."</div><br>\n");
 echo("<div align=center>\n");
 echo("<font size=7><b><a href='.'>Import poštovních schránek</a></b></font><hr>\n");
-echo("<img src='image-big.php?p=".$osm_linked_pct."&q=".$osm_not_linked_pct."'><br>\n");
+echo("<img src='graph.php?t=big&p=".$osm_linked_pct."&q=".$osm_not_linked_pct."'><br>\n");
 echo("<table style='font-size: 150%; font-weight: bold'><br>\n");
 echo("<tr><td>Schránek celkem: </td><td>".$cp_total."</td></tr>\n");
 echo("<tr><td>Schránek v OSM: </td><td>".$osm_total."</td></tr>\n");
@@ -70,7 +70,7 @@ for ($i=0;$i<pg_num_rows($result);$i++)
     echo("<td>".pg_result($result,$i,"osm_linked_pct")."</td>\n");
     echo("<td>".pg_result($result,$i,"cp_missing")."</td>\n");
     echo("<td>".pg_result($result,$i,"cp_missing_pct")."</td>\n");
-    echo("<td><img src='image.php?p=".pg_result($result,$i,"osm_linked_pct")."&q=0.00'></td>\n");
+    echo("<td><img src='graph.php?p=".pg_result($result,$i,"osm_linked_pct")."&q=0.00'></td>\n");
     echo("</tr>\n");
     }
 echo("</table>\n");

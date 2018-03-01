@@ -1,24 +1,35 @@
 <?php
 
-require_once ('jpgraph/jpgraph.php');
-require_once ('jpgraph/jpgraph_bar.php');
+require_once ('libs/jpgraph/jpgraph.php');
+require_once ('libs/jpgraph/jpgraph_bar.php');
 $p=0;
 $q=0;
+$t='';
 if (isset($_REQUEST['p'])) $p=$_REQUEST['p'];
 if (isset($_REQUEST['q'])) $q=$_REQUEST['q'];
+if (isset($_REQUEST['t'])) $t=$_REQUEST['t'];
 if ( ! is_numeric($p) || ! is_numeric($q) ) die;
 $p = (int) $p;
 $q = (int) $q;
+if ($t == 'big') {
+    $w =   600;
+    $h =    80;
+    $m =  -260;
+} else {
+    $w =  200;
+    $h =   18;
+    $m =  -91;
+}
 
 $data1y=array($p); // hotovo
 $data2y=array($q); // zpracovava se
 $data3y=array(100-$p-$q); // zbyva
 
-$graph = new Graph(200,18);
+$graph = new Graph((int) $w, (int) $h);
 $graph->SetAngle(90);
 $graph->SetScale("textlin");
 
-$graph->img->SetMargin(00,00,-91,-91);
+$graph->img->SetMargin(00,00,(int)$m,(int)$m);
 
 //$graph->yaxis->SetPos('max');
 //$graph->yaxis->SetPos(600);

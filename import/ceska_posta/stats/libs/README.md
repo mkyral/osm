@@ -5,11 +5,15 @@ Používané knihovny
 ## Instalace
 
 1) Vytvořte složky níže a nakopírujte tam obsah stažených archívů:
+(složka musí obsahovat soubory ze `src` adresáře nebo na ně musí ukazovat)
 
-|Složka    | web adresa                                                                           |
-|----------|--------------------------------------------------------------------------------------|
-|httpclient|http://www.phpclasses.org/httpclient                                                  |
-|oauth     |https://www.phpclasses.org/package/7700-PHP-Authorize-and-access-APIs-using-OAuth.html|
+|Složka      | web adresa                                                                           |
+|------------|--------------------------------------------------------------------------------------|
+|httpclient  |http://www.phpclasses.org/httpclient                                                  |
+|jpgraph     |symbolický link na jpgraph-4xx/src                                                    |
+|jpgraph-4xx |https://jpgraph.net/download/                                                         |
+|oauth       |https://www.phpclasses.org/package/7700-PHP-Authorize-and-access-APIs-using-OAuth.html|
+
 
 
 

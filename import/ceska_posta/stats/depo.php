@@ -54,7 +54,7 @@ echo("<div id='userbox'>".$user_text."</div><br>\n");
 echo("<div align=center>\n");
 echo("<font size=7><b><a href='.'>Import poštovních schránek</a></b></font><hr>\n");
 echo("<br><font size=6><b>".$depo." ".$depo_name."</b></font><br><br>\n");
-echo("<img src='image-big.php?p=$osm_linked_pct&q=0.00'><br>\n");
+echo("<img src='graph.php?t=big&p=$osm_linked_pct&q=0.00'><br>\n");
 echo("<table style='font-size: 150%; font-weight: bold'><br>\n");
 echo("<tr><td>Schránek: </td><td>$cp_total</td></tr>\n");
 echo("<tr><td>V OSM: </td><td>$osm_linked</td></tr>\n");

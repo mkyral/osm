@@ -4,5 +4,5 @@
 stats/oauth_config.php
 stats/libs/httpclient/
 stats/libs/oauth/
-
+stats/libs/jpgraph-*/
 
