@@ -79,6 +79,12 @@ table.ex1 tr:nth-child(even) {
     font-weight: bold;
 }
 
+.statsdiff {
+    font-weight: bold;
+    color: #dc3545;
+}
+
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */

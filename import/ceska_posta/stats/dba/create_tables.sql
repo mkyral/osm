@@ -61,14 +61,18 @@ create table cp_depos (
 );
 
 create table cp_stats (
-    depo           bigint,
-    cp_total       bigint,
-    cp_missing     bigint,
-    osm_total      bigint,
-    osm_linked     bigint,
-    osm_linked_pct numeric(6,2),
-    cp_timestamp   timestamp with time zone,
-    osm_timestamp  timestamp with time zone
+    depo                bigint,
+    cp_total            bigint,
+    cp_missing          bigint,
+    osm_total           bigint,
+    osm_linked          bigint,
+    osm_linked_pct      numeric(6,2),
+    prev_cp_total       bigint,
+    prev_cp_missing     bigint,
+    prev_osm_linked     bigint,
+    prev_osm_linked_pct numeric(6,2),
+    cp_timestamp        timestamp with time zone,
+    osm_timestamp       timestamp with time zone
 );
 
 

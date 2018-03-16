@@ -25,13 +25,16 @@ insert into cp_stats
 WITH totals as (
   select s.depo,
     (select count(1) from cp_post_boxes cp where cp.psc = s.depo and state = 'A') cp_total,
+    (select cp_total from cp_stats ps where ps.depo = s.depo) prev_cp_total,
     (select count(1) from cp_post_boxes cp where cp.psc = s.depo and x IS NULL and state = 'A') cp_missing,
-    (select count(1) from cp_post_boxes cp, osm_post_boxes pb where cp.psc = s.depo and cp.ref = pb.ref) osm_linked
+    (select cp_missing from cp_stats ps where ps.depo = s.depo) prev_cp_missing,
+    (select count(1) from cp_post_boxes cp, osm_post_boxes pb where cp.psc = s.depo and cp.ref = pb.ref) osm_linked,
+    (select osm_linked from cp_stats ps where ps.depo = s.depo) prev_osm_linked
   from cp_stats s
 )
 update cp_stats cps
-set (cp_total, cp_missing, osm_linked) =
-(select cp_total, cp_missing, osm_linked from totals t where t.depo = cps.depo)
+set (cp_total, cp_missing, osm_linked, prev_cp_total, prev_cp_missing, prev_osm_linked) =
+(select cp_total, cp_missing, osm_linked, prev_cp_total, prev_cp_missing, prev_osm_linked from totals t where t.depo = cps.depo)
 ;
 
 \echo
