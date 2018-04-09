@@ -11,6 +11,8 @@ create table osm_post_boxes (
     last_update      timestamp
 );
 
+comment on table osm_post_boxes is 'Post boxes from OSM';
+
 create table cp_post_boxes (
     ref varchar(25)  NOT NULL,
     psc numeric(10),
@@ -55,10 +57,15 @@ create table cp_post_boxes_upload (
     source varchar(255)
 );
 
+comment on table cp_post_boxes_upload is 'Stage table for cp_post_boxes update';
+
 create table cp_depos (
     psc numeric(10),
     name varchar(255)
 );
+
+comment on table cp_depos is 'List of depos';
+
 
 create table cp_stats (
     depo                bigint,
@@ -75,6 +82,8 @@ create table cp_stats (
     osm_timestamp       timestamp with time zone
 );
 
+comment on table cp_stats is 'Daily stats per depo';
+
 
 create table cp_daily_stats (
     day date,
@@ -85,6 +94,8 @@ create table cp_daily_stats (
     osm_total      bigint,
     osm_linked     bigint
 );
+
+comment on table cp_daily_stats is 'Total daily stats';
 
 create table cp_data_state (
     cp timestamp with time zone,
@@ -104,6 +115,26 @@ create table cp_geocoded_coors (
     lon     numeric(20,10)
 );
 
+comment on table cp_geocoded_coors is 'Geocoded Coordinates for Post boxes without x,y coors';
+
+create table cp_user_comments (
+    id          bigserial,
+    ref         varchar(25)  NOT NULL,
+    seq_id      bigint  NOT NULL,
+    osm_id      bigint       NOT NULL,
+    osm_name    varchar(255),
+    note_type   smallint,
+    note_text   varchar(2000),
+    create_date timestamp    NOT NULL,
+    last_update timestamp,
+    state       varchar(1)
+);
+
+create index cp_user_comments_i1 on cp_user_comments (ref, seq_id);
+
+
+http://www.postgresqltutorial.com/postgresql-serial/
+
 grant select on cp_post_boxes to Public;
 grant select on osm_post_boxes to Public;
 grant select on cp_depos to Public;
@@ -111,6 +142,7 @@ grant select on cp_stats to Public;
 grant select on cp_daily_stats to Public;
 grant select on cp_data_state to Public;
 grant select on cp_geocoded_coors to Public;
+grant select on cp_user_comments to Public;
 
 
 
