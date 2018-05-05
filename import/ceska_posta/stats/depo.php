@@ -16,6 +16,11 @@ $filter = '';
 if (isset($_REQUEST['filter'])) $filter = $_REQUEST['filter'];
 if (!array_key_exists($filter, $filters)) $filter = '';
 
+$export = '';
+if (isset($_REQUEST['export'])) $export = $_REQUEST['export'];
+if ($export != 'gpx') $export = '';
+
+
 $query = "
 select cp_total,
        cp_missing, (cp_missing::float*100/cp_total::float)::numeric(6,2) cp_missing_pct,
@@ -43,38 +48,39 @@ if (pg_num_rows($result) < 1) die;
 $depo=pg_result($result,0,"psc");
 $depo_name=pg_result($result,0,"name");
 
-echo("<html>\n");
-echo("<head>\n");
-echo("  <meta charset='utf-8'>");
-echo("  <title>Import poštovních schránek</title>\n");
-echo("  <link rel='stylesheet' href='style.css'/>");
-echo("</head>\n");
-echo("<body style='background: #fff; color: #000'>\n");
-echo("<div id='userbox'>".$user_text."</div><br>\n");
-echo("<div align=center>\n");
-echo("<font size=7><b><a href='.'>Import poštovních schránek</a></b></font><hr>\n");
-echo("<br><font size=6><b>".$depo." ".$depo_name."</b></font><br><br>\n");
-echo("<img src='graph.php?t=big&p=$osm_linked_pct&q=0.00'><br>\n");
-echo("<table style='font-size: 150%; font-weight: bold'><br>\n");
-echo("<tr><td>Schránek: </td><td>$cp_total</td></tr>\n");
-echo("<tr><td>V OSM: </td><td>$osm_linked</td></tr>\n");
-echo("</table><br>\n");
-echo("<font size=6><b>Nahráno $osm_linked_pct procent schránek.</b></font><br><hr>\n");
+if ($export == '') {
+    echo("<html>\n");
+    echo("<head>\n");
+    echo("  <meta charset='utf-8'>");
+    echo("  <title>Import poštovních schránek</title>\n");
+    echo("  <link rel='stylesheet' href='style.css'/>");
+    echo("</head>\n");
+    echo("<body style='background: #fff; color: #000'>\n");
+    echo("<div id='userbox'>".$user_text."</div><br>\n");
+    echo("<div align=center>\n");
+    echo("<font size=7><b><a href='.'>Import poštovních schránek</a></b></font><hr>\n");
+    echo("<br><font size=6><b>".$depo." ".$depo_name."</b></font><br><br>\n");
+    echo("<img src='graph.php?t=big&p=$osm_linked_pct&q=0.00'><br>\n");
+    echo("<table style='font-size: 150%; font-weight: bold'><br>\n");
+    echo("<tr><td>Schránek: </td><td>$cp_total</td></tr>\n");
+    echo("<tr><td>V OSM: </td><td>$osm_linked</td></tr>\n");
+    echo("</table><br>\n");
+    echo("<font size=6><b>Nahráno $osm_linked_pct procent schránek.</b></font><br><hr>\n");
 
 
-echo("
-<div id='myModal' class='modal'>
+    echo("
+    <div id='myModal' class='modal'>
 
-  <!-- Modal content -->
-  <div class='modal-content'>
-    <span class='close'>&times;</span>
-    <h1 id='myModalHeader'>Header</h1>
-    <p id='myModalContent'>Some text in the Modal..</p>
-  </div>
+    <!-- Modal content -->
+    <div class='modal-content'>
+        <span class='close'>&times;</span>
+        <h1 id='myModalHeader'>Header</h1>
+        <p id='myModalContent'>Some text in the Modal..</p>
+    </div>
 
-</div>
-");
-
+    </div>
+    ");
+}
 
 $query="
 WITH depo_data AS (
@@ -122,6 +128,48 @@ from depo_data";
 $result=pg_query($CONNECT,$query);
 if (pg_num_rows($result) < 1) die;
 
+if ($export == 'gpx') {
+    header("Content-Type: application/gpx+xml");
+    header("Content-Disposition: attachment; filename=cpost_".$id."_".$filter.".gpx");
+
+    echo '<?xml version="1.0" encoding="utf-8" standalone="yes"?>'."\n";
+    echo '<gpx version="1.1" creator="poloha.net http://josm.poloha.net/cz_pbox" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">'."\n";
+
+
+    for ($i=0;$i<pg_num_rows($result);$i++)
+    {
+        if (pg_result($result,$i,"state") == 'Deleted' and pg_result($result,$i,"osm_id") == '') {
+            # Post box no more exists and is not in OSM - skip it
+            continue;
+        }
+
+        if ( !empty($filter) and pg_result($result,$i,"state") != $filter) {
+            continue;
+        }
+
+        $lat = '';
+        $lon = '';
+
+        if (pg_result($result,$i,"osm_lat") != '' ) {
+            $lat = (float)pg_result($result,$i,"osm_lat");
+            $lon = (float)pg_result($result,$i,"osm_lon");
+        } else {
+            $lat = (float)pg_result($result,$i,"lat");
+            $lon = (float)pg_result($result,$i,"lon");
+        }
+
+        echo '<wpt lat="'.$lat.'" lon="'.$lon.'">'."\n";
+        echo '  <name>'.pg_result($result,$i,"ref").'</name>'."\n";
+        echo '  <desc>'.pg_result($result,$i,"address")." \n ".pg_result($result,$i,"place").'</desc>'."\n";
+        echo '</wpt>'."\n";
+    }
+
+    echo '</gpx>'."\n";
+
+
+    exit;
+}
+
 # Labels row
 echo("<div class='labels'>");
 if (empty($filter)) {
@@ -137,6 +185,8 @@ foreach($filters as $ft => $ft_val) {
         echo("<a href='depo.php?id=$id&filter=$ft'><span class='label ".strtolower($ft)."'>".$ft_val."</span></a> \n");
     }
 }
+
+echo("<a href='depo.php?id=$id&filter=$filter&export=gpx'><span class='label save right'>&#x1f4be; gpx</span></a> \n");
 
 echo("</div>");
 
