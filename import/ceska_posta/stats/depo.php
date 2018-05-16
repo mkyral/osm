@@ -133,8 +133,7 @@ if ($export == 'gpx') {
     header("Content-Disposition: attachment; filename=cpost_".$id."_".$filter.".gpx");
 
     echo '<?xml version="1.0" encoding="utf-8" standalone="yes"?>'."\n";
-    echo '<gpx version="1.1" creator="poloha.net http://josm.poloha.net/cz_pbox" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">'."\n";
-
+    echo '<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" creator="poloha.net http://josm.poloha.net/cz_pbox" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd   http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www8.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd">'."\n";
 
     for ($i=0;$i<pg_num_rows($result);$i++)
     {
@@ -161,6 +160,7 @@ if ($export == 'gpx') {
         echo '<wpt lat="'.$lat.'" lon="'.$lon.'">'."\n";
         echo '  <name>'.pg_result($result,$i,"ref").'</name>'."\n";
         echo '  <desc>'.pg_result($result,$i,"address")." \n ".pg_result($result,$i,"place").'</desc>'."\n";
+        echo '  <extensions><gpxx:WaypointExtension><gpxx:Proximity>100</gpxx:Proximity></gpxx:WaypointExtension></extensions>'."\n";
         echo '</wpt>'."\n";
     }
 
