@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """Process EuroOil data for OSM import.
 
-Reads input json file, convert it and generate tiles for POI-Importer
+Reads input json file from https://www.ceproas.cz/eurooil/cerpaci-stanice ,
+convert it and generate tiles for POI-Importer
 
 More info on
  Github: https://github.com/mkyral/osm/tree/master/import/EuroOil
@@ -155,118 +156,93 @@ print("\nGenerating Tiles...")
 files = {}
 coll = []
 
-for s in stations:
+for station in stations:
 
     props = {}
     props['amenity'] = 'fuel'
-    props['ref'] = s['cislo']
-    props['name'] = ("EuroOil %s" % s['jmeno'])
+    props['ref'] = station['cislo']
+    props['name'] = ("EuroOil %s" % station['jmeno'])
     props['operator'] = 'Čepro, a.s.'
     props['brand'] = 'EuroOil'
     props['source'] = 'cepro_website'
 
-    if s['optdiesel'] == 1 or s['optdieselplus'] == 1:
+    if station['optdiesel'] == 1 or station['optdieselplus'] == 1:
         props['fuel:diesel'] = 'yes'
 
-    if s['ekodiesel'] == 1:
+    if station['ekodiesel'] == 1:
         props['fuel:biodiesel'] = 'yes'
 
-    if s['adblue'] == 1:
+    if station['adblue'] == 1:
         props['fuel:adblue'] = 'yes'
 
-    if s['cng'] == 1:
+    if station['cng'] == 1:
         props['fuel:cng'] = 'yes'
 
-    if s['lpg'] == 1:
+    if station['lpg'] == 1:
         props['fuel:lpg'] = 'yes'
 
-    if s['e85'] == 1:
+    if station['e85'] == 1:
         props['fuel:e85'] = 'yes'
 
-    if s['ba91s'] == 1:
+    if station['ba91s'] == 1:
         props['fuel:octane_91'] = 'yes'
 
-    if s['ba95n'] == 1 or s['opt95e'] == 1:
+    if station['ba95n'] == 1 or station['opt95e'] == 1:
         props['fuel:octane_95'] = 'yes'
 
-    if s['ba98'] == 1:
+    if station['ba98'] == 1:
         props['fuel:octane_98'] = 'yes'
 
-    if s['wifi'] == 1:
+    if station['wifi'] == 1:
         props['internet_access'] = 'wlan'
         props['internet_access:fee'] = 'no'
 
-    if s['myci_box'] == 1 or s['myci_linka'] == 1:
+    if station['myci_box'] == 1 or station['myci_linka'] == 1:
         props['car_wash'] = 'yes'
 
-    if s['pb'] == 1:
+    if station['pb'] == 1:
         props['shop'] = 'gas'
 
     # Openning hours
     isTimePeriod = re.compile('.*:[0-9]+-[0-9]+:.*')
-    startsByNumber = re.compile('.*:[0-9]+-[0-9]+:.*')
-    hasMissingNumber = re.compile('^[0-9]:.*')
+    startsByNumber = re.compile('^[0-9].*$')
 
     weekDays = ('Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su')
+    months = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
     opening_hours=[];
 
-    for oh in s['provozni_doba'].replace(" -", "-").replace("- ", "-").replace('Po-Pá', 'Mo-Fr').replace('So-Ne', 'Sa-Su').split(","):
+    for oh in station['provozni_doba'].replace(" -", "-").replace("- ", "-").replace(';', ',').replace('Po-Pá', 'Mo-Fr').replace('So-Ne', 'Sa-Su').replace('L:', 'Mar-Oct').replace('Z:', 'Nov-Feb').split(","):
         o = oh.strip()
 
-        if o == 'NONSTOP':
+        if o == 'NONSTOP' or o == '0:00-24:00' or o == '00:00-24:00':
             opening_hours.append('24/7')
             break
 
-        if o == 'rekonstrukce' or o == 'zavřeno':
+        if o == 'rekonstrukce' or o == 'zavřeno' or station['active'] == 0:
             opening_hours.append('closed')
             break
 
-        if o[0:2] == 'L:':
-            print("[Opening hours] Unknown string: %s" % (o))
-        break
-
         if isTimePeriod.match(o):
             if startsByNumber.match(o):
-                if hasMissingNumber.match(o):
-                    opening_hours.append('0%s' % (o)[0:10])
-                else:
-                    opening_hours.append(o)
-            continue
+                #opening_hours.append(re.sub('^([0-9]:)', r'0\1', o))
+                opening_hours.append("Mo-Su %s" % (re.sub('^([0-9]:)', r'0\1', o)))
+                continue
 
-        if isTimePeriod.match(o) and o[0:2] in weekDays:
+        if o[0:2] in weekDays or o[0:3] in months:
             # Add missing leading zero
             opening_hours.append(re.sub(' ([0-9]:)', r' 0\1', o))
+            continue
 
-        print("[Opening hours] Unknown string: %s" % (o))
+
+        print("[Opening hours] ref: %s - Unknown string: %s" % (station['cislo'], o))
 
     if len(opening_hours) > 0:
-        props['opening_hours'] =';'.join(opening_hours)
+        props['opening_hours'] =';'.join(opening_hours).replace(' Nov-', ';Nov-')
+        print("[Opening hours] ref: %s - %s / %s" % (station['cislo'], opening_hours, props['opening_hours']))
 
-        #'jmeno': 'Bělčice',
-        #'nm_bez_spd': 0,
-        #'cislo_popisne': '298',
-        #'obec': 'Bělčice ',
-        #'cislo': 22,
-        #'cislo_orientacni': '',
-        #'longitude': 13.8956472222,
-        #'provozni_doba': 'L: 6:00 - 20:00, Z: 6:00 - 18:00',
-        #'latitude': 49.5122666667,
-        #'psc': '38743',
+    feature = Feature(geometry=Point((station['longitude'], station['latitude'])), properties=props)
 
-        #'cast_obce': 'Bělčice',
-        #'id': 2,
-        #'okres': 'Strakonice',
-        #'katastralni_uzemi': 'Bělčice ',
-        #'active': 1,
-        #'ulice': 'areál skladu Čepro a.s.',
-        #'kraj': 'Kraj Jihočeský',
-        #'telefon_stanice': '735720022',
-
-
-
-    feature = Feature(geometry=Point((s['longitude'], s['latitude'])), properties=props)
-
-    tile = latlonToTilenumber(dataset['zoom'], s['latitude'], s['longitude'])
+    tile = latlonToTilenumber(dataset['zoom'], station['latitude'], station['longitude'])
     filename = "%s/%s_%s.json" % (tiles_dir, tile['x'], tile['y'])
     if filename not in files:
         coll = []

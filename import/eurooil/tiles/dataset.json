@@ -1,0 +1,25 @@
+{
+    "zoom": 10,
+    "query":"[amenity=fuel]",
+    "icon": "fuel",
+    "dist":100,
+    "types": ["node", "way"],
+    "tagmatch":
+    [
+    {"key":"name", "algorithm":"equality"},
+    {"key":"amenity", "algorithm":"equality"},
+    {"key":"contact:website", "algorithm":"equality"},
+    {"key":"operator", "algorithm":"equality"},
+    {"key":"brand", "algorithm":"equality"},
+    {"key":"internet_access", "algorithm":"equality"},
+    {"key":"internet_access:fee", "algorithm":"equality"},
+    {"key":"opening_hours", "algorithm":"equality"},
+    {"key":"fuel:cng", "algorithm":"equality"},
+    {"key":"fuel:lpg", "algorithm":"equality"},
+    {"key":"fuel:e85", "algorithm":"equality"},
+    {"key":"fuel:diesel", "algorithm":"equality"},
+    {"key":"fuel:biodiesel", "algorithm":"equality"},
+    {"key":"fuel:octane_91", "algorithm":"equality"},
+    {"key":"fuel:octane_95", "algorithm":"equality"}
+    ]
+}
