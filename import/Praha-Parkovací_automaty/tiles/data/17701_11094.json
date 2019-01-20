@@ -1,0 +1,95 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          14.47113263195494,
+          50.13316511924467
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.479572969162607,
+          50.13174336255567
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.479624628887917,
+          50.129995183662004
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.473685463198551,
+          50.12762353086779
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.469482301292997,
+          50.12991828707522
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.471756329988935,
+          50.132228222870076
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

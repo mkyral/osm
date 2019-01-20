@@ -1,0 +1,245 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          14.436584362797348,
+          50.08116489057202
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.438679851888748,
+          50.08209788257529
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.43811755006602,
+          50.08150391204098
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.437391019578245,
+          50.08052521078873
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.4393009489054,
+          50.08161314862448
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.438442284422136,
+          50.08057735770781
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.437323763821858,
+          50.079250422998435
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.438742282922643,
+          50.07902282123473
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.442006896032737,
+          50.07856378959689
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.443957538122719,
+          50.07858236434171
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.446735288035649,
+          50.08044617181943
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.442600506465679,
+          50.08515013768637
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.441970075172009,
+          50.08447562005685
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.442604595420576,
+          50.08376816159503
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.444587543103827,
+          50.08171738706997
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          14.446718569876335,
+          50.08444723372451
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

@@ -1,0 +1,20 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          14.392077992900758,
+          50.11471879083522
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "amenity": "vending_machine",
+        "source": "opendata.praha.eu",
+        "vending": "parking_tickets"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

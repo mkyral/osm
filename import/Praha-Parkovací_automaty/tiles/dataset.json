@@ -1,0 +1,12 @@
+{
+    "zoom": 15,
+    "query":"[amenity=vending_machine][vending=parking_tickets]",
+    "icon": "circle",
+    "dist":100,
+    "types": ["node"],
+    "tagmatch":
+    [
+    {"key":"amenity", "algorithm":"equality"},
+    {"key":"vending"}
+    ]
+}
