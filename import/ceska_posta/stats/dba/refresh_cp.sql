@@ -15,6 +15,11 @@ update cp_post_boxes pb set state = 'D', last_update = current_timestamp
 where ref in (select ref from cp_post_boxes EXCEPT select ref from cp_post_boxes_upload)
   and state = 'A';
 
+\echo
+\echo '* Mark already existing 'D' records as Active again'
+update cp_post_boxes pb set state = 'A', last_update = current_timestamp
+where state = 'D'
+  and exists (select 1 from cp_post_boxes_upload pbu where pbu.ref = pb.ref);
 
 -- Update existing (if changed)
 \echo
@@ -62,6 +67,16 @@ select
   'A', current_timestamp, current_timestamp, source
 from cp_post_boxes_upload
 where ref in (select ref from cp_post_boxes_upload EXCEPT select ref from cp_post_boxes);
+
+\echo
+\echo '* Add missing coors'
+update cp_post_boxes p
+set (lat, lon) = (select lat, lon from cp_geocoded_coors gc where gc.ref = p.ref LIMIT 1)
+where x is null and lat is null and updated_lat is null;
+
+\echo
+\echo '* Post boxes without coortinates *'
+select * from cp_post_boxes where x is null and lat is null and state = 'A';
 
 
 \echo
