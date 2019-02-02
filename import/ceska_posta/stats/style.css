@@ -168,3 +168,28 @@ table.ex1 tr:nth-child(even) {
 .right {
     float: right;
 }
+
+.w-80 {
+    width: 80%;
+}
+
+.tbl-header {
+    color: #00256c !important;
+    background-color: #ffcd33 !important;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.depo-heading {
+    font-weight: bold;
+    font-size: 120%;
+    padding-top: 1.2em !important;
+    padding-bottom: 0 !important;
+    background-color: white !important;
+}

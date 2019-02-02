@@ -190,8 +190,8 @@ echo("<a href='depo.php?id=$id&filter=$filter&export=gpx'><span class='label sav
 
 echo("</div>");
 
-echo("<table cellpadding=2 border=0 class='ex1'>\n");
-echo("<tr>
+echo("<table cellpadding=2 border=0 class='ex1 mt-5'>\n");
+echo("<tr class='tbl-header'>
         <td></td>
         <td><b>Ref<br><br>OSM Id</b></td>
         <td><b>Umístění<br>Popis</b></td>
