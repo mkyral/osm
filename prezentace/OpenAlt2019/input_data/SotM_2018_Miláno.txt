@@ -1,0 +1,18 @@
+<li id="wn419_18033">[1] <a href="https://2018.stateofthemap.org">State of the Map</a>, globální OpenStreetMap konference, se konala minulý víkend (28. - 30. července) v italském Milánu. Nahraná videa najdete na <a href="https://www.youtube.com/channel/UCLqJsr_5PfdvDFbgv1qp2aQ">YouTube kanálu</a> a všechny fotky pak na <a href="https://commons.wikimedia.org/wiki/Category:State_of_the_Map_2018">Commons</a>.</li>
+<li id="wn419_18028">Rádi bychom pogratulovali <a href="http://awards.osmz.ru/">výhercům</a> Cen OSM za rok 2018:
+<li><a href="https://github.com/lonvia">Sarah Hoffmann</a> (základní systémy)</li>
+<li>Tým pro spolupráci nadace <a href="https://www.mediawiki.org/wiki/Maps">Wikimedia</a> (inovace)</li>
+<li><a href="http://www.imagico.de/">Christoph Hormann</a> (propagace)</li>
+<li><a href="https://twitter.com/Tshedy4">Matšeliso Thobei</a> (mapování)</li>
+<li><a href="https://twitter.com/HermioneNight">Christiane Karch</a> (rozšiřování komunity)</li>
+<li><a href="https://www.openstreetmap.org/user/Natalia%20Arruda">Natalia da Silveira Arruda</a> (Latinská Amerika)</li>
+<li><a href="https://twitter.com/Crowd2Map">Crowd2Map </a>Tanzanie (Afrika)</li>
+<li>organizační tým <a href="https://github.com/sotm-asia/sotm-asia-2017-website/blob/master/SOTM%20Asia%202017%20Conference%20Summary.pdf">State of the Map Asia 2017</a> (Asie)</li>
+<li><a href="https://twitter.com/richardf">Richard Fairhurst</a> (Cena Ulfa Möllera)</li>
+</li>
+<li id="wn419_18053">Během SotM v Milánu <a href="https://twitter.com/mvexel/status/1024354803831504898">oznámil</a> <a href="https://ma.rtijn.org/">Martijn van Exel</a> spuštění platformy <a href="https://improveosm.org/">ImproveOSM</a>. Ta nyní sjednocuje všechny nástroje od firmy Telenav pro OSM komunitu.</li>
+<li id="wn419_18025">Z SotM v Milánu 2018: přehled aktivit během <a href="https://twitter.com/sotm/status/1023157403234328576">prvního dne</a>.</li>
+<li id="wn419_17998">Tým Mapboxu na konferenci zastoupený Jinalem popisuje, jak moc se těšili setkání s lidmi naživo. Pokud jste si nenašli čas, nebo žijete v části světa, příliš daleko od Itálie, <a href="https://www.openstreetmap.org/user/jinalfoflia/diary/44472">nabízí</a> seznam jiných akcí, kde je možné se s nimi potkat.</li>
+<li id="wn419_18058">Na blogu OSM vyjádřil Harry Wood <a href="https://blog.openstreetmap.org/2018/08/01/sotm-milan-thanks/">své díky</a> všem návštěvníkům a organizátorům konference. V článku jsou již první (needitovaná) videa z dvou hlavních konferenčních místností.</li>
+<li id="wn419_18037">Během konference SotM bylo podepsáno <a href="https://wiki.osgeo.org/wiki/MOU_YouthMappers">memorandum o porozumění</a> mezi <a href="https://www.osgeo.org/">Nadací OSGeo</a> a skupinou <a href="http://www.youthmappers.org/">Youthmappers</a>. Dohoda navrhuje ustavit spolupráci v několika oblastech, jako jsou výzkum, vzdělávání a účast na konferencích. OSGeo je organizace propagující využívání otevřených technologií pro prostorová data. Youthmappers je konsorcium univerzit z 120 škol v 38 zemích aktivní v humanitárních a rozvojových otázkách.</li>
+<li id="wn419_18045">State of the Map 2019 <a href="https://wiki.openstreetmap.org/wiki/State_of_the_Map_2019">se bude konat</a> na německé Heidelberg University, v termínu 21. - 23. září 2019.</li>

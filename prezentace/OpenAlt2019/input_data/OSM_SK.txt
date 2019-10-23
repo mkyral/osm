@@ -1,0 +1,417 @@
+<li>Na freemap.sk <a href="https://groups.google.com/forum/#!topic/osm_sk/gfqreS0aSnc">zmizela</a> z vrcholů informace o jejich nadmořské výšce. Do dalšího výpočtu názvů se to snad podaří opravit.</li>
+<li>Přemnožené <a href="https://groups.google.com/forum/#!topic/osm_sk/A4h8CTVOFX4">kočky</a> v Tatrách u Teryho chaty nebo jen podivný překlad od Google? (dotaz redakce: jak se slovensky řeknou horolezecké <a href="https://cs.wikipedia.org/wiki/Ma%C4%8Dky">mačky</a> :-) ?) </li>
+<li>Pro freemap.sk je <a href="https://groups.google.com/forum/#!topic/osm_sk/VI_yCqJ8o64">dostupná</a> navigace pro lyžaře. Je trochu problém s daty, většina středisek je mapována pouze vizuálně, bez napojení sjezdovek na vleky.</li>
+<li>I na novém freemap.sk <a href="https://groups.google.com/forum/#!topic/osm_sk/m4_jdptPDco">lze </a> aktuální výřez mapy otevřít v editoru JOSM.</li>
+<li>Jeden z uživatelů <a href="https://groups.google.com/forum/#!topic/osm_sk/HGUFaKqP7Ig">nemůže</a> na novém freemap.sk najít rozhraní pro nahrávání fotek. Ale fakt tam je...</li>
+<li>Autor programu StreetComplete se ptá na <a href="https://groups.google.com/forum/#!topic/osm_sk/3bVWoT1NW4c">situaci</a> ohledně adres na Slovensku (po diskuzi na českém mail listu).</li>
+<li>Zajímavý <a href="https://groups.google.com/forum/#!topic/osm_sk/fxITCCywYs8">nápad</a> na outdoorovou navigaci využívající sociální data.</li>
+<li>Jak se dá na novém freemap.sk <a href="https://groups.google.com/forum/#!topic/osm_sk/wlxh35GkQ-0">zapnout</a> transparentní mapové dlaždice s turistickými a cyklo trasami?</li>
+<li>Jak je to s <a href="https://groups.google.com/forum/#!topic/osm_sk/xUB30OzlfXI">tagováním</a> a následným renderováním míst, kde je sezóně omezen provoz - například skialpinisté v Tatrách.</li>
+
+<li>V expertním módu je nově na vývojové verzi freemap.sk <a href="https://groups.google.com/forum/#!topic/osm_sk/7XTtzz4ZpuQ">dostupná</a> překryvná vrstva Strava heatmap.</li>
+<li>Další vylepšení vývojové verze <a href="https://groups.google.com/forum/#!topic/osm_sk/jqQYpjX-68E">zahrnují</a> nové tipy, ukládání nastavení na server a další.</li>
+<li>StreetComplete <a href="https://groups.google.com/forum/#!topic/osm_sk/b6CUASYHL50">dostal</a> po minulých diskuzích podporu pro slovenské adresní body. Zároveň by bylo fajn, najít někoho pro překlad do slovenštiny.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/JDSQxBN01UQ">Pozvánka</a> na akci OSS Conf do Žiliny na 9. - 10. prosinec.</li>
+
+<li>Jak <a href="https://groups.google.com/forum/#!topic/osm_sk/BVeawaH2dGE">vypadá</a> (ne)značení cyklotras na Slovensku.</li>
+<li>Další balík <a href="https://groups.google.com/forum/#!topic/osm_sk/aYvg8eGVzgM">novinek</a> na freemap.sk od Martina - legenda, okna "O Freemape" a "Podporit Freemap". A ještě <a href="https://groups.google.com/forum/#!topic/osm_sk/w3RhkvVMPMY">zobrazování</a> fotek přes celou obrazovku. A jako poslední dvě nové <a href="https://groups.google.com/forum/#!topic/osm_sk/GwjxWXw2_Fk">vrstvy</a> - Infomapa a OSM GPS stopy.</li>
+<li>Jak <a href="https://groups.google.com/forum/#!topic/osm_sk/juCri-sk7_U">nakreslit</a> a/nebo nahlásit nový dům v ulici?</li>
+<li>Programy na automatické <a href="https://groups.google.com/forum/#!topic/osm_sk/tgpfznOg0HM">spojování</a> více fotek do panoramat.</li>
+<li>Spousta <a href="https://groups.google.com/forum/#!topic/osm_sk/HkT5NmqTG5c">námětů</a> na vylepšení digitálních map nejen pro freemap.sk.</li>
+<li>Podkladové <a href="https://groups.google.com/forum/#!topic/osm_sk/7Gav1twZBTo">mapy</a> pro Locus pro mapování v terénu.</li>
+<li>Praktická <a href="https://groups.google.com/forum/#!topic/osm_sk/k6o8EJx0UKI">ukázka</a> toho k čemu jsou dobré fotky ve freemap galerii.</li>
+<li>Pozvánka na <a href="https://groups.google.com/forum/#!topic/osm_sk/klCVhO_SxX0">testování</a> nové verze komerčního projektu mojemapa.sk.</li>
+
+<li>Podivný <a href="https://groups.google.com/forum/#!topic/osm_sk/4eMTurAU_3g">rozcestník</a> na modré značce na Petrklin.</li>
+<li>V Košicích se <a href="https://groups.google.com/forum/#!topic/osm_sk/s-U0-yhr7A0">bourají</a> staré bytovky. Najde se někdo na aktualizaci OSM map?</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/0AesSI6h48s">Novinky</a> na freemap.sk - odstraněné vrstev NLC a Strava kvůli nejisté licenci, alternativy ve vyhledávání tras, legenda mapy a další.</li>
+<li>Problematický <a href="https://groups.google.com/forum/#!topic/osm_sk/bUKhBgRVJco">uživatel</a> Ganesh.</li>
+<li>Dříve zmiňované <a href="https://groups.google.com/forum/#!topic/osm_sk/-LGYVfqz8gE">úpravy</a> StreetComplete pro slovenské adresy jsou již implementované.</li>
+
+<li>Vzorové <a href="https://groups.google.com/forum/#!topic/osm_sk/CQYha-Wvg7E">použití</a> deklarace práv a majitele pro freemap.sk na infotabuli v Bzince pod Javorinou.</li>
+<li>Zajímavý projekt na <a href="https://groups.google.com/forum/#!topic/osm_sk/-2XRm_fkr1g">parsování</a> adres použitelný pro freemap.sk.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/iU63-MdYK7Y">Statistiky</a> z vyhledávání na freemap.sk (a proč pouze Bratislava má MHD :-O ).</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/CG0oiJbw5gU">Sloučení</a> duplicitních relací pro vojenský obvod Záhorie.</li>
+
+<li>Zajímavý <a href="https://groups.google.com/forum/#!topic/osm_sk/7N6NauOPjnI">toposkop</a> s jedním neznámým cílem a využitím dat OpenStreetMap.</li>
+<li>Strava je znovu <a href="https://groups.google.com/forum/#!topic/osm_sk/icbxvZHYpJI">přidána</a> mezi vrstvy na freemap.sk. A k tomu zázrak na počkání.</li>
+<li>Nová značená žlutá <a href="https://groups.google.com/forum/#!topic/osm_sk/cKYbuEEY-KA">cyklotrasa</a> pod Sološnicou.</li>
+
+<li>Nevykreslené <a href="https://groups.google.com/forum/#!topic/osm_sk/pot3m86ejBQ">sjezdovky</a> v Jasné na Chopku byly nakonec způsobené nevhodným zásahem v datech.</li>
+<li>Kontrola <a href="https://groups.google.com/forum/#!topic/osm_sk/tdDcfJuAfTo">routování</a> při přestupech mezi zastávkami.</li>
+<li>Slovenské turistické <a href="https://groups.google.com/forum/#!topic/osm_sk/_uE-soZSuqI">regiony</a> doplněny do OSM, hlavně kvůli wikidata a pak wikivoyage.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/ZZL1bU6v_aY">Novinky</a> ve vývojové verzi freemap.sk a <a href="https://groups.google.com/forum/#!topic/osm_sk/wMmBzSsvflw">hledání</a> nových vývojářů pro pomoc Martinovi.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/bdoY3n-rE6Q">Hledá se</a> někdo na pomoc s překladem freemap.sk - uvažuje se o českém a anglickém překladu.</li>
+<li>První pokus o stanovení <a href="https://groups.google.com/forum/#!topic/osm_sk/Y66ccN44Y2I">termínu</a> pro jarní mapping party.</li>
+<li>Proběhl krátký <a href="https://groups.google.com/forum/#!topic/osm_sk/FTsU-VBqSjQ">výpadek</a> freemap.sk kvůli údržbě na serveru.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/u1JgtbAa7LY">Problém</a> s KAPOR pluginem pro JOSM po aktualizaci JOSM na verzi 13265.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/WfFP5C0D5Xo">Novinky</a> na freemap.sk - podpora pro jiné jazyky, konfigurovatelná průsvitnost čar, alternativy vyhledávače trasy</li>
+
+<li>Freemap.sk umí ve vývojové verzi <a href="https://groups.google.com/forum/#!topic/osm_sk/gMdWuT7tAKc">vyhledávat</a> trasu s použitím bikesharingových služeb.</li>
+<li>Uvažuje se o <a href="https://groups.google.com/forum/#!topic/osm_sk/Z1iY80xB_4U">nasazení</a> vlastní instance overpass API na freemap.sk.</li>
+<li>Proč jsou freemap.sk dlaždice při větších přiblíženích <a href="https://groups.google.com/forum/#!topic/osm_sk/wZRkCI2Mkkg">rozmazané</a>? Protože se renderuje jen po 16 a co s tím?</li>
+<li>Ve <a href="https://groups.google.com/forum/#!topic/osm_sk/ddFKWPpOhaM">starší</a> verzi freemap.sk šlo do vlastní stránky vložit iframe s mapou. Teď to už nejde?</li>
+
+<li>Pokusy o <a href="https://groups.google.com/forum/#!topic/osm_sk/wbS_tud1-YE">3D budovy</a> v Bratislavě, proč to nedopadlo a jaký je rozdíl mezi F4 a OsmBuildings.</li>
+<li>Problémy s <a href="https://groups.google.com/forum/#!topic/osm_sk/um7RzQ45yPs">korekcí</a> slovenských a maďarských jmen ulic.</li>
+
+<li>Na freemap.sk je nově možnost <a href="https://groups.google.com/forum/#!topic/osm_sk/s3Rcdihs3xg">nakreslit</a> do mapy více bodů.</li>
+<li>I za rok 2017 <a href="https://groups.google.com/forum/#!topic/osm_sk/aRakDoObsao">mohou</a> plátci daně z příjmů na Slovensku věnovat 2% z těchto daní sdružení freemap.sk.</li>
+<li>Ulice na Slovensku <a href="https://groups.google.com/forum/#!topic/osm_sk/lEanhoVinD8">pojmenované</a> v OpenStreetMap jinak než v katastru? Většinou je špatně katastr...</li>
+
+<li>Další <a href="https://groups.google.com/forum/#!topic/osm_sk/eTEybBYpg0M">případ</a> porušení licence OSM - neuvedené deklarace majitele a práv.</li>
+<li>Příprava <a href="https://groups.google.com/forum/#!topic/osm_sk/sa8Hm7h-kVE">importu</a> adres ze slovenského Ministerstva vnitra.</li>
+
+<li>Oprava <a href="https://groups.google.com/forum/#!topic/osm_sk/QYIslunBSFk">dvojité</a> turistické trasy E8 poblíž Skalky v Kremnických vrších.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/XKu91FHdLrg">Hledá</a> se odborník na název místní části v Košicích.</li>
+<li>Jde nějak <a href="https://groups.google.com/forum/#!topic/osm_sk/qTgttK2IstQ">používat</a> ve free verzi programu Locus stínování terénu?</li>
+
+<li>Návrh na změnu v <a href="https://groups.google.com/forum/#!topic/osm_sk/eChzca_VOtk">technologii</a> renderování (především turistické vrstvy) map pro freemap.sk.</li>
+<li>Návrh na <a href="https://groups.google.com/forum/#!topic/osm_sk/ptdqtKu6XHQ">přejmenování</a> spolku freemap.sk na OpenStreetMap Slovakia.</li>
+<li>Informace o <a href="https://groups.google.com/forum/#!topic/osm_sk/VN11xoBsUKs">realizaci</a> geocache na téma OpenStreetMap poblíž prvního zakresleného uzlu na území Slovenska.</li>
+
+<li>Jaká je správná <a href="https://groups.google.com/forum/#!topic/osm_sk/zvf5NJb34mk">hodnota</a> tagu <code>operator</code> pro rozcestníky ve Vysokých Tatrách nebo Pieninách o které se starají Štátne lesy TANAP-u.</li>
+<li>Do aplikace freemap.sk <a href="https://groups.google.com/forum/#!topic/osm_sk/lU2F4OoneuE">přidána</a> podpora PWA (progressive web application). Zřejmě jediný další web, který to používá, je nějaký Twitter.</li>
+<li>Žádost o <a href="https://groups.google.com/forum/#!topic/osm_sk/x00g-N4243k">rozšíření</a> možností filtrování v galerii fotek na freemap.sk.</li>
+<li>Hledá se <a href="https://groups.google.com/forum/#!topic/osm_sk/MWIG0VYQxg0">dobrovolník</a> na překlad stanov občanského sdružení Freemap.sk do angličtiny kvůli žádosti o status Local Chapter Nadace OSM.</li>
+
+<li>bez nového vlákna</li>
+
+<li>Tipy na <a href="https://groups.google.com/forum/#!topic/osm_sk/3tZcdZMafyY">práci</a> pro studenty, ideálně něco s relacemi.</li>
+<li>Článek o tom, že by se mělo <a href="https://groups.google.com/forum/#!topic/osm_sk/hkeFgw_miy4">přejmenovat</a> spoustu zastávek v Bratislavě.</li>
+<li>Příkladné <a href="https://groups.google.com/forum/#!topic/osm_sk/WNV3LeeGbek">použití</a> mapy freemap.sk včetně deklarace práv a majitele na slovakrail.sk.</li>
+<li>Nový <a href="https://groups.google.com/forum/#!topic/osm_sk/9korAnUUwUE">mapper</a> bude asi potřebovat trochu pomoct a zkontrolovat.</li>
+<li>Detailní <a href="https://groups.google.com/forum/#!topic/osm_sk/W18O-kW-as0">popis</a> funkcí a zkušeností s laserovým měřičem pro potřeby OSM.</li>
+<li>Část OMA, hlavně <a href="https://hlohovec.oma.sk/">hlohovec.oma.sk</a> nově <a href="https://groups.google.com/forum/#!topic/osm_sk/C7nU2HEa_I8">funguje</a> i jako <acronym title="Progresívní Webová Aplikace">PWA</acronym>.</li>
+
+<li>Chybně <a href="https://groups.google.com/forum/#!topic/osm_sk/igC3frWJSJU">vygenerovaná</a> dlaždice pro Bratislavu 2242/1421. Zřejmě problém v DiSK v návaznosti na problém v OSM datech.</li>
+
+
+<li>Oprava <a href="https://groups.google.com/forum/#!topic/osm_sk/DkmEVepmj5Q">dlaždic</a> pro freemap.sk v konfiguraci editoru JOSM na HTTPS.</li>
+<li>Správné <a href="https://groups.google.com/forum/#!topic/osm_sk/z-LEnXBbBRs">skloňování</a> místních názvů anebo slovenský jazykový koutek.</li>
+<li>Nesprávné <a href="https://groups.google.com/forum/#!topic/osm_sk/-OfV5obWk0Y">označení</a> městských částí (minimálně v Žilině) v <code>addr:place</code> místo <code>addr:suburb</code>.</li>
+
+
+<li>Martin <a href="https://groups.google.com/forum/#!topic/osm_sk/EMj0qjpKLTQ">informuje</a> o chystaném Missing Maps mapathonu v Prešově.</li>
+<li>Snaha <a href="https://groups.google.com/forum/#!topic/osm_sk/1CoX-_sOv9Q">využít</a> Strava API pro lepší plánování těžby dřeva v období menšího výskytu běžců a cyklistů v daném místě.</li>
+
+<li>Dokončen projekt mapování <a href="https://groups.google.com/forum/#!topic/osm_sk/gyxspxxEGOs">povodí</a> v oblastech Liptova, Tater, Fatry a Oravy.</li>
+<li>Žádost o <a href="https://groups.google.com/forum/#!topic/osm_sk/bRf_LsVUL6k">doporučení</a> přesného GNSS přijímače pro potřeby mapování a dotaz, k čemu jsou profesionální přistroje a jsou na mapování vhodné?</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/V4izSLgaGuc">Problémy</a> s fungováním projektu WhoDidIt od Ilji Zverika. Chyba přeposlána autorovi. K dispozici je i (vylepšený) <a href="https://simon04.dev.openstreetmap.org/whodidit/">fork projektu</a>.</li>
+
+<li>Nováček v OSM <a href="https://groups.google.com/forum/#!topic/osm_sk/e-4YXtE6paw">se ptá</a>, v jakém stavu je mapování 3D terénu na Slovensku.</li>
+
+<li>Na Slovensku je nově <a href="https://groups.google.com/forum/#!topic/osm_sk/IzOpQhGywSQ">k dispozici</a> ortofoto s licencí použitelnou pro OSM. Prozatím jen některé oblasti.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/iv7PfHNqx4A">Blíží</a> se datum jarní mapping party (4. - 8. května), takže se začíná diskutovat o lokalitě.</li>
+<li>Jaká jsou reálně používaná <a href="https://groups.google.com/forum/#!topic/osm_sk/pZBX5wSo2z0">pravidla</a> pro problematické editace a jejich reverty?</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/a52Bt3qVFdM">Podpora</a></a> pro HTTP/2 na freemap.sk? Asi zatím spíše není třeba a jsou s tím jen problémy. Testuje se na oma.sk.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/IY-JTTeVnYw">Chybka</a> na novém webu freemap.sk - nezobrazovaly se tipy a byl i problém se zobrazením Dunaje.</li>
+<li>Problém s <a href="https://groups.google.com/forum/#!topic/osm_sk/iSSyG38yvPg">certifikátem</a> na freemap.sk při použití IE.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/46istkidxCA">Prosba</a> o kontrolu a opravu dvojitého potoka.</li>
+
+<li>Denně aktualizované <a href="https://groups.google.com/forum/#!topic/osm_sk/lWUKG_iPuSo">statistiky</a> z vyhledávání tras na freemap.sk.</li>
+<li>Návrh na vytvoření <a href="https://groups.google.com/forum/#!topic/osm_sk/EwY5CnbYBk8">nových vrstev</a> na freemap.sk, kombinujících ortofoto s dalšími daty.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/abprcAXNZ8w">Dostupnost</a> vlastních GPX záznamů nahraných na web osm.org jako uživatelský (fuse) souborový systém v Linuxu.</li>
+
+<li>Na rozhledně Lipovec <a href="https://groups.google.com/forum/#!topic/osm_sk/z3FNRGQWSEE">nalezena</a> mapa vycházející z freemap.sk bez správné deklarace práv a majitelů.</li>
+<li>Prosba o <a href="https://groups.google.com/forum/#!topic/osm_sk/bQhdGl3yD_w">pomoc</a> s tagováním cesty vedoucí přes budovu STK.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/-9Gckuu06BY">Dotaz</a> na chybné routování přes cyklotrasu v okolí Liptovského Mikuláše. Data v OSM vypadají dobře.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/Z3wa_G-5QOw">Přestávka</a> v renderování dlaždic pro freemap.sk zřejmě kvůli label placement optimalizaci.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/LsJnO4FiG_k">Výzva</a> na zaslání příspěvků na konferenci OSSConf 2018 v Žilině.</li>
+<li>Kopie Strava <a href="https://groups.google.com/forum/#!topic/osm_sk/CCWc9f5m_zo">heat map</a> pro SK v zoomu 16 pro mapování v OSM.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/AA5Nc_3Zix4">Dopad</a> zapnutého přesměrování na HTTPS v rámci OSM.org na přihlašování na freemap.sk.</li>
+
+
+<li>Jakým způsobem <a href="https://groups.google.com/forum/#!topic/osm_sk/SBxBgk5zwRw">tagovat skály</a>, na kterých jsou lezecké cesty?</li>
+<li>Import (resp. ruční kontrola a doplnění) chybějících <a href="https://groups.google.com/forum/#!topic/osm_sk/C7x15eijxuw">vrcholů</a> v OSM ze zdroje ZBGIS.</li>
+<li>Možnost <a href="https://groups.google.com/forum/#!topic/osm_sk/U49d5CoujiI">využití</a> WMS služeb z geoportal.sk pro doplnění OSM a jejich využití v editoru JOSM.</li>
+
+<li>Možnost <a href="https://groups.google.com/forum/#!topic/osm_sk/p9QnmaHmpA8">získat</a> držák na telefon do auto nebo na kolo od Mapillary a jaké jsou s nimi zkušenosti.</li>
+<li>Aktuální <a href="https://groups.google.com/forum/#!topic/osm_sk/GBDp_fxxN60">stav</a> importu SK adres minvskaddress.</li>
+<li>Nesprávně renderované <a href="https://groups.google.com/forum/#!topic/osm_sk/IKjf603dqes">názvy</a> obce Hybe a co s podivnými daty v OSM, která to způsobují.</li>
+<li>Podivné <a href="https://groups.google.com/forum/#!topic/osm_sk/ZXo4mVJ3eUQ">vykreslování</a> tunelu v oblasti Harmance.</li>
+<li>Slovensko má <a href="https://groups.google.com/forum/#!topic/osm_sk/dAKoy2lLAdA">muzeum map</a>. O OSM tam ale asi nenajdete ani zmínku.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/0CLOS026KAo">Žádost</a> o kontrolu a informace k mapování areálu nemocnice v Trenčíně.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/copQEICDUFM">Hrátky</a> s MVT (Mapbox Vector Tiles) dlaždicemi.</li>
+<li>Aktualizace údajů o <a href="https://groups.google.com/forum/#!topic/osm_sk/bxBCBr1yilk">nezmapovaných</a> turistických trasách a rozcestnících.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/UuWfPVayIsA">Žádost</a> o pomoc se zlepšením pokrytí Slovenska v Mapillary s možností zapůjčit GoPro kamery.</li>
+<li>Jak je to s podporou <a href="https://groups.google.com/forum/#!topic/osm_sk/51UpK760Z94">sdílení</a> aktuální polohy na freemap.sk v Locusu? V nové verzi již není podporováno, ale ve staré by mohlo ještě fungovat.</li>
+<li>Zajímavý <a href="https://groups.google.com/forum/#!topic/osm_sk/yH4Q47EbQQw">nárůst</a> uživatelů freemap.sk díky vložené mapě v článku na interez.sk.</li>
+<li>Postup pro <a href="https://groups.google.com/forum/#!topic/osm_sk/kLt5h9yNOTQ">využití</a> GKU a NLC ortofoto z freemap.sk v Locusu.</li>
+
+<li>Má někdo v plánu <a href="https://groups.google.com/forum/#!topic/osm_sk/ND0oQa_Dmws">zakreslit</a> nový bike sharing v Bratislavě?</li>
+<li>Zkouška <a href="https://groups.google.com/forum/#!topic/osm_sk/RhPVRaVAN1w">indoor mapování</a> a jak jej pak zobrazit.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/rUwqvlzWhf0">Vandal</a> a jak naložit s jeho editacemi.</li>
+
+<li>Byla <a href="https://groups.google.com/forum/#!topic/osm_sk/XnaOZ4r7a1c">dokončena</a> práce na mapování říční sítě Turca.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/mm-A31-1Lbo">Mapa</a> pro orientaci v cyklostezkách v okolí Těrchové.</li>
+
+<li>ZBGIS WMS je <a href="https://groups.google.com/forum/#!topic/osm_sk/jHpOq6-THII">dostupné</a> pro obkreslování do OpenStreetMap (od 25.06.2018 po dobu 5 let)</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/_J6FE1WVQrw">Dokončen</a> import vrcholů z ZBGIS.</li>
+<li>Dotazy na detaily <a href="https://groups.google.com/forum/#!topic/osm_sk/Bm0XMgttHAY">značení</a> cyklistických relací.</li>
+<li>OSM projekt Moje mapa <a href="https://groups.google.com/forum/#!topic/osm_sk/vz_t3oTR-Mw">přidal</a> vylepšení základní 2D mapy o stínování.</li>
+
+<li>Žádost <a href="https://groups.google.com/forum/#!topic/osm_sk/kvViepAK_lQ">o rady</a> k mapování v oblasti Čachtických Karpat od nováčka.</li>
+<li>Byla spuštěna <a href="https://groups.google.com/forum/#!topic/osm_sk/xRn102devDU">aktualizace</a> POI a názvů pro freemap.sk a jak to vlastně funguje?</li>
+<li>Reakce na <a href="https://groups.google.com/forum/#!topic/osm_sk/4SldRkpE0xM">automatický mail</a> s přivítáním nového člena slovenské OSM komunity.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/AjovXFw33DI">Obrázky</a> v Android aplikaci freemap.sk nemají zřejmě správně .nomedia soubor.</li>
+<li>Připomínky a komentáře k mapovému <a href="https://groups.google.com/forum/#!topic/osm_sk/w7bg8l8tAX8">tématu</a> pro Locus.</li>
+
+<li>Jak vytvořit vlastní <a href="https://groups.google.com/forum/#!topic/osm_sk/hMKEj7Nx9Rk">vektorovou mapu</a> z dat ve formátu SVG pro použití například v Locusu?</li>
+<li>V návaznosti na WeeklyOSM se objevila myšlenka na zmapování slovenských cest <a href="https://groups.google.com/forum/#!topic/osm_sk/06YbcjeFjhc">via ferrata</a>.</li>
+
+<li>Další <a href="https://groups.google.com/forum/#!topic/osm_sk/SOjv-Xk_Clo">posun</a> v mapování vodních toků na Slovensku - jsou hotové potoky kolem Žiliny.</li>
+<li>Jak s velkou přesností <a href="https://groups.google.com/forum/#!topic/osm_sk/HKS5TWu1IGY">mapovat</a> cyklotrasy v oblasti se špatným signálem GPS?</li>
+<li>Jak <a href="https://groups.google.com/forum/#!topic/osm_sk/Ne_C3N2o-bo">nahrávat</a> fotky na freemap.sk.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/2XhODWirIqY">Použití</a> dat od Narodneho Lesnickeho Centra přes REST API.</li>
+<li>Možnosti pro výpočet <a href="https://groups.google.com/forum/#!topic/osm_sk/yM7N4dVmDic">délky</a> drah z dat uložených v MySQL DB.</li>
+
+<li>Jak správně mapovat <a href="https://groups.google.com/forum/#!topic/osm_sk/hMdhhfXUIbE">plošné objekty</a> (třeba parkoviště) - přilepit k sousedům nebo nechat mezeru?</li>
+<li>Jak dostat jemnější data pro <a href="https://groups.google.com/forum/#!topic/osm_sk/KzUWaqyHCu8">Strava Heatmap</a> do JOSM, když to na freemap.sk funguje?</li>
+
+<li>Oznámení krátkého <a href="https://groups.google.com/forum/#!topic/osm_sk/iOts23M0guA">výpadku</a> hostingu pro openstreetmap.cz.</li>
+
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/HXqutuCcM2M">Zkoumání</a>, proč se nevykresluje červená turistická značka mezi Volovcem a Hrubým vrchem na freemap.sk.</li>
+
+<li>Další <a href="https://groups.google.com/forum/#!topic/osm_sk/kIe_lt2wbO4">pokrok</a> v mapování vodních toků - severní Slovensko má kompletní pokrytí!</li>
+
+<li>Upozornění na <a href="https://groups.google.com/forum/#!topic/osm_sk/Opzq_MrAYts">použití</a> freemap.sk bez deklarace práv a majitele - Cyrilometodějský chodník v Piešťanech.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/AOoUYjZvdvw"></a>Výzva k podání návrhů na podzimní mapping party a zároveň valnou hromadu občanského sdružení freemap.sk.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/mRVQhbPY-FI">Souhrn</a> novinek na freemap.sk. Detailnější výškový profil využívající nové API pro výšky.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/_OyZPBcwmGo">Chybějící</a> deklarace práv a majitele v Kostolianech a kde takové věci evidovat souhrnně.</li>
+<li>Bližší <a href="https://groups.google.com/forum/#!topic/osm_sk/7AUwbKwWgTk">informace</a> k API pro získávání nadmořských výšek.</li>
+<li>V Bratislavě najdete na zastávkách MHD <a href="https://groups.google.com/forum/#!topic/osm_sk/kSqpS5kS0Hs">mapku</a> okolí využívající OSM se správnou deklarací práv a majitele.</li>
+
+<li>V OSM existující trasa již není ve skutečnosti <a href="https://groups.google.com/forum/#!topic/osm_sk/kZaQiUQl4LQ">vyznačena</a> na místě. Kde ověřit, zda ještě existuje?</li>
+<li>Jak z OSM zjistit <a href="https://groups.google.com/forum/#!topic/osm_sk/3-oR2qM18Vs">kategorii</a></a> mýta na slovenských silnicích.</li>
+
+<li>Informace o <a href="https://groups.google.com/forum/#!topic/osm_sk/4ypC1jtyqg4">použití</a> OpenStreetMapy na webu <a href="http://OdkazPreStarostu.sk">OdkazPreStarostu.sk</a></li>
+
+<li>První <a href="https://groups.google.com/forum/#!topic/osm_sk/w-xGvMtzOII">pokus</a> s Mapbox Vector Tiles aneb mapa zeleně.</li>
+
+<li>Problém se <a href="https://groups.google.com/forum/#!topic/osm_sk/z7neLwyQUe0">značením</a> mezinárodních tras (konkrétně E8 v úseku Beckov - Selec).</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/1LzpYDZ8FRo">Nezobrazování</a> turistických značených tras v Locus Freemap s pluginem FreeMap.sk.</li>
+<li>Práce na <a href="https://groups.google.com/forum/#!topic/osm_sk/41T_zgmcLSQ">přepisu</a> stylu pro freemap.sk a přidání překryvných vrstev.</li>
+<li>Pokusy s <a href="https://groups.google.com/forum/#!topic/osm_sk/rosdOnQDSo0">novou mapou</a> a jejím správným zobrazením (jméno mapy) v garminím BaseCamp na macOS.</li>
+
+<li>Má smysl <a href="https://groups.google.com/forum/#!topic/osm_sk/XabLOt0FZWg">přidávat</a> do OSM bod pro vrcholy všude, kde to ukazují vrstevnice?</li>
+
+
+<li>Dá se někde získat <a href="https://groups.google.com/forum/#!topic/osm_sk/rmUcCf0gcJs">seznam</a> obcí a jejich webových stránek?</li>
+<li>Žádost o <a href="https://groups.google.com/forum/#!topic/osm_sk/3hKUsuVu7Jk">přístup</a> do instance umap s nezmapovanými cyklistickými trasami pro freemap.sk.</li>
+<li>Správné <a href="https://groups.google.com/forum/#!topic/osm_sk/H2E7Z8givK0">tagování</a> silnic a jejich označení.</li>
+
+<li>Mapa <a href="https://groups.google.com/forum/#!topic/osm_sk/arVqM0Js1y4">v areálu</a> sportovního centra x-bionic sphere v Šamoríně, je to freemap.sk nebo ne?.</li>
+<li>Je možné v leafletu jako vrstvu <a href="https://groups.google.com/forum/#!topic/osm_sk/Gu6c13jec88">použít</a> TMS freemap.sk? A s jakými parametry?</li>
+<li>WeeklyOSM CZ <a href="https://groups.google.com/forum/#!topic/osm_sk/O6owtUhT1Uc">inspiruje</a> k podzimním výletům do přírody!</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/xAfLHHlZzFc">Výpadek</a> freemap.sk?</li>
+<li>Nová <a href="https://groups.google.com/forum/#!topic/osm_sk/Z64j5lUu2I0">verze</a> KAPOR pluginu pro JOSM verze #14385.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/PUGB0r3OakE">Rozhovor</a> z předsedou Slovenského cykloklubu Michalem Hlatkým a přístup veřejnosti do registru cyklotras.</li>
+
+<li>Nová <a href="https://groups.google.com/forum/#!topic/osm_sk/A7bCPeDYxX8">stránka</a> "Kdo jsme" v rámci úvodu pro začátečníky na wiki freemap.sk.</li>
+<li>Bílá <a href="https://groups.google.com/forum/#!topic/osm_sk/GriQn_isTkg">díra</a> na Slovensku v mapě energetiky.</li>
+<li>Upravený <a href="https://groups.google.com/forum/#!topic/osm_sk/oL43yzImx6U">skript</a> na nahrávání GPX logů od hopinSK.</li>
+<li>Které cyklotrasy <a href="https://groups.google.com/forum/#!topic/osm_sk/y3iK0d7q918">vykreslovat</a>? Jen ty s <code>ref</code> nebo s určitou minimální délkou nebo i pidi kousky?</li>
+<li>Podivné <a href="https://groups.google.com/forum/#!topic/osm_sk/t6pulQxxPmo">chování</a> MapTileru pro slovenský jazyk a data z Wikipedie.</li>
+<li>Informace o <a href="https://groups.google.com/forum/#!topic/osm_sk/m14cwapGl1o">mapathonu</a> Missing Maps v Bratislavě 27.11.2018 (ale pouze na ksichtoknize!)</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/Ce2UVV2Z0dc">Nefunkční</a> TEST Locus motiv - nevykresluje některé čtverce.</li>
+<li>Informace o chybném <a href="https://groups.google.com/forum/#!topic/osm_sk/Eq6xk8eW2nQ">označení</a> neoficiálních městských čtvrtí v Martině.</li>
+
+<li>První <a href="https://groups.google.com/forum/#!topic/osm_sk/9PMa7xTeKJo">pokusy</a> s Mapnikem pro nasazení na freemap.sk.</li>
+<li>Příliš velké <a href="https://groups.google.com/forum/#!topic/osm_sk/9QnBm9o1w4w">detaily</a> v OSM - zákaz otáčení chodců na přechodu pro chodce?</li>
+<li>Návrh na <a href="https://groups.google.com/forum/#!topic/osm_sk/_lISReGP7g8">blokování</a> dvou uživatelů. Pro začátek je ale možná lepší revert a počkat, zda je to nepřestane bavit.</li>
+<li>Jak <a href="https://groups.google.com/forum/#!topic/osm_sk/u7_Q2El3jpY">určit</a>, zda se jedná o most nad vodou nebo tunel pod cestou?</li>
+<li>Jak <a href="https://groups.google.com/forum/#!topic/osm_sk/Ua0jG6s69dA">postupovat</a> při mapování vodních toků při křížení s komunikací? Společný bod je spíše na obtíž a problematicky opravitelný.</li>
+
+<li>Marián <a href="https://groups.google.com/forum/#!topic/osm_sk/ldG-qlPzELw">děkuje</a> Martinovi za nástroj GPX Animator, který použil na výlet po SotM v Brně.</li>
+<li>Další <a href="https://groups.google.com/forum/#!topic/osm_sk/vzs6A3gxn8g">kroky</a> v pokusech Michala o využití vektorových dlaždic pro mapu Slovenska.</li>
+
+<li>Hlášení <a href="https://groups.google.com/forum/#!topic/osm_sk/PNN6ltyTNqI">chyby</a> v okolí Modra - Harmónie, zřejmě po přejmenování části potoků.</li>
+
+<li>bez nového vlákna</li>
+
+<li>Jak je to s <a href="https://groups.google.com/forum/#!topic/osm_sk/z25zEU5sR7s">umístěním</a> adres - budovy nebo samostatné body?</li>
+
+<li>Experimentální <a href="https://groups.google.com/forum/#!topic/osm_sk/aESR7IfA-Xk">dlaždice</a> outdoor mapy Slovenska s vysokým rozlišením pro Locus.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/-Ay_qe5Jrzo">Mapa</a> z OSM dat v Adeli centru v Piešťanech bez uvedení deklarace práv a majitele.</li>
+
+<li>Lehce <a href="https://groups.google.com/forum/#!topic/osm_sk/urNyYr5e5ao">opožděný</a> dáreček od Martina pro freemap.sk – export mapy do PDF.</li>
+<li>A <a href="https://groups.google.com/forum/#!topic/osm_sk/4EWtPY41wU0">další</a>, opět od Martina, je lepší podpora freemap.sk na mobilních zařízeních.</li>
+
+<li>Diskuze o <a href="https://groups.google.com/forum/#!topic/osm_sk/u9azx-yK37A">použití</a> nového mapového stylu jako výchozí mapy na freemap.sk.</li>
+<li>Jak si s pomocí Dockeru <a href="https://groups.google.com/forum/#!topic/osm_sk/867GUNeCqfE">rozběhat</a> prostředí pro vývoj nového mapového stylu pro freemap.sk.</li>
+
+<li>Pokračuje <a href="https://groups.google.com/forum/#!topic/osm_sk/XfupoBt84wk">mapování</a> vodních toků na Slovensku, další dokončenou oblastí je Spiš.</li>
+
+<li>Další <a href="https://groups.google.com/forum/#!topic/osm_sk/Xu3ufJbOJ2I">úpravy</a> nové vrstvy X pro freemap.sk, tentokrát hlavně ladění odstínů barev lesů, jiných porostů a vody.</li>
+<li>Martin už si s Mapnikem jen <a href="https://groups.google.com/forum/#!topic/osm_sk/jmtIDZ_Zo88">nehraje</a>, ale pustil se i do jeho vylepšování.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/EUyn1CvzME4">Blokování</a> uživatele, který zpřesňuje polohy podle evidentně nepřesného zdroje a nereaguje na kontakt?</li>
+<li>Možnost <a href="https://groups.google.com/forum/#!topic/osm_sk/pAmUjjdLXGc">podpořit</a> freemap.sk svými dvěma procenty daně.</li>
+<li>Pokus o <a href="https://groups.google.com/forum/#!topic/osm_sk/_-vxqwjfGIs">vytvoření</a> mapy dopravy a MHD pro Slovensko s prosbou o vyzkoušení.</li>
+<li>Mají ve <a href="https://groups.google.com/forum/#!topic/osm_sk/NKkABnU5emU">Francii</a> také nějaké Prušánky?</li>
+<li>Pískový <a href="https://groups.google.com/forum/#!topic/osm_sk/hHSiJrW5fkU">model</a> krajiny ve Slovenském muzeu map s rozšířenou realitou (augmented reality).</li>
+
+<li>OSM <a href="https://groups.google.com/forum/#!topic/osm_sk/GgQ7WTtV4YU">mapa</a> bez deklarace práv a majitele na zoznamrealit.sk a nehnutelnosti.sk.</li>
+<li>Martin dále <a href="https://groups.google.com/forum/#!topic/osm_sk/4Q_ppqjdJaE">pokračuje</a> ve vylepšování vrstvy X na freemap.sk.</li>
+<li>Když se mapuje realita, zmapujeme i <a href="https://groups.google.com/forum/#!topic/osm_sk/t_Ih2mm1VFI">vymyšlenou</a> adresu načerno postaveného domu s pekárnou?</li>
+
+<li>Je OSM vhodný zdroj dat pro detailní výběr <a href="https://groups.google.com/forum/#!topic/osm_sk/6NvoLwAnT2g">cyklotras</a> podle specifických požadavků?</li>
+<li>Jak organizačně i prakticky řešit dopředu známé <a href="https://groups.google.com/forum/#!topic/osm_sk/KzjF7kXw1is">objížďky</a>?</li>
+<li>Martin <a href="https://groups.google.com/forum/#!topic/osm_sk/NBOvag3BLMA">aktualizoval</a> slovenskou kopii Strava Heatmap pro účely mapování OSM.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/YcVuLavfySQ">Opraven</a> GPX export z freemap.sk, takže už funguje i v Garmin BaseCamp.</li>
+<li>Problém s <a href="https://groups.google.com/forum/#!topic/osm_sk/OxYzqqjwnL4">aktualizací</a> legacy dlaždic kvůli nedostupnosti změn v OSM za 6.2.</li>
+
+<li>Žádost o <a href="https://groups.google.com/forum/#!topic/osm_sk/b3a9PbHvUqM">prověření</a> podivných cyklotras v oblasti Nemšovej.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/wJc-EUu81C4">Obnovena</a> geocache na téma Freemap a OpenStreetMap u Zlatých písků.</li>
+<li>Využití freemap.sk a OpenStreetMap <a href="https://groups.google.com/forum/#!topic/osm_sk/M6Kmel1tymQ">podkladů</a> na webu www.cykloportal.sk a korektní deklarace práv a majitele.</li>
+<li>Uměl by někdo <a href="https://groups.google.com/forum/#!topic/osm_sk/bINLhl7nxb8">vyrobit</a> detektor posunutých cest? OSM Inspector to neumí a navigace jsou na to citlivé.</li>
+
+<li>Video <a href="https://groups.google.com/forum/#!topic/osm_sk/7rPqCDIwJmo">tutoriál</a> o GPX animátoru od jednoho programátora z východní Evropy :-)</li>
+<li>Vrstvy do JOSM (TMS) pro <a href="https://groups.google.com/forum/#!topic/osm_sk/LvZ0PZyswSQ">sledování</a> kvality mobilního signálu od O2 pro portál nabezky.sk.</li>
+<li>Jak <a href="https://groups.google.com/forum/#!topic/osm_sk/Ies5yBv_HQw">značit</a> sezónně uzavřené turistické chodníky (např. z důvodů lavinového nebezpečí).</li>
+<li>Zajímavá <a href="https://groups.google.com/forum/#!topic/osm_sk/yQF3xj-J02A">mapa ničeho</a> na východním Slovensku.</li>
+
+<li>Úprava <a href="https://groups.google.com/forum/#!topic/osm_sk/tHGiOnbzIJk">významu</a> <code>admin_level</code> pro hranice aby odpovídaly sousedním zemím?</li>
+<li>Vyhledávání <a href="https://groups.google.com/forum/#!topic/osm_sk/NiawmIjgfww">adres</a> ve freemap.sk.</li>
+<li>Možnost <a href="https://groups.google.com/forum/#!topic/osm_sk/qFefPV23nII">plánování</a> okružních cest metodou obchodního cestujícího.</li>
+<li>Statistika tras (routing), které lidé <a href="https://groups.google.com/forum/#!topic/osm_sk/ZWLau5LygYg">vyhledávají</a> na freemap.sk.</li>
+
+<li>Na freemap.sk je <a href="https://groups.google.com/forum/#!topic/osm_sk/s9k30nplZ2s">dostupný</a> i routing s body bez udání pořadí (známý jako problém obchodního cestujícího).</li>
+<li>Příprava nového <a href="https://groups.google.com/forum/#!topic/osm_sk/CQavEvcmx0o">stínování terénu a vrstevnic</a> pro vrstvu X pro freemap.sk.</li>
+
+<li>Jak správně tagovat a následně vykreslovat <a href="https://groups.google.com/forum/#!topic/osm_sk/IlDnSZDqv8g">vykácená místa</a> v lese?</li>
+<li>Mapa pro testování <a href="https://groups.google.com/forum/#!topic/osm_sk/uNoPev1pCUE">3D budov</a>.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/tuNA-YzDVc8">Změna</a> odkazů (ID) článků na WeeklyOSM po stěhování serveru.</li>
+<li>Další várka <a href="https://groups.google.com/forum/#!topic/osm_sk/K8EdiuAzxzs">novinek</a> pro vrstvu X na freemap.sk: stínování, vrstevnice, vodopády a velikost textů.</li>
+
+<li>Opět po týdnu várka <a href="https://groups.google.com/forum/#!topic/osm_sk/IoWEyjM3rwg">novinek</a> pro novou vrstvu pro freemap.sk.</li>
+<li>Žádost o <a href="https://groups.google.com/forum/#!topic/osm_sk/kweW95kLitQ">vyplnění</a> dotazníku pro diplomovou práci na téma Fenomén kolaborativního mapování.</li>
+<li>Informace o <a href="https://groups.google.com/forum/#!topic/osm_sk/XLuyfhbQzvA">problému</a> s vykreslováním turistických tras v Locus Maps kvůli nefunkčnímu zpracování relací pro CZ.</li>
+<li>Problém s <a href="https://groups.google.com/forum/#!topic/osm_sk/-aGi4qPsFd8">nejasností</a> tagování relací železničních tratí a tras vlaků.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/o7IAEGrWJdQ">Mapka</a> postavená na OSM bez správného uvedení deklarace práv a majitele. Byla zaslána žádost o nápravu.</li>
+
+<li>Problém s <a href="https://groups.google.com/forum/#!topic/osm_sk/VDO6pHxDuqI">chybějícím</a> lesem v Ostrozkach je v nové vrstvě již vyřešen a chyba tak není v datech.</li>
+<li>Kde je vedena cesta, pokud se <a href="https://groups.google.com/forum/#!topic/osm_sk/gj2rln9gGuo">obkresluje</a> z ortofotomapy? Většinou jejím středem.</li>
+<li>Detailní mapování dopravních značek a jejich přesné označování &ndash; s mezerou nebo bez?</li>
+
+<li>Kvíz ohledně <a href="https://groups.google.com/forum/#!topic/osm_sk/uFO17BYA58Y">názvů</a> tradičních regionů na Slovensku.</li>
+
+<li>Bez nového vlákna, nicméně pár novinek by se <a href="https://groups.google.com/d/msg/osm_sk/CDr-XvRkDu4/4pveW-LhCwAJ">našlo</a>.</li>
+
+<li>Jak se <a href="https://groups.google.com/forum/#!topic/osm_sk/rw32QHgoKK0">postavit</a> k datům o možných cyklotrasách v Bratislavě od Cyklokoalice a jak s jejich vykreslováním?</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/QOiiGCQ_GCg">Diskuze</a> o významu a používání tagu <code>bicycle:practical</code> na cyklotrasách v Bratislavě.</li>
+<li>Chybná <a href="https://groups.google.com/forum/#!topic/osm_sk/pU5jQIW-5rg">deklarace</a> práv a majitele na webu sdílení kol v Košicích.</li>
+<li>Mikoláš <a href="https://groups.google.com/forum/#!topic/osm_sk/WNsxIvzNFhY">hledá</a> obdobu českého RÚIAN pro Slovensko.</li>
+<li>Doplnění <a href="https://groups.google.com/forum/#!topic/osm_sk/7DyMCd_qE-k">potoků</a> na Babí hoře z polské strany aneb jeden zajímavý vrchol v Beskydech.</li>
+
+<li>Pro novou vrstvu X bylo <a href="https://groups.google.com/forum/#!topic/osm_sk/5Gdlt3t7_h4">zprovozněno</a> HDPI renderování (1x, 2x a 3x).</li>
+<li>Specialita mapování <a href="https://groups.google.com/forum/#!topic/osm_sk/SHsAxh9LlMA">budov</a> v Košicích &ndash; tag <code>building:use</code>.</li>
+<li>Další várka <a href="https://groups.google.com/forum/#!topic/osm_sk/WpU0cskorsU">novinek</a> nové vrstvy X pro freemap.sk.</li>
+<li>Alternativní, cizojazyčné a historické <a href="https://groups.google.com/forum/#!topic/osm_sk/IyqDYCpNmNc">názvy kopců</a> v Malých Karpatech.</li>
+<li>Problém při <a href="https://groups.google.com/forum/#!topic/osm_sk/MrmTucnTxlQ">registraci</a> nového uživatele renderovacího systému DiSK.</li>
+<li>Žádost o <a href="https://groups.google.com/forum/#!topic/osm_sk/bIx0jGc_ZyU">informace</a> o tvorbě 3D terénu z OSM dat. Tazatel odkázán na zdroje výškových dat NASA a 3D mapy od F4 Map.</li>
+
+<li>Nové <a href="https://groups.google.com/forum/#!topic/osm_sk/MbqsIS98kaI">ortofoto</a> podklady pro střední Slovensko budou snad k dispozici i pro mapování do OSM.</li>
+<li>Jak <a href="https://groups.google.com/forum/#!topic/osm_sk/661fFOFGYHs">převést</a> rastrové překryvné dlaždice na vektorová data?</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/0s2g2GZbOIE">Nasazen</a> nový server pro freemap.sk &ndash; zatím vykreslování vrstvy X a později API a vlastní web.</li>
+
+<li>Další <a href="https://groups.google.com/forum/#!topic/osm_sk/BC5g37pmlRg">novinka</a> pro freemap.sk - živé sledování polohy (live tracking).</li>
+<li>Varování editoru JOSM o zastaralém <a href="https://groups.google.com/forum/#!topic/osm_sk/3h-E2rvGNaQ">tagu</a> <code>is_in</code>.</li>
+
+<li>Podivné <a href="https://groups.google.com/forum/#!topic/osm_sk/4nAjE06gK7Y">chování</a> freemap.sk mapy pro Garmin při použití instalátoru.</li>
+<li>Martin <a href="https://groups.google.com/forum/#!topic/osm_sk/yh-XykTOMgU">aktualizoval</a> slovenskou kopii Strava heatmap pro účely mapování.</li>
+<li>Jak vhodně <a href="https://groups.google.com/forum/#!topic/osm_sk/y8wjJTsjSb4">upravit</a> tagování zaniklé obce, aby bylo jasné, že již neexistuje?</li>
+<li>Nově vzniklé <a href="https://groups.google.com/forum/#!topic/osm_sk/6Yge1LvMSkc">posunutí</a></a> ORTOmapy ZGBis oproti podkladu OSM, kde je problém a kde nahlásit?</li>
+
+<li>Na freemap.sk jsou <a href="https://groups.google.com/forum/#!topic/osm_sk/5eyi-5vEygc">dostupné</a> nové ortofoto fotky pro západ a střed Slovenska.</li>
+<li>Lidská kreativita <a href="https://groups.google.com/forum/#!topic/osm_sk/Scbk8_vc_GI">nezná</a> hranic - a nejen při vymýšlení OSM nicku.</li>
+<li>Co si myslíte o <a href="https://groups.google.com/forum/#!topic/osm_sk/aMvDi-krG4I">návrhu</a> na možnost vyhledávání v Nominatim podle orientačního čísla?</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/zoM9J7bByFA">Poděkování</a> členovi OSM komunity, který se na Slovensku věnuje přidávání informací o jízdních pruzích.</li>
+
+<li>Martin <a href="https://groups.google.com/forum/#!topic/osm_sk/2xtgbDrgRJw">informuje</a> o přidání České republiky do renderování vrstvy X pro freemap.sk. A co se přidá příště?</li>
+<li>Podivná <a href="https://groups.google.com/forum/#!topic/osm_sk/ww7rZLH7lE4">nabídka</a> na "Navigaci s podporou Sygic map" od O2. A vychovává řidiče dobře?</li>
+<li>Příprava mapování <a href="https://groups.google.com/forum/#!topic/osm_sk/Bnb1T5HOz_0">parkovacích míst</a> pro auta v rámci celého Slovenska státní institucí a diskuze o možnostech použitelnosti pro OSM.</li>
+
+<li>Jak <a href="https://groups.google.com/forum/#!topic/osm_sk/1Zk9Tt-DWjE">použít</a> téma freemap slovakia s mapou freemap.sk v programu c:geo?</li>
+<li>Nové mapy freemap.sk už <a href="https://groups.google.com/forum/#!topic/osm_sk/OC_O7LWjIw4">propaguje</a> i Locus Map.</li>
+<li>Zajímavý <a href="https://groups.google.com/forum/#!topic/osm_sk/yEDT91ROoDU">blog</a> o mapování jeskyní a speleologicky zajímavých míst na dolním Liptově.</li>
+
+<li>Dotaz na <a href="https://groups.google.com/forum/#!topic/osm_sk/ztZXyD-SMRg">jednoduchou aplikaci</a> pro vygenerování směrové růžice s informacemi o výhledu.</li>
+<li>Nové <a href="https://groups.google.com/forum/#!topic/osm_sk/vdgZXXiaRJo">vedení</a> tramvajových linek v Bratislavě aneb šaliny nejen v Brně.</li>
+<li>Aktuální <a href="https://groups.google.com/forum/#!topic/osm_sk/YZFolWbDRls">záplavy</a> v Bratislavě.</li>
+
+<li>Nový tag <code>crossing=market</code> používaný editorem iD <a href="https://groups.google.com/forum/#!topic/osm_sk/RI4jT_xEyvY">se objevil</a> na Slovensku. Aktuálně je ve stavu návrhu.</li>
+<li>Výsledky <a href="https://groups.google.com/forum/#!topic/osm_sk/69CHELaVfBA">průzkumu</a> o motivaci v rámci projektu OSM, aneb proč děláme to, co děláme.</li>
+<li>Další <a href="https://groups.google.com/forum/#!topic/osm_sk/0TpUg9At7gs">rozšíření</a> pokrytí vrstvou X.</li>
+<li>Informace o <a href="https://groups.google.com/forum/#!topic/osm_sk/dOM3ltD4s1E">nasazení</a> protokolu HTTP/2 pro outdoorové dlaždice vrstvy X.</li>
+<li>U vrstvy X je <a href="https://groups.google.com/forum/#!topic/osm_sk/aTVloHW_-ds">vylepšeno</a> stínování a odstraněny některé artefakty.</li>
+<li>Problém s <a href="https://groups.google.com/forum/#!topic/osm_sk/FE91lOdnBa0">dostupností</a> katastrálních údajů na webu projektu mojemapa.sk</li>
+<li>Chyba v <a href="https://groups.google.com/forum/#!topic/osm_sk/Iz0RnV-DB9g">plánovači</a> tras v doplňku Freemap.sk pro Locus.</li>
+
+<li>Jak správně <a href="https://groups.google.com/forum/#!topic/osm_sk/wiCBTVkFCiw">tagovat</a> trafostanici na sloupu?</li>
+<li>Další <a href="https://groups.google.com/forum/#!topic/osm_sk/SO6-Mf8LdVQ">novinky</a> vrstvy X pro freemap.sk: přidány ikony pro věci kolem vody a další drobnosti pro přiblížení nad úroveň 15.</li>
+
+<li>Vykreslování <a href="https://groups.google.com/forum/#!topic/osm_sk/ZbI6t5-7dHU">cyklotras</a>, tras MTB a naučných stezek v Locus freemap offline mapě.</li>
+<li>Svolení s použitím <a href="https://groups.google.com/forum/#!topic/osm_sk/XqmBQObn_d0">záznamů GPX</a> organizace Člověk v tísni pro mapu Podkarpatské Rusi.</li>
+<li>Letošní <a href="https://groups.google.com/forum/#!topic/osm_sk/pe97bJNg2ZY">SotM</a> v Brně bude CZ + SK. Už se těšíme!</li>
+
+<li>Horehroní má v OpenStreetMap kompletně <a href="https://groups.google.com/forum/#!topic/osm_sk/V3ZG5roxj68">doplněnou</a> sít vodních toků a potoků (jako další oblast Slovenska).</li>
+<li>Další balík <a href="https://groups.google.com/forum/#!topic/osm_sk/TvFraMb0dco">novinek</a> vrstvy X pro freemap.sk: zvýraznění turistických tras, koňské trasy a další.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/bvOj-6XedD4">Problém</a> s břehem řeky Ipeľ.</li>
+
+<li>Martin <a href="https://groups.google.com/forum/#!topic/osm_sk/5U_ZIOdtGuM">zaslal</a> poster pro konferenci State of the Map v Heidelbergu.</li>
+
+<li>Freemap <a href="https://groups.google.com/forum/#!topic/osm_sk/X24iwmq4bP0">připravil</a> podklady pro tisk mapky Trenčína a jeho okolí dle požadavků Kulturně informačního centra Trenčína.</li>
+
+<li>Martin <a href="https://groups.google.com/forum/#!topic/osm_sk/1DZGIKMYUgY">přináší</a> další drobné aktualizace vrstvy X pro freemap.sk.</li>
+
+<li>Kdy a kde <a href="https://groups.google.com/forum/#!topic/osm_sk/I_RX1-aL4Fc">bude</a> letošní podzimní mapping party a valná hromada sdružení freemap.sk.</li>
+<li>Aplikace pro Android a iOS ke <a href="https://groups.google.com/forum/#!topic/osm_sk/44-Xwt0qHjk">sdílení</a> polohy prostřednictvím URL?</li>
+<li>Na web freemap.sk byla <a href="https://groups.google.com/forum/#!topic/osm_sk/TJouepII__M">nasazena</a> verze přepsaná do TypeScriptu.</li>
+<li>Aplikace IPBike <a href="https://groups.google.com/forum/#!topic/osm_sk/kaL4GaeiYEE">podporuje</a> offline mapy. Je možné použít i freemap.sk mapu pro Locus?</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/tYK3xcO-v_k">Mapy</a> na naučných cedulích v podání freemap.sk.</li>
+
+<li>Jsou někde k dispozici <a href="https://groups.google.com/forum/#!topic/osm_sk/JK3NeAA2nWg">aktuální</a> instrukce pro instalaci freemap mapniku pro Docker? Ty stávající vyhazují chyby.</li>
+<li>Jak <a href="https://groups.google.com/forum/#!topic/osm_sk/1X-eG-Gvte4">zmapovat</a> a otagovat neobvyklou historickou památku - Spečený val (Fossa Giganteum)?</li>
+
+<li>Nové možnosti <a href="https://groups.google.com/forum/#!topic/osm_sk/um3dDJ4i3fU">routování</a> na portálu freemap.sk.</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/aNZ0R26wHTA">Hlášení</a> o chybějících a chybně pojmenovaných ulicích. Opraveno obratem.</li>
+<li>Aktualizace kopie Strava <a href="https://groups.google.com/forum/#!topic/osm_sk/FHAZ62AqkhE">heatmap</a> pro Slovensko.</li>
+<li>Problémový <a href="https://groups.google.com/forum/#!topic/osm_sk/mhvXa1rObH8">mapper</a> co mění ulice podle šířky nebo mapuje turistické trasy z nevhodného zdroje.</li>
+<li>Web freemap.sk se naučil <a href="https://groups.google.com/forum/#!topic/osm_sk/baxU7mTHaCk">maďarsky</a>.</li>
+<li>Také <a href="https://groups.google.com/forum/#!topic/osm_sk/guPnRfa7Fv0">toposkop</a> na freemap.sk už umí maďarsky.</li>
+<li>Přechod <a href="https://groups.google.com/forum/#!topic/osm_sk/hMp2KiVpj_E">vyhledávání</a> freemap.sk na Nominatim.</li>
+
+<li>Do freemap.sk byla <a href="https://groups.google.com/forum/#!topic/osm_sk/QWOqiFflr4U">přidána</a> možnost přetáhnout nad stránku soubory GPX a JPG &ndash; první zobrazí, druhé připraví pro import do galerie.</li>
+<li>Jak se v OSM správně <a href="https://groups.google.com/forum/#!topic/osm_sk/xQWS_1MJIQQ">tagují</a> říční ramena?</li>
+<li>Do freemap.sk také <a href="https://groups.google.com/forum/#!topic/osm_sk/LHQM963tNUI">doplněna</a> možnost otevřít fotku v externí aplikaci.</li>
+<li>Maďarské <a href="https://groups.google.com/forum/#!topic/osm_sk/BHdJFffH1eY">názvy</a> ulic v Bratislavě, kdy je to správně a kdy spíše k odstranění?</li>
+<li>Proč je na vrstvě C chybně <a href="https://groups.google.com/forum/#!topic/osm_sk/ii-TPkh9oiQ">vykreslena</a> cyklotrasa, když ve vrstvě X je v pořádku?</li>
+<li>Jak lépe <a href="https://groups.google.com/forum/#!topic/osm_sk/aYvkxdB9MK8">značit</a> turistické trasy vytvořené místní obcí?</li>
+<li>Je někde <a href="https://groups.google.com/forum/#!topic/osm_sk/m-P3TnEJaxE">vysvětlení</a>, co znamenají jednotlivá nastavení při exportu freemap.sk do PDF?</li>
+
+<li>Je možné <a href="https://groups.google.com/forum/#!topic/osm_sk/N_C6DKptSTw">používat</a> na feemap.sk cestičky z NLC?</li>
+<li>Garmin <a href="https://groups.google.com/forum/#!topic/osm_sk/j476xi68bIQ">mapa</a> pro hodinky FR945 se speciálními hlavičkami.</li>
+<li>Trochu netradiční <a href="https://groups.google.com/forum/#!topic/osm_sk/VbUSLK5OwoE">zásluhy</a> jednoho mappera.</li>
+<li>Drobná <a href="https://groups.google.com/forum/#!topic/osm_sk/7BwqDLaO1eE">úprava</a> uživatelského rozhraní pro freemap.sk a návrh na přidání klávesových zkratek.</li>
+
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/BHdiUDlTtbQ">Rušení</a> řetězce prodejen Kačka na Slovensku, má smysl hromadný úklid?</li>
+<li>Zkouška, jak by vypadal <a href="https://groups.google.com/forum/#!topic/osm_sk/X7Biv8BJHck">import</a> čísel domů z dat Ministerstva vnitra v Bratislavě.</li>
+<li>Na freemap.sk byly <a href="https://groups.google.com/forum/#!topic/osm_sk/F07q_iUzZyM">přidány</a> klávesové zkratky pro rychlý výběr nástroje nebo dialogu.</li>
+<li>Dotaz na <a href="https://groups.google.com/forum/#!topic/osm_sk/YFIQheU82QU">vykreslování</a> POI <code>emergency=assembly_point</code> na obecných nebo vlastních mapách.</li>
+<li>Dotaz na <a href="https://groups.google.com/forum/#!topic/osm_sk/FjnbZ0rquKM">zakreslení</a> nového mostu v Bratislavě, kde se nakonec ukázalo, že už je v OSM vlastně hotový.</li>
+<li>Je nějaké jednotné <a href="https://groups.google.com/forum/#!topic/osm_sk/MySHyY2fHjs">tagování</a> naučných cyklotras, které je odlišuje od těch obyčejných?</li>
+<li><a href="https://groups.google.com/forum/#!topic/osm_sk/zlJ3VC9E3rM">Poděkování</a> přispěvatelům fotek do Mapillary od uživatelů kontrolujících data v OSM.</li>
+
