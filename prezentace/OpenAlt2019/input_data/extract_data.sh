@@ -14,16 +14,16 @@ do
   rm -f "*"
 
   # Split to parts
-  csplit "${weeklyDir}/$f" '/^<h2/' '{*}'
+  csplit "${weeklyDir}/$f" '/^ *<h2/' '{*}'
 
   cd ${outDir}
 
   ls -1 $workDir |while read fp
   do
-    outName=$(head -n 1 "${workDir}/${fp}" |cut -d ">" -f 2 |sed "s:</h2::" |tr " " "_")".txt"
-    if [ "$outName" != "Plánované_události.txt" -a "$outName" != ".txt" ]
+    outName=$(head -n 1 "${workDir}/${fp}" |cut -d ">" -f 2 |sed "s:</h2::" |tr " " "_")".html"
+    if [ "$outName" != "Plánované_události.txt" -a "$outName" != ".html" ]
     then
-      tail -n +2 "${workDir}/${fp}" |sed -e "/<ul>/d" -e "/<\/ul>/d" -e "s/\\t//g" -e "s/^ *//" >> "${outDir}/${outName}"
+      tail -n +2 "${workDir}/${fp}" |sed -e "/<ul>/d" -e "/<\/ul>/d" -e "s/\\t//g" -e "s/^ *//" | sed "s/<img src=[^>]*>//g" >> "${outDir}/${outName}"
     fi
   done
 done
