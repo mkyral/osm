@@ -314,7 +314,7 @@ if (outtype == 'geojson' or outtype == 'tiles'):
                     ct.append('%s %s' % (key, box['collection_times'][k]))
                 props['collection_times'] = '; '.join(ct)
 
-            feature = Feature(geometry=Point((box['wgs84']['lon'], box['wgs84']['lat'])), properties=props)
+            feature = Feature(geometry=Point((box['wgs84']['lon'], box['wgs84']['lat']), precision=osm_precision), properties=props)
 
             if outtype != 'tiles':
                 files[geojson_file].append(feature)
