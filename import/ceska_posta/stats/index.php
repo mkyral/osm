@@ -67,8 +67,13 @@ echo("<table cellpadding=2 border=0>\n");
 echo("<tr><td><b>Depo</b></td><td><b>Schránek</b></td><td><b>Nahráno</b></td><td><b>Procent</b></td><td><b>Bez souřadnic</b></td><td><b>Procent</b></td><td></td></tr>\n");
 for ($i=0;$i<pg_num_rows($result);$i++)
 {
-    echo("<tr>\n");
-    echo("<td><a href='depo.php?id=".pg_result($result,$i,"psc")."'>".pg_result($result,$i,"psc")." ".pg_result($result,$i,"name")."</a></td>\n");
+    $empty=(pg_result($result,$i,"cp_total") > 0) ? "" : " class='empty'";
+    echo("<tr".$empty.">\n");
+    if (pg_result($result,$i,"cp_total") > 0) {
+        echo("<td><a href='depo.php?id=".pg_result($result,$i,"psc")."'>".pg_result($result,$i,"psc")." ".pg_result($result,$i,"name")."</a></td>\n");
+    } else {
+        echo("<td>".pg_result($result,$i,"psc")." ".pg_result($result,$i,"name")."</td>\n");
+    }
     echo("<td>".pg_result($result,$i,"cp_total")."</td>\n");
     echo("<td>".pg_result($result,$i,"osm_linked"));
 
@@ -82,7 +87,7 @@ for ($i=0;$i<pg_num_rows($result);$i++)
     echo("<td>".pg_result($result,$i,"osm_linked_pct")."</td>\n");
     echo("<td>".pg_result($result,$i,"cp_missing")."</td>\n");
     echo("<td>".pg_result($result,$i,"cp_missing_pct")."</td>\n");
-    echo("<td><img src='image.php?p=".pg_result($result,$i,"osm_linked_pct")."&q=0.00'></td>\n");
+    echo("<td><img src='image.php?p=".((pg_result($result,$i,"osm_linked_pct") > 0) ? pg_result($result,$i,"osm_linked_pct") : 100)."&q=0.00'></td>\n");
     echo("</tr>\n");
 }
 echo("</table>\n");

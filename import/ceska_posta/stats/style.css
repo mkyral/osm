@@ -9,6 +9,10 @@ table.ex1 td, th {
     vertical-align: top;
 }
 
+table tr.empty, tr.empty a {
+    color: #999;
+}
+
 .labels {
     padding: 0.5em;
     word-spacing: 0.5em;
