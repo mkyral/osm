@@ -31,10 +31,9 @@ echo("  <title>Import poštovních schránek</title>\n");
 echo("  <link rel='stylesheet' href='style.css'/>");
 echo("</head>\n");
 echo("<body style='background: #fff; color: #000'>\n");
-echo("<div id='userbox'>".$user_text."</div><br>\n");
 echo("<div align=center>\n");
 echo("<font size=7><b><a href='.'>Import poštovních schránek</a></b></font><hr>\n");
-echo("<img src='graph.php?t=big&p=".$osm_linked_pct."&q=".$osm_not_linked_pct."'><br>\n");
+echo("<img src='image-big.php?p=".$osm_linked_pct."&q=".$osm_not_linked_pct."'><br>\n");
 echo("<table style='font-size: 150%; font-weight: bold'><br>\n");
 echo("<tr><td>Schránek celkem: </td><td>".$cp_total."</td></tr>\n");
 echo("<tr><td>Schránek v OSM: </td><td>".$osm_total."</td></tr>\n");
@@ -47,14 +46,18 @@ echo("<font size=6><b>Nahráno ".$osm_linked_pct." procent schránek.</b></font>
 
 $query="
 select psc, name, cp_total,
-       cp_missing, (cp_missing::float*100/cp_total::float)::numeric(6,2) cp_missing_pct,
-       osm_linked, (osm_linked::float*100/cp_total::float)::numeric(6,2) osm_linked_pct,
-       (osm_linked - prev_osm_linked) diff_to_prev
-from ( select d.psc, d.name,
-       s.cp_total, s,cp_missing, s.osm_linked, s.prev_osm_linked
-      from cp_depos d, cp_stats s
-      where d.psc = s.depo) x
-      order by psc";
+       cp_missing, CASE WHEN cp_missing_pct > 100 THEN 100 ELSE cp_missing_pct END cp_missing_pct,
+       osm_linked, CASE WHEN osm_linked_pct > 100 THEN 100 ELSE osm_linked_pct END osm_linked_pct,
+       diff_to_prev
+from ( select psc, name, cp_total,
+              cp_missing, CASE cp_total WHEN 0 THEN 0 ELSE (cp_missing::float*100/cp_total::float)::numeric(6,2) END cp_missing_pct,
+              osm_linked, CASE cp_total WHEN 0 THEN 0 ELSE (osm_linked::float*100/cp_total::float)::numeric(6,2) END osm_linked_pct,
+              (osm_linked - prev_osm_linked) diff_to_prev
+       from ( select d.psc, d.name,
+              s.cp_total, s,cp_missing, s.osm_linked, s.prev_osm_linked
+             from cp_depos d, cp_stats s
+             where d.psc = s.depo) x) al
+order by psc";
 
 $result=pg_query($CONNECT,$query);
 if (pg_num_rows($result) < 1) die;
@@ -67,8 +70,8 @@ for ($i=0;$i<pg_num_rows($result);$i++)
     echo("<tr>\n");
     echo("<td><a href='depo.php?id=".pg_result($result,$i,"psc")."'>".pg_result($result,$i,"psc")." ".pg_result($result,$i,"name")."</a></td>\n");
     echo("<td>".pg_result($result,$i,"cp_total")."</td>\n");
-
     echo("<td>".pg_result($result,$i,"osm_linked"));
+
     if (pg_result($result,$i,"diff_to_prev") > 0) {
         echo (" <span class='statsdiff'>(+".pg_result($result,$i,"diff_to_prev").")</span>");
     } elseif (pg_result($result,$i,"diff_to_prev") < 0) {
@@ -79,7 +82,7 @@ for ($i=0;$i<pg_num_rows($result);$i++)
     echo("<td>".pg_result($result,$i,"osm_linked_pct")."</td>\n");
     echo("<td>".pg_result($result,$i,"cp_missing")."</td>\n");
     echo("<td>".pg_result($result,$i,"cp_missing_pct")."</td>\n");
-    echo("<td><img src='graph.php?p=".pg_result($result,$i,"osm_linked_pct")."&q=0.00'></td>\n");
+    echo("<td><img src='image.php?p=".pg_result($result,$i,"osm_linked_pct")."&q=0.00'></td>\n");
     echo("</tr>\n");
 }
 echo("</table>\n");
@@ -101,7 +104,7 @@ echo("
 <br>
 <b>Statistiky jsou přepočítávány jednou denně.</b><br>
 <br>
-<b>Poslední přepočet:</b> $state_stats<br><br>
+<b>Poslední přepočet:</b> $state_stats, <br><br>
 <b>Data ke dni:</b> Česká pošta - ".$state_cp." (".$state_cp_source.") | Openstreetmap - ".$state_osm."<br><br>\n");
 
 echo("</div>\n");
