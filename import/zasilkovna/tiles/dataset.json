@@ -1,0 +1,17 @@
+{
+    "zoom": 12,
+    "query":"[amenity=vending_machine][vending=parcel_pickup]",
+    "icon": "circle",
+    "dist": 100,
+    "types": ["node"],
+    "tagmatch":
+    [
+        {"key":"amenity", "algorithm":"equality"},
+        {"key":"vending", "algorithm":"equality"},
+        {"key":"ref", "algorithm":"equality"},
+        {"key":"postal_code", "algorithm":"equality"},
+        {"key":"wheelchair", "algorithm":"equality"},
+        {"key":"operator", "algorithm":"equality"},
+        {"key":"website", "algorithm":"equality"}
+    ]
+}
