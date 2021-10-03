@@ -12,6 +12,7 @@
         {"key":"postal_code", "algorithm":"equality"},
         {"key":"wheelchair", "algorithm":"equality"},
         {"key":"operator", "algorithm":"equality"},
+        {"key":"opening_hours", "algorithm":"equality"},
         {"key":"website", "algorithm":"equality"}
     ]
 }

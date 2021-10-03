@@ -47,6 +47,42 @@ def latlonToTilenumber(zoom, lat, lon):
             "x": floor(n * ((lon + 180) / 360)),
             "y": floor(n * (1 - (log(tan(lat_rad) + 1/cos(lat_rad)) / pi)) / 2) })
 
+def processOpeningHours(oh):
+
+    times = {}
+    for day in oh:
+        if type(oh['monday']) != str:
+            continue
+        print(oh[day])
+        time = oh[day].replace('–', '-')
+        if not time in times:
+            times[time] = [day[0:2].capitalize()]
+        else:
+            times[time].append(day[0:2].capitalize())
+
+    if len(times) == 0:
+        return ''
+
+    if len(times.keys()) == 1:
+        time = list(times.keys())[0]
+        if time == '00:00-23:59' and len(times[time]) == 7:
+            return ("24/7")
+        if len(times[time]) == 7:
+            return (time)
+
+        ret = []
+        for day in times[time]:
+            ret.append(day)
+        return ",".join(ret)+" "+times[time]
+    else:
+        ret = []
+        for time in times.keys():
+            ret.append(",".join(times[time])+" "+time)
+        return "; ".join(ret)
+
+    print(3)
+    return ''
+
 # Read input parameters
 program_name = sys.argv[0]
 arguments = sys.argv[1:]
@@ -94,6 +130,10 @@ try:
             props['postal_code'] = record['zip']
             props['wheelchair'] = record['wheelchairAccessible']
             props['website'] = record['url']
+
+            oh = processOpeningHours(record['openingHours']['regular'])
+            if len(oh) > 0:
+                props['opening_hours'] = oh
 
             props['_note'] = ('<br><b>Popis:</b> %s <br><b>Stav:</b> %s ' % (record['name'], record['status']['description']))
 
