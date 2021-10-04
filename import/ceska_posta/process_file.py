@@ -13,7 +13,7 @@ import csv
 import sys
 import time
 
-import pyproj
+from pyproj import CRS, Transformer
 
 #https://github.com/frewsxcv/python-geojson
 from geojson import Feature, Point, FeatureCollection
@@ -49,8 +49,10 @@ geocoded_coors = {}
 osm_coors = {}
 
 # Init projection
-inProj = pyproj.Proj(init='epsg:5514', proj='krovak', ellps='bessel', towgs84='570.8,85.7,462.8,4.998,1.587,5.261,3.56')
-outProj = pyproj.Proj(init='epsg:4326')
+inProj = CRS("epsg:5514 +proj=krovak +ellps=bessel +towgs84=570.8,85.7,462.8,4.998,1.587,5.261,3.56")
+transformer = Transformer.from_crs(inProj, "epsg:4326")
+#inProj = pyproj.Proj(init='epsg:5514', proj='krovak', ellps='bessel', towgs84='570.8,85.7,462.8,4.998,1.587,5.261,3.56')
+#outProj = pyproj.Proj(init='epsg:4326')
 
 
 # compute distance between two points
@@ -218,7 +220,7 @@ try:
                 missing_count += 1
                 #print ("%s: Missing coordinates" % (box['ref']))
             else :
-                lon, lat = pyproj.transform(inProj,outProj,-float(krovak['y']), -float(krovak['x']))
+                lat, lon = transformer.transform(-float(krovak['y']), -float(krovak['x']))
 
                 wgs84['lon'] = round(lon, osm_precision)
                 wgs84['lat'] = round(lat, osm_precision)
