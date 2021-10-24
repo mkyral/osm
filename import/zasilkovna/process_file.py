@@ -11,16 +11,21 @@ More info on
 import csv
 import sys
 import time
+import os
+import datetime
+import json
 
 import pyproj
 
 #https://github.com/frewsxcv/python-geojson
 from geojson import Feature, Point, FeatureCollection
-import json
 
 # for distance calculation
 from math import sin, cos, tan, sqrt, atan2, radians, pi, floor, log
 
+from urllib import request
+from ftplib import FTP
+import netrc
 
 __author__ = "Marián Kyral"
 __copyright__ = "Copyright 2021"
@@ -34,6 +39,9 @@ __status__ = "Test"
 # configuration
 osm_precision = 7
 bbox = {'min': {'lat': 48.55, 'lon': 12.09}, 'max': {'lat': 51.06, 'lon': 18.87}}
+import_file_url = "https://www.zasilkovna.cz/api/v4/9b18b74fdb70e8f9/branch.json"
+ftp_server = 'ftp2.gransy.com'
+ftp_data_dir = 'POI-Importer-testing/datasets/Czech-Zasilkovna-Z-BOXy/data/'
 
 # where to store POI-Importer tiles
 tiles_config="tiles/dataset.json"
@@ -53,7 +61,7 @@ def processOpeningHours(oh):
     for day in oh:
         if type(oh['monday']) != str:
             continue
-        print(oh[day])
+        #print(oh[day])
         time = oh[day].replace('–', '-')
         if not time in times:
             times[time] = [day[0:2].capitalize()]
@@ -80,18 +88,37 @@ def processOpeningHours(oh):
             ret.append(",".join(times[time])+" "+time)
         return "; ".join(ret)
 
-    print(3)
+    #print(3)
     return ''
+
+def reporthook(count, block_size, total_size):
+    global start_time
+    if count == 0:
+        start_time = time.time()
+        return
+    duration = time.time() - start_time
+    progress_size = int(count * block_size)
+    speed = int(progress_size / (1024 * duration))
+    if total_size != -1:
+        percent = int(count*block_size*100/total_size)
+        sys.stdout.write("\r...%d%%, %d MB, %d KB/s, %d seconds passed" %
+                        (percent, progress_size / (1024 * 1024), speed, duration))
+    else:
+        sys.stdout.write("\r%d MB, %d KB/s, %d seconds passed" %
+                        (progress_size / (1024 * 1024), speed, duration))
+    sys.stdout.flush()
 
 # Read input parameters
 program_name = sys.argv[0]
 arguments = sys.argv[1:]
 
-if (len(arguments) < 1):
-    print("Usage: %s IN_JSON_FILE" % (program_name))
-    exit(1)
+## len(arguments) < 1
 
-infile = arguments[0]
+infile = "zbox_%s.json" % (datetime.date.today().strftime("%Y%m%d"))
+
+if (not os.path.exists(infile)):
+    print("Downloading file: %s" % infile)
+    request.urlretrieve(import_file_url, infile, reporthook)
 
 # Load dataset config file
 try:
@@ -170,4 +197,38 @@ except Exception as error:
 
 print ("...Tiles generated in %ss" % (round(time.time() - start_time_tiles, 2)))
 
+# Get list
+
+local_files = []
+for file in sorted(files.keys()):
+    local_files.append(file.split('/')[-1])
+
+# Sent to ftp server
+auth = netrc.netrc();
+ftp_user = auth.authenticators(ftp_server)[0]
+ftp_pass = auth.authenticators(ftp_server)[2]
+ftp_files = []
+
+print('Start of FTP transfer')
+with FTP(ftp_server) as ftp:
+    ftp.login(ftp_user, ftp_pass)
+    ftp.set_pasv(True)
+    ftp.cwd(ftp_data_dir)
+    print('Get list of existing tiles')
+    for name, facts in ftp.mlsd():
+        if name.endswith('json'):
+            ftp_files.append(name);
+    obsolete_files = (set(ftp_files).difference(local_files))
+    print("Obsolete files: ", (obsolete_files))
+    if len(obsolete_files) > 0:
+        print('Delete obsolete files')
+        for file in obsolete_files:
+            ftp.delete(file)
+    print('Copy files to server')
+    for file in sorted(files.keys()):
+        print ('Copying file: ', file)
+        ftp.storbinary('STOR ' + file.split('/')[-1], open('./'+file, 'rb'))
+
+# get list of obsolete (to be removed files)
+obsolete_files = (set(ftp_files).difference(local_files))
 
