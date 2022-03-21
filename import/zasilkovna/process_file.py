@@ -148,7 +148,7 @@ try:
 
             cnt = cnt+1
             props = {}
-            props['amenity'] = 'vending_machine'
+            props['amenity'] = 'parcel_locker'
             props['vending'] = 'parcel_pickup'
             props['source'] = 'zasilkovna'
             props['operator'] = 'Zásilkovna'
