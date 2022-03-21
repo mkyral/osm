@@ -83,7 +83,7 @@ def format_distance(distance):
         if (distance > 1):
             return("%s m" % round(distance, 2))
         else:
-            distance = distance * 1000
+            distance = distance * 100
             return("%s cm" % round(distance, 2))
 
 # Get tile xy coors
@@ -284,7 +284,8 @@ if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
                 coors_shift = "<p style='text-align: center'><u>Souřadnice převzaty z OSM!</u>"
                 if ('wgs84' in box and 'lat' in box['wgs84']):
                     dist = get_distance(box['wgs84'], osm_coors[k])
-                    if (dist < 1 ):
+                    # Add info only when distance is more than 1m and less than 1km
+                    if (dist > 0.001 and dist < 1 ):
                         coors_shift = ("%s<br>Posunuto o %s" % (coors_shift, format_distance(dist)))
 
                 if not coors_shift:
@@ -315,7 +316,9 @@ if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
                 ct = []
                 for k in sorted(box['collection_times'].keys()):
                     key = k.replace('1','Mo').replace('2','Tu').replace('3','We').replace('4','Th').replace('5','Fr').replace('6','Sa').replace('7','Su')
-                    ct.append('%s %s' % (key, box['collection_times'][k]))
+                    # Fix time, add missing leading zeroes
+                    fixtime = box['collection_times'][k] if len(box['collection_times'][k]) == 0 else ':'.join(["{:02d}".format(int(x)) for x in box['collection_times'][k].split(':')])
+                    ct.append('%s %s' % (key, fixtime))
                 props['collection_times'] = '; '.join(ct)
 
             feature = Feature(geometry=Point((box['wgs84']['lon'], box['wgs84']['lat']), precision=osm_precision), properties=props)
