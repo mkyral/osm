@@ -394,7 +394,9 @@ if (outtype == 'sql' or outtype == 'all'):
                     ct = []
                     for k in sorted(box['collection_times'].keys()):
                         key = k.replace('1','Mo').replace('2','Tu').replace('3','We').replace('4','Th').replace('5','Fr').replace('6','Sa').replace('7','Su')
-                        ct.append('%s %s' % (key, box['collection_times'][k]))
+                        # Fix time, add missing leading zeroes
+                        fixtime = box['collection_times'][k] if len(box['collection_times'][k]) == 0 else ':'.join(["{:02d}".format(int(x)) for x in box['collection_times'][k].split(':')])
+                        ct.append('%s %s' % (key, fixtime))
                     data['collection_times'] = '; '.join(ct)
                 else:
                     data['collection_times'] = 'null'
