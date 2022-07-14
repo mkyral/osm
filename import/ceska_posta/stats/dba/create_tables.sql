@@ -132,10 +132,16 @@ create table cp_user_comments (
 
 create index cp_user_comments_i1 on cp_user_comments (ref, seq_id);
 
+create table cp_post_boxes_inactive (
+    ref varchar(25)  NOT NULL,
+    source varchar(255)
+);
+
 
 http://www.postgresqltutorial.com/postgresql-serial/
 
 grant select on cp_post_boxes to Public;
+grant select on cp_post_boxes_inactive to Public;
 grant select on osm_post_boxes to Public;
 grant select on cp_depos to Public;
 grant select on cp_stats to Public;

@@ -10,16 +10,29 @@ select 'Refreshing CP data - '||to_char(current_timestamp, 'YYYYMMDD HH24:MI:SS'
 \timing on
 
 \echo
+\echo '* Mark already existing 'D' records as Active again'
+update cp_post_boxes pb set state = 'A', last_update = current_timestamp
+where state = 'D'
+  and exists (select 1 from cp_post_boxes_upload pbu where pbu.ref = pb.ref);
+
+\echo
+\echo '* Re-activate Inactive records'
+update cp_post_boxes pb set state = 'A', last_update = current_timestamp
+where state = 'I'
+  and not exists (select 1 from cp_post_boxes_inactive pbi where pbi.ref = pb.ref);
+
+\echo
+\echo '* Set Inactive records'
+update cp_post_boxes pb set state = 'I', last_update = current_timestamp
+where state in ('A', 'D')
+  and exists (select 1 from cp_post_boxes_inactive pbi where pbi.ref = pb.ref);
+
+\echo
 \echo '* Mark missing records as Deleted'
 update cp_post_boxes pb set state = 'D', last_update = current_timestamp
 where ref in (select ref from cp_post_boxes EXCEPT select ref from cp_post_boxes_upload)
   and state = 'A';
 
-\echo
-\echo '* Mark already existing 'D' records as Active again'
-update cp_post_boxes pb set state = 'A', last_update = current_timestamp
-where state = 'D'
-  and exists (select 1 from cp_post_boxes_upload pbu where pbu.ref = pb.ref);
 
 -- Update existing (if changed)
 \echo

@@ -9,7 +9,8 @@ $filters = array(
     "OK" => "OK",
     "Partial" => "Částečně",
     "Missing" => "Chybí",
-    "Deleted" => "Zrušeno"
+    "Deleted" => "Zrušeno",
+    "Inactive" => "Neaktivní"
 );
 
 $filter = '';
@@ -112,6 +113,7 @@ select ref, psc, id, x, y, lat, lon, address, place, cp_collection_times, last_u
        osm_ref, osm_operator, osm_collection_times, osm_fixme,
        osm_links_count,
        CASE WHEN osm_id IS NOT NULL and state = 'D' THEN 'Deleted'
+            WHEN osm_id IS NOT NULL and state = 'I' THEN 'Inactive'
             WHEN osm_id IS NULL and state = 'A' THEN 'Missing'
             WHEN osm_id IS NOT NULL
              and state = 'A'
@@ -262,6 +264,9 @@ for ($i=0;$i<pg_num_rows($result);$i++)
             break;
      case 'Deleted':
             $stc = "<span class='label deleted'>Zrušeno</span>";
+            break;
+     case 'Inactive':
+            $stc = "<span class='label deleted'>Neaktivní</span>";
             break;
      case 'Missing':
             $stc = "<span class='label missing'>Chybí</span>";
