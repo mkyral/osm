@@ -24,8 +24,6 @@ from geojson import Feature, Point, FeatureCollection
 from math import sin, cos, tan, sqrt, atan2, radians, pi, floor, log
 
 from urllib import request
-from ftplib import FTP
-import netrc
 
 __author__ = "Marián Kyral"
 __copyright__ = "Copyright 2021"
@@ -40,12 +38,13 @@ __status__ = "Test"
 osm_precision = 7
 bbox = {'min': {'lat': 48.55, 'lon': 12.09}, 'max': {'lat': 51.06, 'lon': 18.87}}
 import_file_url = "https://www.zasilkovna.cz/api/v4/9b18b74fdb70e8f9/branch.json"
-ftp_server = 'ftp2.gransy.com'
-ftp_data_dir = 'POI-Importer-testing/datasets/Czech-Zasilkovna-Z-BOXy/data/'
+server_data_dir = 'POI-Importer-testing/datasets/Czech-Zasilkovna-Z-BOXy/data/'
 
 # where to store POI-Importer tiles
-tiles_config="tiles/dataset.json"
-tiles_dir="tiles/data"
+tiles_dir = "tiles"
+tiles_config = tiles_dir + "/dataset.json"
+tiles_data_dir = "tiles/data"
+ts_file = "updated.json"
 
 # Get tile xy coors
 def latlonToTilenumber(zoom, lat, lon):
@@ -149,7 +148,7 @@ try:
             cnt = cnt+1
             props = {}
             props['amenity'] = 'parcel_locker'
-            props['vending'] = 'parcel_pickup'
+            props['brand'] = 'Packeta'
             props['source'] = 'zasilkovna'
             props['operator'] = 'Zásilkovna'
 
@@ -167,7 +166,7 @@ try:
             feature = Feature(geometry=Point((float(record['longitude']), float(record['latitude']))), properties=props)
 
             tile = latlonToTilenumber(dataset['zoom'], float(record['latitude']), float(record['longitude']))
-            filename = "%s/%s_%s.json" % (tiles_dir, tile['x'], tile['y'])
+            filename = "%s/%s_%s.json" % (tiles_data_dir, tile['x'], tile['y'])
 
             if filename not in files:
                 coll = []
@@ -180,6 +179,13 @@ except Exception as error:
     exit(1)
 
 print ("...JSON file processsed in %ss, Total of %i z-boxes exported" % (round(time.time() - start_time, 2), cnt))
+
+# delete old tiles
+for fileName in os.listdir(tiles_data_dir):
+    #Check file extension
+    if fileName.endswith('.json'):
+        # Remove File
+        os.remove(tiles_data_dir + '/' + fileName)
 
 # write tiles
 start_time_tiles = time.time()
@@ -197,38 +203,15 @@ except Exception as error:
 
 print ("...Tiles generated in %ss" % (round(time.time() - start_time_tiles, 2)))
 
-# Get list
+ts_obj = {"updated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}
+with open(tiles_dir + '/' + ts_file, encoding='utf-8', mode='w+') as tsf:
+    tsf.write(json.dumps(ts_obj, ensure_ascii=False))
+    tsf.write('\n')
 
-local_files = []
-for file in sorted(files.keys()):
-    local_files.append(file.split('/')[-1])
 
-# Sent to ftp server
-auth = netrc.netrc();
-ftp_user = auth.authenticators(ftp_server)[0]
-ftp_pass = auth.authenticators(ftp_server)[2]
-ftp_files = []
+print ("cd %s" % tiles_data_dir)
+print ("rsync -r --del --compress * mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Zasilkovna-Z-BOXy/data")
 
-print('Start of FTP transfer')
-with FTP(ftp_server) as ftp:
-    ftp.login(ftp_user, ftp_pass)
-    ftp.set_pasv(True)
-    ftp.cwd(ftp_data_dir)
-    print('Get list of existing tiles')
-    for name, facts in ftp.mlsd():
-        if name.endswith('json'):
-            ftp_files.append(name);
-    obsolete_files = (set(ftp_files).difference(local_files))
-    print("Obsolete files: ", (obsolete_files))
-    if len(obsolete_files) > 0:
-        print('Delete obsolete files')
-        for file in obsolete_files:
-            ftp.delete(file)
-    print('Copy files to server')
-    for file in sorted(files.keys()):
-        print ('Copying file: ', file)
-        ftp.storbinary('STOR ' + file.split('/')[-1], open('./'+file, 'rb'))
-
-# get list of obsolete (to be removed files)
-obsolete_files = (set(ftp_files).difference(local_files))
+print ("cd ..")
+print ("rsync -r --del --compress %s mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Zasilkovna-Z-BOXy/" % ts_file)
 
