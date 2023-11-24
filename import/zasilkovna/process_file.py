@@ -14,6 +14,7 @@ import time
 import os
 import datetime
 import json
+import subprocess
 
 import pyproj
 
@@ -142,7 +143,7 @@ try:
         for key in data:
             record = data[key]
 
-            if record['status']['statusId'] == '5' or record['country'] != 'cz' or record['displayFrontend'] == '0' or record['place'] != 'Z-BOX':
+            if record['status']['statusId'] == '5' or record['country'] != 'cz' or record['place'] != 'Z-BOX':
                 continue
 
             cnt = cnt+1
@@ -209,9 +210,19 @@ with open(tiles_dir + '/' + ts_file, encoding='utf-8', mode='w+') as tsf:
     tsf.write('\n')
 
 
-print ("cd %s" % tiles_data_dir)
-print ("rsync -r --del --compress * mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Zasilkovna-Z-BOXy/data")
+#print ("cd %s" % tiles_data_dir)
+#print ("rsync -r --del --compress ./ mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Zasilkovna-Z-BOXy/data")
 
-print ("cd ..")
-print ("rsync -r --del --compress %s mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Zasilkovna-Z-BOXy/" % ts_file)
+#print ("cd .. #%s" % tiles_dir)
+#print ("rsync -r --del --compress %s mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Zasilkovna-Z-BOXy/" % ts_file)
+
+start_time_transfer = time.time()
+os.chdir(tiles_data_dir)
+subprocess.run(['rsync', '-r', '--del', '--compress', './', 'mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Zasilkovna-Z-BOXy/data'])
+
+os.chdir(r"..")
+subprocess.run(['rsync', '-r', '--del', '--compress', ts_file, 'mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Zasilkovna-Z-BOXy/'])
+
+print ("...Files transfered in %ss" % (round(time.time() - start_time_transfer, 2)))
+print ("Done!")
 
