@@ -11,7 +11,9 @@ More info on
 
 import csv
 import sys
+import os
 import time
+import datetime
 
 from pyproj import CRS, Transformer
 
@@ -38,6 +40,11 @@ bbox = {'min': {'lat': 48.55, 'lon': 12.09}, 'max': {'lat': 51.06, 'lon': 18.87}
 # where to store POI-Importer tiles
 tiles_config="tiles/dataset.json"
 tiles_dir="tiles/data"
+
+tiles_dir = "tiles"
+tiles_config = tiles_dir + "/dataset.json"
+tiles_data_dir = "tiles/data"
+ts_file = "updated.json"
 
 # counters
 line_counter = 0
@@ -229,7 +236,7 @@ try:
                     box['wgs84'] = wgs84
 
                 else:
-                    print("Coordinates %s, %s out of bbox" % (wgs84['lat'], wgs84['lon']))
+                    print("%s: Coordinates %s, %s out of bbox" % (box['ref'], wgs84['lat'], wgs84['lon']))
 
             box['psc'] = row['psc']
             box['id'] = row['cis_schranky']
@@ -314,11 +321,17 @@ if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
 
             if (box['collection_times']):
                 ct = []
+                #print('ref: %s', k)
                 for k in sorted(box['collection_times'].keys()):
                     key = k.replace('1','Mo').replace('2','Tu').replace('3','We').replace('4','Th').replace('5','Fr').replace('6','Sa').replace('7','Su')
                     # Fix time, add missing leading zeroes
-                    fixtime = box['collection_times'][k] if len(box['collection_times'][k]) == 0 else ':'.join(["{:02d}".format(int(x)) for x in box['collection_times'][k].split(':')])
-                    ct.append('%s %s' % (key, fixtime))
+                    #print(box['collection_times'][k])
+                    # fixtime = box['collection_times'][k] if len(box['collection_times'][k]) == 0 else ':'.join(["{:02d}".format(int(x)) for x in box['collection_times'][k].split(':')])
+                    # ct.append('%s %s' % (key, fixtime))
+                    fixtime= []
+                    for t in box['collection_times'][k].split(','):
+                        fixtime.append(t if len(t) == 0 else ':'.join(["{:02d}".format(int(x)) for x in t.split(':')]))
+                    ct.append('%s %s' % (key, ','.join(fixtime)))
                 props['collection_times'] = '; '.join(ct)
 
             feature = Feature(geometry=Point((box['wgs84']['lon'], box['wgs84']['lat']), precision=osm_precision), properties=props)
@@ -327,11 +340,18 @@ if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
                 files[geojson_file].append(feature)
             else:
                 tile = latlonToTilenumber(dataset['zoom'], box['wgs84']['lat'], box['wgs84']['lon'])
-                filename = "%s/%s_%s.json" % (tiles_dir, tile['x'], tile['y'])
+                filename = "%s/%s_%s.json" % (tiles_data_dir, tile['x'], tile['y'])
                 if filename not in files:
                     coll = []
                     files[filename] = coll
                 files[filename].append(feature)
+
+    # delete old tiles
+    for fileName in os.listdir(tiles_data_dir):
+        #Check file extension
+        if fileName.endswith('.json'):
+            # Remove File
+            os.remove(tiles_data_dir + '/' + fileName)
 
     # write to file
     try:
@@ -347,6 +367,11 @@ if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
         exit(1)
 
     print ("...JSON file generated in %ss" % (round(time.time() - start_time, 2)))
+
+    ts_obj = {"updated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}
+    with open(tiles_dir + '/' + ts_file, encoding='utf-8', mode='w+') as tsf:
+        tsf.write(json.dumps(ts_obj, ensure_ascii=False))
+        tsf.write('\n')
 
 
 if (outtype == 'sql' or outtype == 'all'):
@@ -394,9 +419,7 @@ if (outtype == 'sql' or outtype == 'all'):
                     ct = []
                     for k in sorted(box['collection_times'].keys()):
                         key = k.replace('1','Mo').replace('2','Tu').replace('3','We').replace('4','Th').replace('5','Fr').replace('6','Sa').replace('7','Su')
-                        # Fix time, add missing leading zeroes
-                        fixtime = box['collection_times'][k] if len(box['collection_times'][k]) == 0 else ':'.join(["{:02d}".format(int(x)) for x in box['collection_times'][k].split(':')])
-                        ct.append('%s %s' % (key, fixtime))
+                        ct.append('%s %s' % (key, box['collection_times'][k]))
                     data['collection_times'] = '; '.join(ct)
                 else:
                     data['collection_times'] = 'null'
