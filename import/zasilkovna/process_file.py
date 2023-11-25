@@ -38,7 +38,8 @@ __status__ = "Test"
 # configuration
 osm_precision = 7
 bbox = {'min': {'lat': 48.55, 'lon': 12.09}, 'max': {'lat': 51.06, 'lon': 18.87}}
-import_file_url = "https://www.zasilkovna.cz/api/v4/9b18b74fdb70e8f9/branch.json"
+#import_file_url = "https://www.zasilkovna.cz/api/v4/9b18b74fdb70e8f9/branch.json" # API v4
+import_file_url = "https://pickup-point.api.packeta.com/v5/9b18b74fdb70e8f9/box.json" # API v5
 server_data_dir = 'POI-Importer-testing/datasets/Czech-Zasilkovna-Z-BOXy/data/'
 
 # where to store POI-Importer tiles
@@ -137,13 +138,11 @@ start_time = time.time()
 cnt = 0
 try:
     with open(infile) as inputfile:
-        injson = json.load(inputfile)
+        data = json.load(inputfile)
 
-        data = injson['data']
-        for key in data:
-            record = data[key]
+        for record in data:
 
-            if record['status']['statusId'] == '5' or record['country'] != 'cz' or record['place'] != 'Z-BOX':
+            if record['status']['statusId'] == '5' or record['country'] not in ['cz','sk'] or record['type'] != 'zbox':
                 continue
 
             cnt = cnt+1
