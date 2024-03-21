@@ -61,7 +61,8 @@ comment on table cp_post_boxes_upload is 'Stage table for cp_post_boxes update';
 
 create table cp_depos (
     psc numeric(10),
-    name varchar(255)
+    name varchar(255),
+    active varchar(1)
 );
 
 comment on table cp_depos is 'List of depos';

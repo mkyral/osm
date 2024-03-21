@@ -56,7 +56,8 @@ from ( select psc, name, cp_total,
        from ( select d.psc, d.name,
               s.cp_total, s,cp_missing, s.osm_linked, s.prev_osm_linked
              from cp_depos d, cp_stats s
-             where d.psc = s.depo) x) al
+             where d.psc = s.depo
+               and d.active = 'Y') x) al
 order by psc";
 
 $result=pg_query($CONNECT,$query);
