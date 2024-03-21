@@ -228,7 +228,7 @@ for ($i=0;$i<pg_num_rows($result);$i++)
     if (pg_result($result,$i,"lat") != '') {
         $latlon = "<a href='https://osm.org/?mlat=".((float)pg_result($result,$i,"lat"))."&mlon=".((float)pg_result($result,$i,"lon"))."&zoom=17' title='Přejít na osm.org'>".((float)pg_result($result,$i,"lat")).", ".((float)pg_result($result,$i,"lon"))."</a>";
 
-        $ref_url = "<a href='http://osm.kyralovi.cz/POI-Importer-testing/#map=17/".((float)pg_result($result,$i,"lat"))."/".((float)pg_result($result,$i,"lon"))."&datasets=CZECPbox' title='Přejít na POI-Importer'>".pg_result($result,$i,"ref")."</a>";
+        $ref_url = "<a href='https://openstreetmap.cz/poi-importer/#map=17/".((float)pg_result($result,$i,"lat"))."/".((float)pg_result($result,$i,"lon"))."&datasets=CZECPbox' title='Přejít na POI-Importer'>".pg_result($result,$i,"ref")."</a>";
     }
     if (pg_result($result,$i,"osm_lat") != '') {
         $osm_latlon = "<a href='https://osm.org/?mlat=".((float)pg_result($result,$i,"osm_lat"))."&mlon=".((float)pg_result($result,$i,"osm_lon"))."&zoom=17' title='Přejít na osm.org'>".((float)pg_result($result,$i,"osm_lat")).", ".((float)pg_result($result,$i,"osm_lon"))."</a>";
