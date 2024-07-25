@@ -149,8 +149,10 @@ try:
             props = {}
             props['amenity'] = 'parcel_locker'
             props['brand'] = 'Packeta'
+            props['brand:wikidata'] = 'Q67809905'
             props['source'] = 'zasilkovna'
             props['operator'] = 'Zásilkovna'
+            props['operator:wikidata'] = 'Q25454926'
 
             props['ref'] = record['id']
             props['postal_code'] = record['zip']

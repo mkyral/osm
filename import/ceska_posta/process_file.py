@@ -284,6 +284,7 @@ if (outtype == 'geojson' or outtype == 'tiles' or outtype == 'all'):
             props['amenity'] = 'post_box'
             props['ref'] = k
             props['operator'] = 'Česká pošta, s.p.'
+            props['operator:wikidata'] = 'Q341090'
 
             # Shift coordinates according to OSM or geocoded coors
             coors_shift=''
