@@ -163,7 +163,9 @@ for station in stations:
     props['ref'] = station['cislo']
     props['name'] = ("EuroOil %s" % station['jmeno'])
     props['operator'] = 'Čepro, a.s.'
+    props['operator:wikidata'] = 'Q11171518'
     props['brand'] = 'EuroOil'
+    props['brand:wikidata'] = 'Q110219457'
     props['source'] = 'cepro_website'
 
     if station['optdiesel'] == 1 or station['optdieselplus'] == 1:
