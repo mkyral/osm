@@ -163,6 +163,12 @@ try:
             if len(oh) > 0:
                 props['opening_hours'] = oh
 
+            props['parcel_pickup'] = 'yes'
+            if record['packetConsignment'] == "1":
+                props['parcel_mail_in'] = 'yes'
+            else:
+                props['parcel_mail_in'] = 'no'
+
             props['_note'] = ('<br><b>Popis:</b> %s <br><b>Stav:</b> %s ' % (record['name'], record['status']['description']))
 
             feature = Feature(geometry=Point((float(record['longitude']), float(record['latitude']))), properties=props)
