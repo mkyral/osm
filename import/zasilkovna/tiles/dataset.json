@@ -1,17 +1,21 @@
 {
     "zoom": 12,
-    "query":"[amenity=vending_machine][vending=parcel_pickup]",
+    "query":"[amenity=parcel_locker]",
     "icon": "circle",
     "dist": 100,
     "types": ["node"],
     "tagmatch":
     [
         {"key":"amenity", "algorithm":"equality"},
-        {"key":"vending", "algorithm":"equality"},
+        {"key":"brand", "algorithm":"equality"},
+        {"key":"brand:wikidata", "algorithm":"equality"},
         {"key":"ref", "algorithm":"equality"},
         {"key":"postal_code", "algorithm":"equality"},
         {"key":"wheelchair", "algorithm":"equality"},
+        {"key":"parcel_pickup", "algorithm":"equality"},
+        {"key":"parcel_mail_in", "algorithm":"equality"},
         {"key":"operator", "algorithm":"equality"},
+        {"key":"operator:wikidata", "algorithm":"equality"},
         {"key":"opening_hours", "algorithm":"equality"},
         {"key":"website", "algorithm":"equality"}
     ]
