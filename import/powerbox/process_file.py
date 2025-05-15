@@ -48,11 +48,11 @@ ts_file = "updated.json"
 
 # sockets
 sockets = {
-    "domaci-zasuvka-230V": "schuko",
-    "univerzalni-nabijeni": "xlr_3pin_cable",
-    "nabijeni-system-bosch": "bosch_3pin",
-    "nabijeni-system-bosch-smart": "bosch_5pin",
-    "nabijeni-system-shimano": "shimano_steps_5pin",
+    "domaci-zasuvka-230V": ["schuko", "2"],
+    "univerzalni-nabijeni": ["xlr_3pin_cable", "1"],
+    "nabijeni-system-bosch": ["bosch_3pin", "1"],
+    "nabijeni-system-bosch-smart": ["bosch_5pin", "1"],
+    "nabijeni-system-shimano": ["shimano_steps_5pin", "1"],
 }
 
 # Get tile xy coors
@@ -138,7 +138,7 @@ try:
             props['website'] = record['additionalData']['url']
             for filter in record['filters']:
                 if sockets[filter]:
-                    props["socket:" + sockets[filter]] = '1'
+                    props["socket:" + sockets[filter][0]] = sockets[filter][1]
 
             feature = Feature(geometry=Point((float(record['address']['gps']['longitude']), float(record['address']['gps']['latitude']))), properties=props)
 

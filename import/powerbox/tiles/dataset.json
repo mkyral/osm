@@ -17,7 +17,7 @@
         {"key":"name", "algorithm":"equality"},
         {"key":"phone", "algorithm":"equality"},
         {"key":"website", "algorithm":"equality"},
-        {"key":"socket:schuko", "algorithm":"presence"},
+        {"key":"socket:schuko", "algorithm":"equality"},
         {"key":"socket:xlr_3pin_cable", "algorithm":"presence"},
         {"key":"socket:bosch_3pin", "algorithm":"presence"},
         {"key":"socket:bosch_5pin", "algorithm":"presence"},
