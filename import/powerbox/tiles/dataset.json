@@ -10,7 +10,7 @@
         {"key":"brand", "algorithm":"equality"},
         {"key":"ref", "algorithm":"equality"},
         {"key":"bicycle", "algorithm":"equality"},
-        {"key":"description", "algorithm":"equality"},
+        {"key":"description", "algorithm":"presence"},
         {"key":"email", "algorithm":"equality"},
         {"key":"fee", "algorithm":"equality"},
         {"key":"motorcar", "algorithm":"equality"},
