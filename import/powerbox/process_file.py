@@ -128,7 +128,7 @@ try:
             props['motorcar'] = 'no'
             props['bicycle'] = 'yes'
             props['fee'] = 'no'
-            props['note'] = 'Pokuste se na fotce stanice na adrese v tagu website spočítat počty konkrétních konektorů. Pokud je description delší než 255 znaků, je nutné ji smysluplně zkrátit.'
+            props['_note'] = 'Pokuste se na fotce stanice na adrese v tagu website spočítat počty konkrétních konektorů. Pokud je description delší než 255 znaků, je nutné ji smysluplně zkrátit.'
             props['ref'] = record['id']
             props['name'] = record['name'].removeprefix('Nabíjecí stanice ')
             if 'description' in record:
