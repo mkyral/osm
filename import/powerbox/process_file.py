@@ -123,6 +123,7 @@ try:
             props = {}
             props['amenity'] = 'charging_station'
             props['brand'] = 'Powerbox.one'
+            props['brand:wikidata'] = 'Q131535492'
             props['source'] = 'powerbox'
             props['motorcar'] = 'no'
             props['bicycle'] = 'yes'
