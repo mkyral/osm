@@ -189,11 +189,11 @@ with open(tiles_dir + '/' + ts_file, encoding='utf-8', mode='w+') as tsf:
 
 
 start_time_transfer = time.time()
-#os.chdir(tiles_data_dir)
-#subprocess.run(['rsync', '-r', '--del', '--compress', './', 'mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Powerbox/data'])
+os.chdir(tiles_data_dir)
+subprocess.run(['rsync', '-r', '--del', '--compress', './', 'mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Powerbox/data'])
 
-#os.chdir(r"..")
-#subprocess.run(['rsync', '-r', '--del', '--compress', ts_file, 'mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Powerbox/'])
+os.chdir(r"..")
+subprocess.run(['rsync', '-r', '--del', '--compress', ts_file, 'mkyral@openstreetmap.cz:/var/www/poi-importer/datasets/Czech-Powerbox/'])
 
 print ("...Files transfered in %ss" % (round(time.time() - start_time_transfer, 2)))
 print ("Done!")
