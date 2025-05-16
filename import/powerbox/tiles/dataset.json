@@ -1,0 +1,27 @@
+{
+    "zoom": 12,
+    "query":"[amenity=charging_station]",
+    "icon": "circle",
+    "dist": 100,
+    "types": ["node"],
+    "tagmatch":
+    [
+        {"key":"amenity", "algorithm":"equality"},
+        {"key":"brand", "algorithm":"equality"},
+        {"key":"brand:wikidata", "algorithm":"equality"},
+        {"key":"ref", "algorithm":"equality"},
+        {"key":"bicycle", "algorithm":"equality"},
+        {"key":"description", "algorithm":"presence"},
+        {"key":"email", "algorithm":"equality"},
+        {"key":"fee", "algorithm":"equality"},
+        {"key":"motorcar", "algorithm":"equality"},
+        {"key":"name", "algorithm":"equality"},
+        {"key":"phone", "algorithm":"equality"},
+        {"key":"website", "algorithm":"equality"},
+        {"key":"socket:schuko", "algorithm":"equality"},
+        {"key":"socket:xlr_3pin_cable", "algorithm":"presence"},
+        {"key":"socket:bosch_3pin", "algorithm":"presence"},
+        {"key":"socket:bosch_5pin", "algorithm":"presence"},
+        {"key":"socket:shimano_steps_5pin", "algorithm":"presence"}
+    ]
+}
