@@ -37,7 +37,7 @@ __status__ = "Test"
 # configuration
 osm_precision = 7
 bbox = {'min': {'lat': 48.55, 'lon': 12.09}, 'max': {'lat': 51.06, 'lon': 18.87}}
-import_file_url = "https://www.powerbox.cloud/api/mapy-cz/feed"
+import_file_url = "https://www.powerbox.cloud/api/export/osm-feed"
 server_data_dir = 'POI-Importer-testing/datasets/Czech-Powerbox/data/'
 
 # where to store POI-Importer tiles
@@ -122,21 +122,35 @@ try:
             cnt = cnt+1
             props = {}
             props['amenity'] = 'charging_station'
-            props['brand'] = 'Powerbox.one'
-            props['brand:wikidata'] = 'Q131535492'
+            if record['address']['country'] == 'CZ':
+                props['brand'] = 'Powerbox.one'
+                props['brand:wikidata'] = 'Q131535492'
+                props['operator:ref:ico'] = str(record['ic']).zfill(8)
+            elif record['address']['country'] == 'SK':
+                props['brand'] = 'NabiBajk'
+                props['brand:wikidata'] = 'Q131407297'
+            else:
+                print('Error: Unknown country code!')
+                exit(1)
+            props['network'] = 'Powerbox.one'
+            props['network:wikidata'] = 'Q131535492'
             props['source'] = 'powerbox'
             props['motorcar'] = 'no'
-            props['bicycle'] = 'yes'
+            props['bicycle'] = 'designated'
             props['fee'] = 'no'
             props['_note'] = 'Pokuste se na fotce stanice na adrese v tagu website spočítat počty konkrétních konektorů. Pokud je description delší než 255 znaků, je nutné ji smysluplně zkrátit.'
             props['ref'] = record['id']
-            props['name'] = record['name'].removeprefix('Nabíjecí stanice ')
+            props['name'] = record['name'].removeprefix('Nabíjecí stanice ').removeprefix('elektrokol ').strip()
             if 'description' in record:
                 props['description'] = record['description']
+            if 'openingHours' in record:
+                props['opening_hours'] = record['openingHours']
+                if props['opening_hours'] == 'Mo-Su 00:00-24:00' or props['opening_hours'] == 'Jan-Dec 00:00-24:00':
+                    props['opening_hours'] = '24/7'
             if 'emails' in record:
-                props['email'] = record['emails'][0]['email']
+                props['email'] = record['emails'][0]['email'].strip()
             if 'phones' in record:
-                props['phone'] = '+420' + record['phones'][0]['number']
+                props['phone'] = '+' + record['phones'][0]['countryCode'] + record['phones'][0]['number']
             props['website'] = record['additionalData']['url']
             for filter in record['filters']:
                 if sockets[filter]:
