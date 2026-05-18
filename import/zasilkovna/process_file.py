@@ -148,8 +148,9 @@ try:
             cnt = cnt+1
             props = {}
             props['amenity'] = 'parcel_locker'
-            props['brand'] = 'Packeta'
-            props['brand:wikidata'] = 'Q67809905'
+            props['name'] = 'Z-Box'
+            props['brand'] = 'Z-Box'
+            props['brand:wikidata'] = 'Q121537464'
             props['source'] = 'zasilkovna'
             props['operator'] = 'Zásilkovna'
             props['operator:wikidata'] = 'Q25454926'
