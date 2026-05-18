@@ -16,6 +16,11 @@ where state = 'D'
   and exists (select 1 from cp_post_boxes_upload pbu where pbu.ref = pb.ref);
 
 \echo
+\echo '* Update inactive table'
+delete from cp_post_boxes_inactive pbi
+where exists (select 1 from cp_post_boxes_upload pbu where pbu.ref = pbi.ref);
+
+\echo
 \echo '* Re-activate Inactive records'
 update cp_post_boxes pb set state = 'A', last_update = current_timestamp
 where state = 'I'
