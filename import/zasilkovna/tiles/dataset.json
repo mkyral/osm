@@ -7,6 +7,7 @@
     "tagmatch":
     [
         {"key":"amenity", "algorithm":"equality"},
+        {"key":"name", "algorithm":"presence"},
         {"key":"brand", "algorithm":"equality"},
         {"key":"brand:wikidata", "algorithm":"equality"},
         {"key":"ref", "algorithm":"equality"},
